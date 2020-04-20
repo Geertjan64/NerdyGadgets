@@ -1,5 +1,5 @@
 # Default ignored files
-/workspace.xml
-/misc.xml
-/vcs.xml
-/modules.xml
+workspace.xml
+misc.xml
+vcs.xml
+modules.xml
