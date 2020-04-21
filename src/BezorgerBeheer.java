@@ -18,7 +18,11 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         titel = new JLabel("Beheren bezorgers");
         naam = new JLabel("Naam");
         aantalBezorgingen = new JLabel("Aantal bezorgingen");
-        bezorgerlijst = new JList(bezorgerLijst.getBezorgers());
+
+        Bezorger peter = new Bezorger(1234, "peter", "reter");
+        bezorgerLijst.addBezorger(peter);
+
+        bezorgerlijst = new JList((ListModel) bezorgerLijst.getBezorgers());
 
         setTitle("Bezorgers beheren");
         setSize(1000, 600);
@@ -37,8 +41,8 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
     public static void main(String[] args) throws SQLException {
 
         BezorgerBeheer test = new BezorgerBeheer();
-        DatabaseReader dbr = new DatabaseReader();
-        dbr.getDataRows();
+//        DatabaseReader dbr = new DatabaseReader();
+//        dbr.getDataRows();
 
     }
 

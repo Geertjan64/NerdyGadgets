@@ -1,21 +1,23 @@
+import java.util.ArrayList;
+
 public class BezorgerLijst {
 
-    private String[] bezorgers;
-    private boolean isActief;
+    private Bezorger bezorger;
+    private ArrayList<Bezorger> bezorgers;
+//    private String[] bezorgers;
 
     public BezorgerLijst() {
-        bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
+        bezorgers = new ArrayList<Bezorger>();
+
+//        bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
     }
 
-    public String[] getBezorgers() {
+    public void addBezorger(Bezorger bezorger) {
+        bezorgers.add(bezorger);
+    }
+
+    public ArrayList<Bezorger> getBezorgers() {
         return bezorgers;
     }
 
-    public void setActief(boolean actief) {
-        isActief = actief;
-    }
-
-    public boolean isActief() {
-        return isActief;
-    }
 }
