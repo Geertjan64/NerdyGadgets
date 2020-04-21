@@ -1,36 +1,19 @@
-import javax.swing.*;
-import java.awt.*;
+public class Bezorgers {
 
-public class Bezorgers extends JFrame {
-
-    private JLabel titel;
-    private JLabel naam;
-    private JLabel aantalBezorgingen;
-    private JList bezorgerlijst;
+    private String[] bezorgers;
+    private boolean isActief;
 
     public Bezorgers() {
-        super();
-        titel = new JLabel("Beheren bezorgers");
-        naam = new JLabel("Naam");
-        aantalBezorgingen = new JLabel("Aantal bezorgingen");
-        bezorgerlijst = new JList();
-
-        setTitle("Bezorgers beheren");
-        setSize(1000, 600);
-        setLayout(new GridLayout(1, 3));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        add(titel);
-        add(naam);
-        add(aantalBezorgingen);
-
-        setVisible(true);
-
+        bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
+        isActief = false;
     }
 
-    public static void main(String[] args) {
-
-        new Bezorgers();
-
+    public String[] getBezorgers() {
+        return bezorgers;
     }
+
+    public void setActief(boolean actief) {
+        isActief = actief;
+    }
+
 }

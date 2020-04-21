@@ -8,7 +8,7 @@ import java.sql.Statement;
  * @author Dylan || 25 apr. 2018 || Swaghetti
  */
 
-public class DatabaseHandler {
+public class DatabaseReader {
 
 	/**
 	 * Initializers
