@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class BezorgerBeheer extends JFrame implements ActionListener {
 
@@ -33,9 +34,11 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         BezorgerBeheer test = new BezorgerBeheer();
+        DatabaseReader dbr = new DatabaseReader();
+        dbr.getDataRows();
 
     }
 

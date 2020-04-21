@@ -22,7 +22,7 @@ public class DatabaseReader {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "root", "");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wideworldimporters", "root", "");
 			} catch (SQLException e) {
 				System.out.println("No connection with database!");
 			}
@@ -37,9 +37,9 @@ public class DatabaseReader {
 	 * @throws SQLException
 	 */
 	public void getDataRows() throws SQLException {
-		Connection dbc = getConnection();
-		Statement st = dbc.createStatement();
-		ResultSet r = st.executeQuery("SELECT * FROM users");
+			Connection dbc = getConnection();
+			Statement st = dbc.createStatement();
+			ResultSet r = st.executeQuery("SELECT * FROM users");
 
 		while (r.next()) {
 			String username = r.getString("username");
