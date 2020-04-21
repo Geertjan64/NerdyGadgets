@@ -8,8 +8,7 @@ public class BezorgerLijst {
 
     public BezorgerLijst() {
         bezorgers = new ArrayList<Bezorger>();
-
-//        bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
+//      bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
     }
 
     public void addBezorger(Bezorger bezorger) {

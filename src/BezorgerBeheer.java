@@ -9,7 +9,6 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
     private JLabel titel;
     private JLabel naam;
     private JLabel aantalBezorgingen;
-    private JList bezorgerlijst;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
     private JButton actiefZetten;
     private JButton inActiefZetten;
@@ -20,9 +19,22 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         aantalBezorgingen = new JLabel("Aantal bezorgingen");
 
         Bezorger peter = new Bezorger(1234, "peter", "reter");
-        bezorgerLijst.addBezorger(peter);
+        Bezorger peter2 = new Bezorger(1234, "peter2", "reter");
+        Bezorger peter3 = new Bezorger(1234, "peter3", "reter");
 
-        bezorgerlijst = new JList((ListModel) bezorgerLijst.getBezorgers());
+        bezorgerLijst.addBezorger(peter);
+        bezorgerLijst.addBezorger(peter2);
+        bezorgerLijst.addBezorger(peter3);
+
+        //bezorgerlijst = new JList((ListModel) bezorgerLijst.getBezorgers());
+        //System.out.println(bezorgerLijst.getBezorgers().size());
+        JList<String> bezorglijst = new JList<String>(new DefaultListModel<String>());
+
+        for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++)
+        {
+            ((DefaultListModel)bezorglijst.getModel()).addElement(bezorgerLijst.getBezorgers().get(i).getVoornaam());
+            //System.out.println(bezorgerLijst.getBezorgers().get(i).getVoornaam());
+        }
 
         setTitle("Bezorgers beheren");
         setSize(1000, 600);
@@ -32,18 +44,15 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         add(titel);
         add(naam);
         add(aantalBezorgingen);
-        add(bezorgerlijst);
-
+        add(bezorglijst);
         setVisible(true);
 
     }
 
     public static void main(String[] args) throws SQLException {
-
-        BezorgerBeheer test = new BezorgerBeheer();
+          new BezorgerBeheer();
 //        DatabaseReader dbr = new DatabaseReader();
 //        dbr.getDataRows();
-
     }
 
     @Override
