@@ -9,6 +9,7 @@ public class Bezorgers extends JFrame {
     private JList bezorgerlijst;
 
     public Bezorgers() {
+        super();
         titel = new JLabel("Beheren bezorgers");
         naam = new JLabel("Naam");
         aantalBezorgingen = new JLabel("Aantal bezorgingen");
@@ -24,6 +25,12 @@ public class Bezorgers extends JFrame {
         add(aantalBezorgingen);
 
         setVisible(true);
+
+    }
+
+    public static void main(String[] args) {
+
+        new Bezorgers();
 
     }
 }
