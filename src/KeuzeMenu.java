@@ -19,7 +19,7 @@ public class KeuzeMenu extends JFrame {
         JButton btn7 = new JButton("Beheren bezorgers");
 
         for(int i = 0; i < 7; i++) {
-            add(btn1);
+            //add(btn + i);
         }
 
         setLayout(new FlowLayout());
