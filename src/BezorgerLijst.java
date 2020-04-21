@@ -1,11 +1,10 @@
-public class Bezorgers {
+public class BezorgerLijst {
 
     private String[] bezorgers;
     private boolean isActief;
 
-    public Bezorgers() {
+    public BezorgerLijst() {
         bezorgers = new String[] {"Piet", "Geert-Jan", "Pamir", "Lars", "Dielan", "Pascal", "Peter", "Fred", "Jan"};
-        isActief = false;
     }
 
     public String[] getBezorgers() {
@@ -16,4 +15,7 @@ public class Bezorgers {
         isActief = actief;
     }
 
+    public boolean isActief() {
+        return isActief;
+    }
 }
