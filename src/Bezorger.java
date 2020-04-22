@@ -1,4 +1,4 @@
-public class Bezorger extends Persoon {
+public class Bezorger extends Werknemer {
 
     //private int werknemerID; Overerven abstracte class
     //private String voornaam; Overerven abstracte class

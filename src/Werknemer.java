@@ -1,10 +1,10 @@
-public abstract class Persoon {
+public abstract class Werknemer {
 
     private int werknemerID;
     private String voornaam;
     private String achternaam;
 
-    public Persoon(int werknemerID, String voornaam, String achternaam) {
+    public Werknemer(int werknemerID, String voornaam, String achternaam) {
         this.werknemerID = werknemerID;
         this.voornaam = voornaam;
         this.achternaam = achternaam;

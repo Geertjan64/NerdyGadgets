@@ -1,20 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class BezorgerBeheer extends JFrame implements ActionListener {
+public class BezorgerBeheer extends JFrame implements MouseListener {
 
     private JLabel titel;
     private JLabel naam;
     private JLabel aantalBezorgingen;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
-    private JButton actiefZetten;
-    private JButton inActiefZetten;
+    private JList<String> bezorglijstInactief;
+    private JList<String> bezorglijstActief;
+    private DefaultListModel modelInactief;
+    private DefaultListModel modelActief;
 
     public BezorgerBeheer() {
         titel = new JLabel("Beheren bezorgers");
@@ -29,14 +30,15 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         bezorgerLijst.addBezorger(peter2);
         bezorgerLijst.addBezorger(peter3);
 
-        //bezorgerlijst = new JList((ListModel) bezorgerLijst.getBezorgers());
-        //System.out.println(bezorgerLijst.getBezorgers().size());
-        JList<String> bezorglijst = new JList<String>(new DefaultListModel<String>());
+        bezorglijstInactief = new JList<String>(new DefaultListModel<String>());
+        bezorglijstActief = new JList<String>(new DefaultListModel<String>());
 
-        for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++)
-        {
-            ((DefaultListModel)bezorglijst.getModel()).addElement(bezorgerLijst.getBezorgers().get(i).getVoornaam());
-            //System.out.println(bezorgerLijst.getBezorgers().get(i).getVoornaam());
+        modelInactief = (DefaultListModel) bezorglijstInactief.getModel();
+        modelActief = (DefaultListModel) bezorglijstActief.getModel();
+
+        for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+
+            modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).getVoornaam());
         }
 
         setTitle("Bezorgers beheren");
@@ -44,10 +46,14 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         setLayout(new GridLayout(1, 3));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        bezorglijstInactief.addMouseListener(this);
+        bezorglijstActief.addMouseListener(this);
+
         add(titel);
         add(naam);
         add(aantalBezorgingen);
-        add(bezorglijst);
+        add(bezorglijstInactief);
+        add(bezorglijstActief);
         setVisible(true);
 
     }
@@ -55,25 +61,60 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
     public void getDataRows() throws SQLException {
         DatabaseReader bezorger = new DatabaseReader();
         Connection dbc = bezorger.getConnection();
+
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM customer");
+        ResultSet r = st.executeQuery("SELECT * FROM customers");
 
         while (r.next()) {
-            String voornaam = r.getString("First_Name");
+            String voornaam = r.getString("CustomerName");
             System.out.format("--------- \n Account number " + r.getRow() + " \n Voornaam: %s", voornaam);
         }
-
-        //bezorger.getDataRows();
     }
 
-    public static void main(String[] args) throws SQLException {
-        BezorgerBeheer s = new BezorgerBeheer();
-        s.getDataRows();
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            if (!bezorglijstInactief.isSelectionEmpty()) {
+                String selectedItem = bezorglijstInactief.getSelectedValue();
+                // add selectedItem to your second list.
+                modelInactief.removeElement(selectedItem);
+                modelActief.addElement(selectedItem);
+            }
+
+            if (!bezorglijstActief.isSelectionEmpty()) {
+                String selectedItem = bezorglijstActief.getSelectedValue();
+                // add selectedItem to your first list.
+                modelInactief.addElement(selectedItem);
+                modelActief.removeElement(selectedItem);
+
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    public static void main(String[] args) throws SQLException {
+        BezorgerBeheer s = new BezorgerBeheer();
+//        s.getDataRows();
+
 
     }
 }
