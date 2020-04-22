@@ -23,8 +23,8 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
         aantalBezorgingen = new JLabel("Aantal bezorgingen");
 
         Bezorger peter = new Bezorger(1234, "peter", "reter");
-        Bezorger peter2 = new Bezorger(1234, "peter2", "reter");
-        Bezorger peter3 = new Bezorger(1234, "peter3", "reter");
+        Bezorger peter2 = new Bezorger(1235, "peter2", "reter");
+        Bezorger peter3 = new Bezorger(1236, "peter3", "reter");
 
         bezorgerLijst.addBezorger(peter);
         bezorgerLijst.addBezorger(peter2);
@@ -38,7 +38,7 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
 
         for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
 
-            modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).getVoornaam());
+            modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
 
         setTitle("Bezorgers beheren");
@@ -76,6 +76,12 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
         if (e.getClickCount() == 2) {
             if (!bezorglijstInactief.isSelectionEmpty()) {
                 String selectedItem = bezorglijstInactief.getSelectedValue();
+                for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                    if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
+                        bezorgerLijst.getBezorgers().get(i).setActief(true);
+                        System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+                    }
+                }
                 // add selectedItem to your second list.
                 modelInactief.removeElement(selectedItem);
                 modelActief.addElement(selectedItem);
@@ -83,6 +89,12 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
 
             if (!bezorglijstActief.isSelectionEmpty()) {
                 String selectedItem = bezorglijstActief.getSelectedValue();
+                for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                    if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
+                        bezorgerLijst.getBezorgers().get(i).setActief(false);
+                        System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+                    }
+                }
                 // add selectedItem to your first list.
                 modelInactief.addElement(selectedItem);
                 modelActief.removeElement(selectedItem);

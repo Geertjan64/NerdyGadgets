@@ -4,6 +4,7 @@ public class BezorgerLijst {
 
     private ArrayList<Bezorger> bezorgers;
 
+
     public BezorgerLijst() {
         bezorgers = new ArrayList<Bezorger>();
     }
@@ -15,5 +16,4 @@ public class BezorgerLijst {
     public ArrayList<Bezorger> getBezorgers() {
         return bezorgers;
     }
-
 }

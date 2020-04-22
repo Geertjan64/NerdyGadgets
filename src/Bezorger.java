@@ -19,4 +19,14 @@ public class Bezorger extends Werknemer {
         isActief = actief;
     }
 
+    public String toString() {
+        return "(" + this.getWerknemerID() + ") " + this.getVoornaam();
+    }
+
+    public boolean equals(Object obj) {
+        if (this.toString().substring(1, 5).equals(obj)) {
+            return true;
+        }
+        return false;
+    }
 }
