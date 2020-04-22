@@ -36,18 +36,18 @@ public class DatabaseReader {
 	 * Creating and submitting a query to the database connection
 	 * @throws SQLException
 	 */
-	public void getDataRows() throws SQLException {
-			Connection dbc = getConnection();
-			Statement st = dbc.createStatement();
-			ResultSet r = st.executeQuery("SELECT * FROM users");
-
-		while (r.next()) {
-			String username = r.getString("username");
-			String password = r.getString("password");
-			String email = r.getString("email");
-			int age = r.getInt("age");
-			System.out.format("--------- \n Account number "+ r.getRow() +" \n Username: %s \n Password: %s \n Email: %s \n Age: %s \n", username, password, email, age);
-		}
-	}
+//	public void getDataRows() throws SQLException {
+//			Connection dbc = getConnection();
+//			Statement st = dbc.createStatement();
+//			ResultSet r = st.executeQuery("SELECT * FROM users");
+//
+//		while (r.next()) {
+//			String username = r.getString("username");
+//			String password = r.getString("password");
+//			String email = r.getString("email");
+//			int age = r.getInt("age");
+//			System.out.format("--------- \n Account number "+ r.getRow() +" \n Username: %s \n Password: %s \n Email: %s \n Age: %s \n", username, password, email, age);
+//		}
+//	}
 
 }

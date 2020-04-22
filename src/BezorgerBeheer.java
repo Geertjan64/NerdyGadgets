@@ -52,24 +52,23 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
 
     }
 
-//    public void getDataRows() throws SQLException {
-//        DatabaseReader bezorger = new DatabaseReader();
-//        Connection dbc = bezorger.getConnection();
-//        Statement st = dbc.createStatement();
-//        ResultSet r = st.executeQuery("SELECT * FROM customer");
-//
-//        while (r.next()) {
-//            String voornaam = r.getString("First_Name");
-//            System.out.format("--------- \n Account number " + r.getRow() + " \n Voornaam: %s", voornaam);
-//        }
-//
-//        bezorger.getDataRows();
-//    }
+    public void getDataRows() throws SQLException {
+        DatabaseReader bezorger = new DatabaseReader();
+        Connection dbc = bezorger.getConnection();
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT * FROM customer");
+
+        while (r.next()) {
+            String voornaam = r.getString("First_Name");
+            System.out.format("--------- \n Account number " + r.getRow() + " \n Voornaam: %s", voornaam);
+        }
+
+        //bezorger.getDataRows();
+    }
 
     public static void main(String[] args) throws SQLException {
-//          BezorgerBeheer s = new BezorgerBeheer();
-////        DatabaseReader bezorger = new DatabaseReader();
-//          s.getDataRows();
+        BezorgerBeheer s = new BezorgerBeheer();
+        s.getDataRows();
 
     }
 
