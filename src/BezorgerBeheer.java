@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -23,15 +24,21 @@ public class BezorgerBeheer extends JFrame {
         setMinimumSize(new Dimension(1600, 900));
 
         //Initialize the JPanels
-        JPanel mainPanel = new JPanel(new FlowLayout());
+        JPanel mainPanel = new JPanel(new GridLayout(2,3));
 
         JPanel leftPanel = new JPanel();
-        JLabel leftLabel = new JLabel("Inactief");
+        JLabel leftLabel = new JLabel("Actief");
+
+        JPanel centerPanel1 = new JPanel();
+        JButton centerBtn1 = new JButton("<->");
+        centerBtn1.setPreferredSize(new Dimension(50, 40));
+        JLabel centerLabel1 = new JLabel("");
 
         JPanel centerPanel = new JPanel();
-        JLabel centerLabel = new JLabel("Actief");
+        JLabel centerLabel = new JLabel("Inactief");
 
         JPanel rightPanel = new JPanel();
+        JLabel rightLabel = new JLabel("");
 
         JButton rightBtn = new JButton("Activiteit bezorgers");
 
@@ -43,6 +50,14 @@ public class BezorgerBeheer extends JFrame {
         bezorgerLijst.addBezorger(peter);
         bezorgerLijst.addBezorger(peter2);
         bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+        bezorgerLijst.addBezorger(peter3);
+
         // end example
 
         // Initialize the JLists and fill them with employees
@@ -56,6 +71,9 @@ public class BezorgerBeheer extends JFrame {
             modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
 
+        JScrollPane scrollableListInactive = new JScrollPane(bezorglijstInactief);
+        JScrollPane scrollableListActive = new JScrollPane(bezorglijstActief);
+
         // Set some final JFrame properties
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -63,16 +81,23 @@ public class BezorgerBeheer extends JFrame {
         setVisible(true);
 
         // Add components to the JFrame
-        leftPanel.add(bezorglijstInactief);
-        leftPanel.add(Box.createHorizontalStrut(100));
+        scrollableListInactive.setPreferredSize(new Dimension(250, 125));
+        leftPanel.add(scrollableListInactive);
 
-        centerPanel.add(bezorglijstActief);
-        centerPanel.add(Box.createHorizontalStrut(100));
+        centerPanel1.add(centerBtn1);
+
+        scrollableListActive.setPreferredSize(new Dimension(250, 125));
+        centerPanel.add(scrollableListActive);
 
         rightPanel.add(rightBtn);
-        rightPanel.add(Box.createHorizontalStrut(100));
+
+        mainPanel.add(leftLabel);
+        mainPanel.add(centerLabel1);
+        mainPanel.add(centerLabel);
+        mainPanel.add(rightLabel);
 
         mainPanel.add(leftPanel);
+        mainPanel.add(centerPanel1);
         mainPanel.add(centerPanel);
         mainPanel.add(rightPanel);
 
