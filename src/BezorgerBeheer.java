@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -8,27 +9,31 @@ import java.sql.Statement;
 
 public class BezorgerBeheer extends JFrame {
 
-    private JLabel titel;
-    private JLabel naam;
-    private JLabel aantalBezorgingen;
-    private BezorgerLijst bezorgerLijst = new BezorgerLijst();
     private JList<String> bezorglijstInactief;
     private JList<String> bezorglijstActief;
     private DefaultListModel modelInactief;
     private DefaultListModel modelActief;
+    private BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
     public BezorgerBeheer() {
+        //Set JFrame properties
         setTitle("Bezorgers beheren");
         setSize(1600, 900);
         setResizable(false);
         setMinimumSize(new Dimension(1600, 900));
-        setLayout(new GridLayout());
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        titel = new JLabel("Beheren bezorgers");
-        naam = new JLabel("Naam");
-        aantalBezorgingen = new JLabel("Aantal bezorgingen");
+        //Initialize the JPanels
+        JPanel mainPanel = new JPanel(new FlowLayout());
+
+        JPanel leftPanel = new JPanel();
+        JLabel leftLabel = new JLabel("Inactief");
+
+        JPanel centerPanel = new JPanel();
+        JLabel centerLabel = new JLabel("Actief");
+
+        JPanel rightPanel = new JPanel();
+
+        JButton rightBtn = new JButton("Activiteit bezorgers");
 
         // example employees
         Bezorger peter = new Bezorger(1234, "peter", "reter");
@@ -40,6 +45,7 @@ public class BezorgerBeheer extends JFrame {
         bezorgerLijst.addBezorger(peter3);
         // end example
 
+        // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());
         bezorglijstActief = new JList<>(new DefaultListModel<>());
 
@@ -50,22 +56,43 @@ public class BezorgerBeheer extends JFrame {
             modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
 
+        // Set some final JFrame properties
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        // Add components to the JFrame
+        leftPanel.add(bezorglijstInactief);
+        leftPanel.add(Box.createHorizontalStrut(100));
+
+        centerPanel.add(bezorglijstActief);
+        centerPanel.add(Box.createHorizontalStrut(100));
+
+        rightPanel.add(rightBtn);
+        rightPanel.add(Box.createHorizontalStrut(100));
+
+        mainPanel.add(leftPanel);
+        mainPanel.add(centerPanel);
+        mainPanel.add(rightPanel);
+
+        add(mainPanel);
+
+        // MouseListeners for the lists
         bezorglijstInactief.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    if (!bezorglijstInactief.isSelectionEmpty()) {
-                        String selectedItem = bezorglijstInactief.getSelectedValue();
-                        for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
-                            if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
-                                bezorgerLijst.getBezorgers().get(i).setActief(true);
-                                System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
-                            }
+                    String selectedItem = bezorglijstInactief.getSelectedValue();
+                    for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                        if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
+                            bezorgerLijst.getBezorgers().get(i).setActief(true);
+//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
-                        // add selectedItem to your second list.
-                        modelInactief.removeElement(selectedItem);
-                        modelActief.addElement(selectedItem);
                     }
+                    // Add selectedItem to the active list
+                    modelInactief.removeElement(selectedItem);
+                    modelActief.addElement(selectedItem);
                 }
             }
 
@@ -86,19 +113,16 @@ public class BezorgerBeheer extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    if (!bezorglijstActief.isSelectionEmpty()) {
-                        String selectedItem = bezorglijstActief.getSelectedValue();
-                        for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
-                            if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
-                                bezorgerLijst.getBezorgers().get(i).setActief(false);
-                                System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
-                            }
+                    String selectedItem = bezorglijstActief.getSelectedValue();
+                    for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                        if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
+                            bezorgerLijst.getBezorgers().get(i).setActief(false);
+//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
-                        // add selectedItem to your first list.
-                        modelInactief.addElement(selectedItem);
-                        modelActief.removeElement(selectedItem);
-
                     }
+                    // Add selectedItem to the inactive list
+                    modelInactief.addElement(selectedItem);
+                    modelActief.removeElement(selectedItem);
                 }
             }
 
@@ -114,13 +138,6 @@ public class BezorgerBeheer extends JFrame {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
-
-        add(titel);
-        add(naam);
-        add(aantalBezorgingen);
-        add(bezorglijstInactief);
-        add(bezorglijstActief);
-        setVisible(true);
 
     }
 
@@ -147,7 +164,9 @@ public class BezorgerBeheer extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        BezorgerBeheer s = new BezorgerBeheer();
+
+        new BezorgerBeheer();
+
 //        s.getDataRows();
         
     }
