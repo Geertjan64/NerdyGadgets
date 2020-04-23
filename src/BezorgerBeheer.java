@@ -18,6 +18,11 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
     private DefaultListModel modelActief;
 
     public BezorgerBeheer() {
+        setTitle("Bezorgers beheren");
+        setSize(1000, 600);
+        setLayout(new GridLayout(1, 3));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         titel = new JLabel("Beheren bezorgers");
         naam = new JLabel("Naam");
         aantalBezorgingen = new JLabel("Aantal bezorgingen");
@@ -40,11 +45,6 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
 
             modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
-
-        setTitle("Bezorgers beheren");
-        setSize(1000, 600);
-        setLayout(new GridLayout(1, 3));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         bezorglijstInactief.addMouseListener(this);
         bezorglijstActief.addMouseListener(this);
