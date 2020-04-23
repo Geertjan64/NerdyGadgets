@@ -51,9 +51,11 @@ public class Login extends JFrame implements ActionListener {
             userText = txuser.getText();
             pwdText = pass.getText();
             if (userText.equalsIgnoreCase("testmed") && pwdText.equalsIgnoreCase("test123")) {
-                JOptionPane.showMessageDialog(this, "Login Successful");
+                //JOptionPane.showMessageDialog(this, "Login Successful");
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+                pass.setText(null);
             }
         }
     }
