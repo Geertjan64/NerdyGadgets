@@ -1,14 +1,16 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.Visibility;
 
 public class Login extends JFrame implements ActionListener {
-    JButton blogin;
-    JPanel loginpanel;
-    JTextField txuser;
-    JTextField pass;
-    JLabel username;
-    JLabel password;
+    private KeuzeMenu newScherm = new KeuzeMenu();
+    private JButton blogin;
+    private JPanel loginpanel;
+    private JTextField txuser;
+    private JTextField pass;
+    private JLabel username;
+    private JLabel password;
 
     public Login() {
         super("Login Autentification");
@@ -20,7 +22,7 @@ public class Login extends JFrame implements ActionListener {
         username = new JLabel("User - ");
         password = new JLabel("Pass - ");
 
-        setSize(1000, 800);
+        setSize(1600, 900);
         setLocation(500, 280);
         loginpanel.setLayout(null);
 
@@ -40,6 +42,7 @@ public class Login extends JFrame implements ActionListener {
 
         getContentPane().add(loginpanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
         setVisible(true);
     }
 
@@ -51,7 +54,9 @@ public class Login extends JFrame implements ActionListener {
             userText = txuser.getText();
             pwdText = pass.getText();
             if (userText.equalsIgnoreCase("testmed") && pwdText.equalsIgnoreCase("test123")) {
-                //JOptionPane.showMessageDialog(this, "Login Successful");
+                this.setVisible(false);
+                newScherm.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Welcome Medewerker");
 
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
