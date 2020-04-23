@@ -30,8 +30,8 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
         bezorgerLijst.addBezorger(peter2);
         bezorgerLijst.addBezorger(peter3);
 
-        bezorglijstInactief = new JList<String>(new DefaultListModel<String>());
-        bezorglijstActief = new JList<String>(new DefaultListModel<String>());
+        bezorglijstInactief = new JList<>(new DefaultListModel<>());
+        bezorglijstActief = new JList<>(new DefaultListModel<>());
 
         modelInactief = (DefaultListModel) bezorglijstInactief.getModel();
         modelActief = (DefaultListModel) bezorglijstActief.getModel();
@@ -66,8 +66,11 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
         ResultSet r = st.executeQuery("SELECT * FROM customers");
 
         while (r.next()) {
+            int id = r.getInt("CustomerID");
             String voornaam = r.getString("CustomerName");
-            System.out.format("--------- \n Account number " + r.getRow() + " \n Voornaam: %s", voornaam);
+            String telefoonnummer = r.getString("PhoneNumber");
+
+            System.out.format( "\n ID: %s \n Voornaam: %s \n Telefoonnummer: %s" , id, voornaam, telefoonnummer);
         }
     }
 
@@ -125,7 +128,7 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
 
     public static void main(String[] args) throws SQLException {
         BezorgerBeheer s = new BezorgerBeheer();
-//        s.getDataRows();
+        s.getDataRows();
 
 
     }
