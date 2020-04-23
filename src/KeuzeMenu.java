@@ -73,6 +73,13 @@ public class KeuzeMenu extends JFrame {
             }
         });
 
+        btn7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new BezorgerBeheer();
+            }
+        });
+
     }
 
 

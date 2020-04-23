@@ -44,7 +44,7 @@ public class BezorgerBeheer extends JFrame implements MouseListener {
         setTitle("Bezorgers beheren");
         setSize(1000, 600);
         setLayout(new GridLayout(1, 3));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         bezorglijstInactief.addMouseListener(this);
         bezorglijstActief.addMouseListener(this);
