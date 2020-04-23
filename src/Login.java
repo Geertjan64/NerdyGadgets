@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.Visibility;
 
 public class Login extends JFrame implements ActionListener {
     private KeuzeMenu newScherm = new KeuzeMenu();
@@ -22,7 +21,7 @@ public class Login extends JFrame implements ActionListener {
         username = new JLabel("User - ");
         password = new JLabel("Pass - ");
 
-        setSize(1600, 900);
+        setSize(300,200);
         setLocation(500, 280);
         loginpanel.setLayout(null);
 
