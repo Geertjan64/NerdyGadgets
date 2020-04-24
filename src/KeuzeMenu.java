@@ -8,8 +8,12 @@ import java.awt.event.ActionListener;
  */
 
 public class KeuzeMenu extends JFrame {
+    private JMenuBar menubar;
+    private JMenu menu;
+    private JMenuItem logout;
 
     public KeuzeMenu() {
+
 
         /** JFrame **/
         super("Routebepaling - Keuzemenu");
@@ -56,7 +60,8 @@ public class KeuzeMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
-        setVisible(true);
+        /** Set to true to test KeuzeMenu **/
+        setVisible(false);
 
         /** Action listeners **/
         btn1.addActionListener(new ActionListener() {
@@ -79,7 +84,25 @@ public class KeuzeMenu extends JFrame {
                 new BezorgerBeheer();
             }
         });
+        /** add the menu button to the panel **/
+        menubar();
+    }
+    /** Made by Pascal **/
+    private void menubar(){
+        menubar = new JMenuBar();
+        menu = new JMenu("Menu");
 
+        logout = new JMenuItem("Logout");
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                /** exits the program **/
+                System.exit(0);
+            }
+        });
+        /** makes the layout for the menubar **/
+        menu.add(logout);
+        menubar.add(menu);
+        setJMenuBar(menubar);
     }
 
 
