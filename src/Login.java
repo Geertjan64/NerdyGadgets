@@ -12,7 +12,7 @@ public class Login extends JFrame implements ActionListener {
     private JLabel password;
 
     public Login() {
-        super("Login Autentification");
+        super("Login Authentication");
 
         blogin = new JButton("Login");
         loginpanel = new JPanel();

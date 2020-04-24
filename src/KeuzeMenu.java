@@ -110,7 +110,8 @@ public class KeuzeMenu extends JFrame {
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 /** exits the program **/
-                System.exit(0);
+                dispose();
+                new Login();
             }
         });
         /** makes the layout for the menubar **/
