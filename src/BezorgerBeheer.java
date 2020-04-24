@@ -57,7 +57,6 @@ public class BezorgerBeheer extends JFrame {
         bezorgerLijst.addBezorger(peter3);
         bezorgerLijst.addBezorger(peter3);
         bezorgerLijst.addBezorger(peter3);
-
         // end example
 
         // Initialize the JLists and fill them with employees
@@ -107,7 +106,7 @@ public class BezorgerBeheer extends JFrame {
         bezorglijstInactief.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 2 && !bezorglijstInactief.isSelectionEmpty()) {
                     String selectedItem = bezorglijstInactief.getSelectedValue();
                     for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
                         if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
@@ -137,7 +136,7 @@ public class BezorgerBeheer extends JFrame {
         bezorglijstActief.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 2 && !bezorglijstActief.isSelectionEmpty()) {
                     String selectedItem = bezorglijstActief.getSelectedValue();
                     for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
                         if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
