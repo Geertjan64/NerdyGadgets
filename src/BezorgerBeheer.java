@@ -27,7 +27,7 @@ public class BezorgerBeheer extends JFrame {
         JPanel mainPanel = new JPanel(new GridLayout(2,3));
 
         JPanel leftPanel = new JPanel();
-        JLabel leftLabel = new JLabel("Actief");
+        JLabel leftLabel = new JLabel("Inactief");
 
         JPanel centerPanel1 = new JPanel();
         JButton centerBtn1 = new JButton("<->");
@@ -35,7 +35,7 @@ public class BezorgerBeheer extends JFrame {
         JLabel centerLabel1 = new JLabel("");
 
         JPanel centerPanel = new JPanel();
-        JLabel centerLabel = new JLabel("Inactief");
+        JLabel centerLabel = new JLabel("Actief");
 
         JPanel rightPanel = new JPanel();
         JLabel rightLabel = new JLabel("");
