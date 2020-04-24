@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * @author dylan
@@ -13,8 +14,6 @@ public class KeuzeMenu extends JFrame {
     private JMenuItem logout;
 
     public KeuzeMenu() {
-
-
         /** JFrame **/
         super("Routebepaling - Keuzemenu");
         setSize(600, 400);
@@ -31,6 +30,7 @@ public class KeuzeMenu extends JFrame {
         JButton btn5 = new JButton("Beheren route");
         JButton btn6 = new JButton("Beheren adressen");
         JButton btn7 = new JButton("Beheren bezorgers");
+        JButton btn8 = new JButton("Beheren klantgegevens");
 
         /** Set prefered button size **/
         btn1.setPreferredSize(new Dimension(100, 50));
@@ -46,6 +46,7 @@ public class KeuzeMenu extends JFrame {
         btnPanel.add(btn5);
         btnPanel.add(btn6);
         btnPanel.add(btn7);
+        btnPanel.add(btn8);
 
         /** Adds the JPanel with gridlayout to layout JPanel **/
         layout.add(btnPanel);
@@ -84,6 +85,19 @@ public class KeuzeMenu extends JFrame {
                 new BezorgerBeheer();
             }
         });
+
+        btn8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new EditCustomer();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+            }
+        });
+
         /** add the menu button to the panel **/
         menubar();
     }
@@ -104,10 +118,4 @@ public class KeuzeMenu extends JFrame {
         menubar.add(menu);
         setJMenuBar(menubar);
     }
-
-
-    public static void main(String[] args) {
-        new KeuzeMenu();
-    }
-
 }
