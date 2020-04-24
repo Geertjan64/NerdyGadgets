@@ -55,7 +55,7 @@ public class Login extends JFrame implements ActionListener {
             if (userText.equalsIgnoreCase("testmed") && pwdText.equalsIgnoreCase("test123")) {
                 this.setVisible(false);
                 newScherm.setVisible(true);
-                JOptionPane.showMessageDialog(this, "Welcome Medewerker");
+                JOptionPane.showMessageDialog(this, "Welkom medewerker");
 
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
