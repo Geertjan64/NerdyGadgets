@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Login extends JFrame implements ActionListener {
     private KeuzeMenu newScherm = new KeuzeMenu();
@@ -52,15 +56,36 @@ public class Login extends JFrame implements ActionListener {
             String pwdText;
             userText = txuser.getText();
             pwdText = pass.getText();
-            if (userText.equalsIgnoreCase("testmed") && pwdText.equalsIgnoreCase("test123")) {
+            try {
+                checkAccount(userText, pwdText);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void checkAccount(String user, String pass) throws SQLException {
+        DatabaseReader acc = new DatabaseReader();
+        Connection dbc = acc.getConnection();
+        String query = "SELECT * FROM `employee` WHERE `Email` = '"+user+"' AND `Password` = '"+pass+"'";
+
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery(query);
+
+        while (r.next()) {
+            String Email = r.getString("Email");
+            String Password = r.getString("Password");
+            String Function = r.getString("Function");
+
+            if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
                 this.setVisible(false);
                 newScherm.setVisible(true);
-                JOptionPane.showMessageDialog(this, "Welkom medewerker");
-
+                JOptionPane.showMessageDialog(this, "Welkom "+Function+"!");
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
-                pass.setText(null);
+                this.pass.setText(null);
             }
+
         }
     }
 
