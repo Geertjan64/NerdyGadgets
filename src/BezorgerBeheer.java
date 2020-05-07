@@ -170,14 +170,18 @@ public class BezorgerBeheer extends JFrame {
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM customers");
+        ResultSet r = st.executeQuery("SELECT * FROM employee");
 
         while (r.next()) {
-            int id = r.getInt("CustomerID");
-            String voornaam = r.getString("CustomerName");
-            String telefoonnummer = r.getString("PhoneNumber");
+            int id = r.getInt("Employee_ID");
+            String voornaam = r.getString("Firstname");
+            String achternaam = r.getString("Lastname");
+            String tussenvoegsel = r.getString("Middle_Name");
+            String email = r.getString("Email");
+            String password = r.getString("Password");
+            String functie = r.getString("Rights");
 
-            System.out.format( "\n ID: %s \n Voornaam: %s \n Telefoonnummer: %s" , id, voornaam, telefoonnummer);
+            System.out.format( "\n ID: %s \n Voornaam: %s \n Achternaam: %s \n Tussenvoegsel: %s \n Email: %s \n Password: %s \n Functie: %s \n" , id, voornaam, achternaam, tussenvoegsel, email, password, functie);
         }
     }
 
@@ -189,9 +193,9 @@ public class BezorgerBeheer extends JFrame {
             e.printStackTrace();
         }
 
-        new BezorgerBeheer();
+        BezorgerBeheer s = new BezorgerBeheer();
 
-//        s.getDataRows();
+        s.getDataRows();
         
     }
 }
