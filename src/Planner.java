@@ -1,20 +1,18 @@
 public class Planner extends Werknemer {
 
-    private String middlename;
+    private String tussenvoegsel;
     private String email;
     private String password;
     private String function;
 
-    public Planner(int werknemerID, String voornaam, String achternaam, String middlename, String email, String password, String function) {
-        super(werknemerID, voornaam, achternaam);
-        this.middlename = middlename;
-        this.email = email;
+    public Planner(int werknemerID, String voornaam, String achternaam, String tussenvoegsel, String email, String password, String function) {
+        super(werknemerID, voornaam, achternaam, tussenvoegsel, email);
         this.password = password;
         this.function = function;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getTussenvoegsel() {
+        return tussenvoegsel;
     }
 
     public String getEmail() {
@@ -28,7 +26,7 @@ public class Planner extends Werknemer {
     @Override
     public String toString() {
         return "Planner{" +
-                "middlename='" + middlename + '\'' +
+                "middlename='" + tussenvoegsel + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", function=" + function +

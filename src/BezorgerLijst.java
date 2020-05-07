@@ -16,4 +16,10 @@ public class BezorgerLijst {
     public ArrayList<Bezorger> getBezorgers() {
         return bezorgers;
     }
+
+    public void printLijst() {
+        for (Bezorger b : bezorgers) {
+            System.out.println(b);
+        }
+    }
 }

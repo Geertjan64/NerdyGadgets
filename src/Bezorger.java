@@ -6,8 +6,8 @@ public class Bezorger extends Werknemer {
 
     private boolean isActief;
 
-    public Bezorger(int werknemerID, String voornaam, String achternaam) {
-        super(werknemerID, voornaam, achternaam);
+    public Bezorger(int werknemerID, String voornaam, String achternaam, String tussenvoegsel, String email) {
+        super(werknemerID, voornaam, achternaam, tussenvoegsel, email);
         isActief = false;
     }
 

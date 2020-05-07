@@ -3,10 +3,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class BezorgerBeheer extends JFrame {
 
@@ -42,22 +39,6 @@ public class BezorgerBeheer extends JFrame {
 
         JButton rightBtn = new JButton("Activiteit bezorgers");
 
-        // example employees
-        Bezorger peter = new Bezorger(1234, "peter", "reter");
-        Bezorger peter2 = new Bezorger(1235, "peter2", "reter");
-        Bezorger peter3 = new Bezorger(1236, "peter3", "reter");
-
-        bezorgerLijst.addBezorger(peter);
-        bezorgerLijst.addBezorger(peter2);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        bezorgerLijst.addBezorger(peter3);
-        // end example
 
         // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());
@@ -173,6 +154,7 @@ public class BezorgerBeheer extends JFrame {
         ResultSet r = st.executeQuery("SELECT * FROM employee");
 
         while (r.next()) {
+
             int id = r.getInt("Employee_ID");
             String voornaam = r.getString("Firstname");
             String achternaam = r.getString("Lastname");
@@ -181,9 +163,15 @@ public class BezorgerBeheer extends JFrame {
             String password = r.getString("Password");
             String functie = r.getString("Rights");
 
-            System.out.format( "\n ID: %s \n Voornaam: %s \n Achternaam: %s \n Tussenvoegsel: %s \n Email: %s \n Password: %s \n Functie: %s \n" , id, voornaam, achternaam, tussenvoegsel, email, password, functie);
+            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email));
+
+
+//            System.out.format( "\n ID: %s \n Voornaam: %s \n Achternaam: %s \n Tussenvoegsel: %s \n Email: %s \n Password: %s \n Functie: %s \n" , id, voornaam, achternaam, tussenvoegsel, email, password, functie);
         }
+
+        bezorgerLijst.printLijst();
     }
+
 
     public static void main(String[] args) throws SQLException {
 
@@ -195,7 +183,7 @@ public class BezorgerBeheer extends JFrame {
 
         BezorgerBeheer s = new BezorgerBeheer();
 
-        s.getDataRows();
+
         
     }
 }
