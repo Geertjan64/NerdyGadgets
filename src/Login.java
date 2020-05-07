@@ -73,11 +73,20 @@ public class Login extends JFrame implements ActionListener {
         ResultSet r = st.executeQuery(query);
 
         while (r.next()) {
+
+            int Employee_ID = r.getInt("Employee_ID");
+            String Firstname = r.getString("Firstname");
+            String Lastname = r.getString("Lastname");
+            String Middle_Name = r.getString("Middle_Name");
             String Email = r.getString("Email");
             String Password = r.getString("Password");
             String Function = r.getString("Function");
 
             if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
+                if(Function.equalsIgnoreCase("planner")) {
+                    Planner planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                }
                 this.setVisible(false);
                 newScherm.setVisible(true);
                 JOptionPane.showMessageDialog(this, "Welkom "+Function+"!");

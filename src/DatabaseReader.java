@@ -22,7 +22,7 @@ public class DatabaseReader {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onzedbwwi", "root", "");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wideworldimporters", "root", "");
 			} catch (SQLException e) {
 				System.out.println("No connection with database!");
 			}

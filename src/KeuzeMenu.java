@@ -9,13 +9,15 @@ import java.sql.SQLException;
  */
 
 public class KeuzeMenu extends JFrame {
+
     private JMenuBar menubar;
     private JMenu menu;
     private JMenuItem logout;
 
     public KeuzeMenu() {
+
         /** JFrame **/
-        super("Routebepaling - Keuzemenu");
+        super("Routebepaling - Keuzemenu | ");
         setSize(600, 400);
         setResizable(false);
         setMinimumSize(new Dimension(600, 400));
@@ -61,6 +63,7 @@ public class KeuzeMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
+
         /** Set to true to test KeuzeMenu **/
         setVisible(false);
 
