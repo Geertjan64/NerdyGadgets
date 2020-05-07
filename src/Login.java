@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Login extends JFrame implements ActionListener {
+
     private KeuzeMenu newScherm = new KeuzeMenu();
     private JButton blogin;
     private JPanel loginpanel;
@@ -14,6 +16,16 @@ public class Login extends JFrame implements ActionListener {
     private JTextField pass;
     private JLabel username;
     private JLabel password;
+    private Planner planner;
+
+    JButton hroutes = new JButton("Huidige routes");
+    JButton routeinplannen = new JButton("Route inplannen");
+    JButton routestarten = new JButton("Route starten");
+    JButton gemaakteritten = new JButton("Gemaakte ritten");
+    JButton beherenroute = new JButton("Beheren route");
+    JButton beherenadressen = new JButton("Beheren adressen");
+    JButton beherenbezorgers = new JButton("Beheren bezorgers");
+    JButton beherenklantgegevens = new JButton("Beheren klantgegevens");
 
     public Login() {
         super("Login Authentication");
@@ -49,21 +61,6 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        //login button
-        if (e.getSource() == blogin) {
-            String userText;
-            String pwdText;
-            userText = txuser.getText();
-            pwdText = pass.getText();
-            try {
-                checkAccount(userText, pwdText);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
     public void checkAccount(String user, String pass) throws SQLException {
         DatabaseReader acc = new DatabaseReader();
         Connection dbc = acc.getConnection();
@@ -83,10 +80,31 @@ public class Login extends JFrame implements ActionListener {
             String Function = r.getString("Function");
 
             if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
-                if(Function.equalsIgnoreCase("planner")) {
-                    Planner planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+
+                if(Function.equalsIgnoreCase("bezorger")) {
+                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    newScherm.add(hroutes);
+                    newScherm.add(routestarten);
+                    newScherm.add(gemaakteritten);
                     newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
                 }
+
+                if(Function.equalsIgnoreCase("beheerder")) {
+                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    newScherm.add(beherenadressen);
+                    newScherm.add(beherenbezorgers);
+                    newScherm.add(beherenroute);
+                    newScherm.add(beherenklantgegevens);
+                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                }
+
+                if(Function.equalsIgnoreCase("planner")) {
+                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    newScherm.add(routeinplannen);
+                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                }
+                hroutes.setPreferredSize(new Dimension(100, 50));
+
                 this.setVisible(false);
                 newScherm.setVisible(true);
                 JOptionPane.showMessageDialog(this, "Welkom "+Function+"!");
@@ -96,6 +114,53 @@ public class Login extends JFrame implements ActionListener {
             }
 
         }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        //login button
+        if (e.getSource() == blogin) {
+            String userText;
+            String pwdText;
+            userText = txuser.getText();
+            pwdText = pass.getText();
+            try {
+                checkAccount(userText, pwdText);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (e.getSource() == hroutes) {
+
+        }
+
+        if (e.getSource() == routeinplannen) {
+
+        }
+
+        if (e.getSource() == routestarten) {
+
+        }
+
+        if (e.getSource() == gemaakteritten) {
+
+        }
+
+        if (e.getSource() == beherenadressen) {
+
+        }
+
+        if (e.getSource() == beherenklantgegevens) {
+
+        }
+
+        if (e.getSource() == beherenbezorgers) {
+
+        }
+
+        if (e.getSource() == beherenroute) {
+
+        }
+
     }
 
     public static void main(String[] args) {
