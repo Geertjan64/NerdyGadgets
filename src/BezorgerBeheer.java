@@ -13,7 +13,7 @@ public class BezorgerBeheer extends JFrame {
     private DefaultListModel modelActief;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
-    public BezorgerBeheer() {
+    public BezorgerBeheer() throws SQLException {
         //Set JFrame properties
         setTitle("Bezorgers beheren");
         setSize(1600, 900);
@@ -39,6 +39,12 @@ public class BezorgerBeheer extends JFrame {
 
         JButton rightBtn = new JButton("Activiteit bezorgers");
 
+        SQLFuncties f = new SQLFuncties();
+        f.getDataRows();
+
+        for (int i = 0; i < f.teller; i++) {
+            bezorgerLijst.addBezorger(new Bezorger(f.id, f.voornaam, f.achternaam, f.tussenvoegsel, f.email));
+        }
 
         // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());
