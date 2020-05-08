@@ -55,6 +55,7 @@ public class Login extends JFrame implements ActionListener {
         loginpanel.add(password);
         blogin.addActionListener(this);
         beherenbezorgers.addActionListener(this);
+        beherenklantgegevens.addActionListener(this);
 
         getContentPane().add(loginpanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -151,7 +152,11 @@ public class Login extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == beherenklantgegevens) {
-
+            try {
+                EditCustomer ec = new EditCustomer();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
         if (e.getSource() == beherenbezorgers) {
