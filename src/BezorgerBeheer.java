@@ -5,13 +5,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class BezorgerBeheer extends JFrame {
+public class BezorgerBeheer extends JFrame implements ActionListener {
 
     private JList<String> bezorglijstInactief;
     private JList<String> bezorglijstActief;
     private DefaultListModel modelInactief;
     private DefaultListModel modelActief;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
+    private JButton activiteit;
 
     public BezorgerBeheer() throws SQLException {
         //Set JFrame properties
@@ -21,7 +22,7 @@ public class BezorgerBeheer extends JFrame {
         setMinimumSize(new Dimension(1600, 900));
 
         //Initialize the JPanels
-        JPanel mainPanel = new JPanel(new GridLayout(2,3));
+        JPanel mainPanel = new JPanel(new GridLayout(2, 3));
 
         JPanel leftPanel = new JPanel();
         JLabel leftLabel = new JLabel("Inactief");
@@ -37,7 +38,8 @@ public class BezorgerBeheer extends JFrame {
         JPanel rightPanel = new JPanel();
         JLabel rightLabel = new JLabel("");
 
-        JButton rightBtn = new JButton("Activiteit bezorgers");
+        activiteit = new JButton("Activiteit bezorgers");
+        activiteit.addActionListener(this);
 
         SQLFuncties f = new SQLFuncties();
         f.getDataRows();
@@ -53,7 +55,7 @@ public class BezorgerBeheer extends JFrame {
         modelInactief = (DefaultListModel) bezorglijstInactief.getModel();
         modelActief = (DefaultListModel) bezorglijstActief.getModel();
 
-        for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+        for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
             modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
 
@@ -75,7 +77,7 @@ public class BezorgerBeheer extends JFrame {
         scrollableListActive.setPreferredSize(new Dimension(250, 125));
         centerPanel.add(scrollableListActive);
 
-        rightPanel.add(rightBtn);
+        rightPanel.add(activiteit);
 
         mainPanel.add(leftLabel);
         mainPanel.add(centerLabel1);
@@ -108,16 +110,20 @@ public class BezorgerBeheer extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {}
+            public void mousePressed(MouseEvent e) {
+            }
 
             @Override
-            public void mouseReleased(MouseEvent e) {}
+            public void mouseReleased(MouseEvent e) {
+            }
 
             @Override
-            public void mouseEntered(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {
+            }
 
             @Override
-            public void mouseExited(MouseEvent e) {}
+            public void mouseExited(MouseEvent e) {
+            }
         });
 
         bezorglijstActief.addMouseListener(new MouseListener() {
@@ -125,7 +131,7 @@ public class BezorgerBeheer extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && !bezorglijstActief.isSelectionEmpty()) {
                     String selectedItem = bezorglijstActief.getSelectedValue();
-                    for(int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                    for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
                         if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
                             bezorgerLijst.getBezorgers().get(i).setActief(false);
 //                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
@@ -138,16 +144,20 @@ public class BezorgerBeheer extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {}
+            public void mousePressed(MouseEvent e) {
+            }
 
             @Override
-            public void mouseReleased(MouseEvent e) {}
+            public void mouseReleased(MouseEvent e) {
+            }
 
             @Override
-            public void mouseEntered(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {
+            }
 
             @Override
-            public void mouseExited(MouseEvent e) {}
+            public void mouseExited(MouseEvent e) {
+            }
         });
 
     }
@@ -169,7 +179,7 @@ public class BezorgerBeheer extends JFrame {
             String password = r.getString("Password");
             String functie = r.getString("Function");
 
-            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email));
+            bezorgerLijst.addBezorger(new Bezorger(id, voornaam, achternaam, tussenvoegsel, email));
 
 
 //            System.out.format( "\n ID: %s \n Voornaam: %s \n Achternaam: %s \n Tussenvoegsel: %s \n Email: %s \n Password: %s \n Functie: %s \n" , id, voornaam, achternaam, tussenvoegsel, email, password, functie);
@@ -190,6 +200,21 @@ public class BezorgerBeheer extends JFrame {
         BezorgerBeheer s = new BezorgerBeheer();
 
 
-        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == activiteit) {
+            if (!bezorglijstInactief.isSelectionEmpty()) {
+                System.out.println("I");
+                bezorglijstInactief.getSelectedIndex();
+            }
+
+            if (!bezorglijstActief.isSelectionEmpty()) {
+                System.out.println("A");
+                bezorglijstActief.getSelectedIndex();
+            }
+        }
     }
 }
+
