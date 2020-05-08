@@ -5,15 +5,16 @@ import java.sql.Statement;
 
 public class SQLFuncties {
 
-    int teller;
+    private int teller;
 
-    int id;
-    String voornaam;
-    String achternaam;
-    String tussenvoegsel;
-    String email;
-    String password;
-    String functie;
+    private int id;
+    private String voornaam;
+    private String achternaam;
+    private String tussenvoegsel;
+    private String email;
+    private String password;
+    private String functie;
+    private int actief;
 
     public void getDataRows() throws SQLException {
         DatabaseReader bezorger = new DatabaseReader();
@@ -33,11 +34,21 @@ public class SQLFuncties {
             email = r.getString("Email");
             password = r.getString("Password");
             functie = r.getString("Function");
+            actief = r.getInt("Active");
 
-            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email));
+            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email, actief));
             teller++;
 
         }
+    }
+
+    public void updateActief(int activiteit, int werknemerID) throws SQLException {
+        DatabaseReader bezorger = new DatabaseReader();
+        Connection dbc = bezorger.getConnection();
+
+        Statement st = dbc.createStatement();
+        st.executeUpdate("UPDATE employee SET Active = " + activiteit + " WHERE Employee_ID = " + werknemerID);
+
     }
 
 }

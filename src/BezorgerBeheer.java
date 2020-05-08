@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class BezorgerBeheer extends JFrame implements ActionListener {
+public class BezorgerBeheer extends JFrame {
 
     private JList<String> bezorglijstInactief;
     private JList<String> bezorglijstActief;
@@ -39,14 +39,27 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         JLabel rightLabel = new JLabel("");
 
         activiteit = new JButton("Activiteit bezorgers");
-        activiteit.addActionListener(this);
+        activiteit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == activiteit) {
+                    if (!bezorglijstInactief.isSelectionEmpty()) {
+                        System.out.println("I");
+                        bezorglijstInactief.getSelectedIndex();
+                        System.out.println(bezorglijstInactief.getSelectedValue());
+                    }
+
+                    if (!bezorglijstActief.isSelectionEmpty()) {
+                        System.out.println("A");
+                        bezorglijstActief.getSelectedIndex();
+                        System.out.println(bezorglijstActief.getSelectedValue());
+                    }
+                }
+            }
+        });
 
         SQLFuncties f = new SQLFuncties();
         f.getDataRows();
-
-//        for (int i = 0; i < f.teller; i++) {
-//            bezorgerLijst.addBezorger(new Bezorger(f.id, f.voornaam, f.achternaam, f.tussenvoegsel, f.email));
-//        }
 
         // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());
@@ -56,7 +69,15 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
         modelActief = (DefaultListModel) bezorglijstActief.getModel();
 
         for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
-            modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
+            if (!bezorgerLijst.getBezorgers().get(i).getActief()) {
+                modelInactief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
+            }
+        }
+
+        for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+            if (bezorgerLijst.getBezorgers().get(i).getActief()) {
+                modelActief.addElement(bezorgerLijst.getBezorgers().get(i).toString());
+            }
         }
 
         JScrollPane scrollableListInactive = new JScrollPane(bezorglijstInactief);
@@ -100,7 +121,16 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
                     for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
                         if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
                             bezorgerLijst.getBezorgers().get(i).setActief(true);
-//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+                            SQLFuncties f = new SQLFuncties();
+
+                            int activiteitZetten = bezorgerLijst.getBezorgers().get(i).getWerknemerID();
+                            try {
+                                f.updateActief(1, activiteitZetten);
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
+
+                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the active list
@@ -134,7 +164,17 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
                     for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
                         if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
                             bezorgerLijst.getBezorgers().get(i).setActief(false);
-//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+
+                            SQLFuncties f = new SQLFuncties();
+
+                            int activiteitZetten = bezorgerLijst.getBezorgers().get(i).getWerknemerID();
+                            try {
+                                f.updateActief(0, activiteitZetten);
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
+
+                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the inactive list
@@ -162,33 +202,6 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
 
     }
 
-    public void getDataRows() throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
-        Connection dbc = bezorger.getConnection();
-
-        Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM employee");
-
-        while (r.next()) {
-
-            int id = r.getInt("Employee_ID");
-            String voornaam = r.getString("Firstname");
-            String achternaam = r.getString("Lastname");
-            String tussenvoegsel = r.getString("Middle_Name");
-            String email = r.getString("Email");
-            String password = r.getString("Password");
-            String functie = r.getString("Function");
-
-            bezorgerLijst.addBezorger(new Bezorger(id, voornaam, achternaam, tussenvoegsel, email));
-
-
-//            System.out.format( "\n ID: %s \n Voornaam: %s \n Achternaam: %s \n Tussenvoegsel: %s \n Email: %s \n Password: %s \n Functie: %s \n" , id, voornaam, achternaam, tussenvoegsel, email, password, functie);
-        }
-
-        bezorgerLijst.printLijst();
-    }
-
-
     public static void main(String[] args) throws SQLException {
 
         try {
@@ -199,22 +212,7 @@ public class BezorgerBeheer extends JFrame implements ActionListener {
 
         BezorgerBeheer s = new BezorgerBeheer();
 
-
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == activiteit) {
-            if (!bezorglijstInactief.isSelectionEmpty()) {
-                System.out.println("I");
-                bezorglijstInactief.getSelectedIndex();
-            }
-
-            if (!bezorglijstActief.isSelectionEmpty()) {
-                System.out.println("A");
-                bezorglijstActief.getSelectedIndex();
-            }
-        }
-    }
 }
 
