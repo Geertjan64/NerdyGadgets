@@ -22,6 +22,8 @@ public class SQLFuncties {
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT * FROM employee");
 
+        BezorgerLijst bezorgerLijst = new BezorgerLijst();
+
         while (r.next()) {
 
             id = r.getInt("Employee_ID");
@@ -32,6 +34,7 @@ public class SQLFuncties {
             password = r.getString("Password");
             functie = r.getString("Function");
 
+            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email));
             teller++;
 
         }

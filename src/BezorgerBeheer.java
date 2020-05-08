@@ -42,9 +42,9 @@ public class BezorgerBeheer extends JFrame {
         SQLFuncties f = new SQLFuncties();
         f.getDataRows();
 
-        for (int i = 0; i < f.teller; i++) {
-            bezorgerLijst.addBezorger(new Bezorger(f.id, f.voornaam, f.achternaam, f.tussenvoegsel, f.email));
-        }
+//        for (int i = 0; i < f.teller; i++) {
+//            bezorgerLijst.addBezorger(new Bezorger(f.id, f.voornaam, f.achternaam, f.tussenvoegsel, f.email));
+//        }
 
         // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());
@@ -167,7 +167,7 @@ public class BezorgerBeheer extends JFrame {
             String tussenvoegsel = r.getString("Middle_Name");
             String email = r.getString("Email");
             String password = r.getString("Password");
-            String functie = r.getString("Rights");
+            String functie = r.getString("Function");
 
             bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email));
 

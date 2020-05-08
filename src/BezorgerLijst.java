@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class BezorgerLijst {
 
-    private ArrayList<Bezorger> bezorgers;
+    private static ArrayList<Bezorger> bezorgers;
 
 
     public BezorgerLijst() {
