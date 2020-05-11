@@ -17,9 +17,9 @@ public class BezorgerBeheer extends JFrame {
     public BezorgerBeheer() throws SQLException {
         //Set JFrame properties
         setTitle("Bezorgers beheren");
-        setSize(1600, 900);
+        setSize(1200, 800);
         setResizable(false);
-        setMinimumSize(new Dimension(1600, 900));
+        setMinimumSize(new Dimension(1200, 800));
 
         //Initialize the JPanels
         JPanel mainPanel = new JPanel(new GridLayout(2, 3));
@@ -44,20 +44,34 @@ public class BezorgerBeheer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == activiteit) {
                     if (!bezorglijstInactief.isSelectionEmpty()) {
-                        System.out.println("I");
+
                         bezorglijstInactief.getSelectedIndex();
                         String value = bezorglijstInactief.getSelectedValue();
-                        String iets = value.replaceAll("\\D+","");
-                        System.out.println(Integer.parseInt(iets));
+                        String value2 = value.replaceAll("\\D+","");
+                        int employee_ID = Integer.parseInt(value2);
+                        System.out.println(employee_ID);
+                        try {
+                            new BezorgerActiviteit(employee_ID);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+
                     }
 
                     if (!bezorglijstActief.isSelectionEmpty()) {
-                        System.out.println("A");
+
                         bezorglijstActief.getSelectedIndex();
-                        System.out.println(bezorglijstActief.getSelectedValue());
-                        String value = bezorglijstInactief.getSelectedValue();
-                        int iets = Integer.parseInt(value.replaceAll("\\D+",""));
-                        System.out.println(iets);
+
+                        String value = bezorglijstActief.getSelectedValue();
+                        String value2 = value.replaceAll("\\D+","");
+                        int employee_ID = Integer.parseInt(value2);
+                        System.out.println(employee_ID);
+                        try {
+                            new BezorgerActiviteit(employee_ID);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+
                     }
                 }
             }
@@ -135,7 +149,7 @@ public class BezorgerBeheer extends JFrame {
                                 ex.printStackTrace();
                             }
 
-                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the active list
@@ -179,7 +193,7 @@ public class BezorgerBeheer extends JFrame {
                                 ex.printStackTrace();
                             }
 
-                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
+//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the inactive list
