@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
 
 public class SQLFuncties {
 
@@ -49,6 +50,17 @@ public class SQLFuncties {
         Statement st = dbc.createStatement();
         st.executeUpdate("UPDATE employee SET Active = " + activiteit + " WHERE Employee_ID = " + werknemerID);
 
+    }
+
+    public void getBezorgerGegevens(int employee_ID) throws SQLException {
+        DatabaseReader bezorgerGegevens = new DatabaseReader();
+        Connection dbc = bezorgerGegevens.getConnection();
+
+        Statement st = dbc.createStatement();
+        st.executeQuery("SELECT * from address " +
+                            "WHERE Address_ID = " +
+                            "((SELECT Customer_ID FROM customer WHERE Customer_ID IN " +
+                            "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
     }
 
 }

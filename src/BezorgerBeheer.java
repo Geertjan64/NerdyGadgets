@@ -46,13 +46,18 @@ public class BezorgerBeheer extends JFrame {
                     if (!bezorglijstInactief.isSelectionEmpty()) {
                         System.out.println("I");
                         bezorglijstInactief.getSelectedIndex();
-                        System.out.println(bezorglijstInactief.getSelectedValue());
+                        String value = bezorglijstInactief.getSelectedValue();
+                        String iets = value.replaceAll("\\D+","");
+                        System.out.println(Integer.parseInt(iets));
                     }
 
                     if (!bezorglijstActief.isSelectionEmpty()) {
                         System.out.println("A");
                         bezorglijstActief.getSelectedIndex();
                         System.out.println(bezorglijstActief.getSelectedValue());
+                        String value = bezorglijstInactief.getSelectedValue();
+                        int iets = Integer.parseInt(value.replaceAll("\\D+",""));
+                        System.out.println(iets);
                     }
                 }
             }
