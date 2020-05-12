@@ -12,8 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
 public class HereApp extends JFrame implements ActionListener {
+    private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private JButton toevoegenAdres;
     private String url;
@@ -35,7 +35,8 @@ public class HereApp extends JFrame implements ActionListener {
         toevoegenAdres.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String straatnaamStr = straatnaamJtf.getText();
+                String straatnaamSpaces = straatnaamJtf.getText();
+                String straatnaamStr = straatnaamSpaces.replaceAll("\\s+","");
                 String huisnummerStr = huisnummerJtf.getText();
                 String stadStr = stadJtf.getText();
                 url = "https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaamStr + "+" + huisnummerStr + "%2C+" + stadStr + "&apiKey="+apiKey;
@@ -51,14 +52,11 @@ public class HereApp extends JFrame implements ActionListener {
         add(stadJtf);
         add(toevoegenAdres);
 
-
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         setVisible(true);
     }
     /** HERE API INFORMATION **/
-    private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
 
     public static void main(String[] args) throws IOException, JSONException {
 
