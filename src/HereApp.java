@@ -1,5 +1,8 @@
 import org.json.*;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,8 +12,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class HereApp {
+public class HereApp extends JFrame implements ActionListener {
 
+
+    public HereApp(){
+        super("Inplannen route");
+        setSize(1000,1000);
+
+        
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
+        setVisible(true);
+    }
     /** HERE API INFORMATION **/
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
 
@@ -35,7 +49,17 @@ public class HereApp {
            JSONObject position = arrayItems.getJSONObject("position");
            System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng"));
 
+           HereApp test = new HereApp();
+
         }
     }
 
+    public void getAdress(){
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+    }
 }
