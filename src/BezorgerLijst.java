@@ -6,7 +6,7 @@ public class BezorgerLijst {
 
 
     public BezorgerLijst() {
-        bezorgers = new ArrayList<Bezorger>();
+        bezorgers = new ArrayList<>();
     }
 
     public void addBezorger(Bezorger bezorger) {
