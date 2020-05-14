@@ -1,3 +1,5 @@
+import TSP.BezorgerSteden;
+import TSP.Stad;
 import org.json.*;
 
 import javax.swing.*;
@@ -16,7 +18,10 @@ public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private JButton toevoegenAdres;
+    private BezorgerSteden bezorgerSteden;
     private String url;
+    private double longitude;
+    private double latitude;
 
     public HereApp() throws IOException, JSONException {
         super("Inplannen route");
@@ -38,6 +43,10 @@ public class HereApp extends JFrame implements ActionListener {
             JSONObject arrayItems = array.getJSONObject(0);
 
             JSONObject position = arrayItems.getJSONObject("position");
+
+            latitude = position.getDouble("lat");
+            longitude = position.getDouble("lng");
+
             System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng"));
         }
 
@@ -61,6 +70,17 @@ public class HereApp extends JFrame implements ActionListener {
                 String huisnummerStr = huisnummerJtf.getText();
                 String stadStr = stadJtf.getText();
                 url = "https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaamStr + "+" + huisnummerStr + "%2C+" + stadStr + "&apiKey="+apiKey;
+
+
+                try {
+                    System.out.println(straatnaamStr);
+                    System.out.println(huisnummerStr);
+                    System.out.println(stadStr);
+                    getLongitudeLangitude(straatnaamStr, huisnummerStr,stadStr);
+                } catch (IOException | JSONException ex) {
+                    ex.printStackTrace();
+                }
+
                 System.out.println(url);
             }
         });
@@ -84,8 +104,33 @@ public class HereApp extends JFrame implements ActionListener {
         HereApp h = new HereApp();
     }
 
-    public void getAdress(){
+    public void getLongitudeLangitude(String straatnaam, String huisnummer, String stad) throws IOException, JSONException{
+        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam + "+" + huisnummer + "%2C+" + stad + "&apiKey="+apiKey);
+        HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
+        if(hr.getResponseCode() == 200) {
+            InputStream im = hr.getInputStream();
+            StringBuffer sb = new StringBuffer();
+            BufferedReader br = new BufferedReader(new InputStreamReader(im));
+            String line = br.readLine();
+
+            JSONObject response = new JSONObject(line);
+            System.out.println(response);
+
+            JSONArray array = response.getJSONArray("items");
+
+            JSONObject arrayItems = array.getJSONObject(0);
+
+            JSONObject position = arrayItems.getJSONObject("position");
+
+            latitude = position.getDouble("lat");
+            longitude = position.getDouble("lng");
+
+            Stad nieuweStad = new Stad(stad, latitude, longitude);
+            bezorgerSteden.addStad(nieuweStad);
+
+            System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng"));
+        }
     }
 
     @Override
