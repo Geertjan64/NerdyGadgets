@@ -16,7 +16,7 @@ public class AlgoritmeNB {
         System.out.println("w/ Totale afstand: " + new Route(steden).berekenTotaleAfstand());
         System.out.println("----");
 
-        Stad stad = steden.get((int)(steden.size() * Math.random()));
+        Stad stad = steden.get(0);
         updateRoutes(kortsteRouteSteden, steden, stad);
 
         while (steden.size() >= 1) {
