@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
+    private String straatnaamStr;
+    private String huisnummerStr;
     private JButton toevoegenAdres;
     private JButton startenRoute;
     private BezorgerSteden bezorgerSteden = new BezorgerSteden();
@@ -48,8 +50,7 @@ public class HereApp extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Stad> steden = new ArrayList<Stad>();
                 steden.addAll(bezorgerSteden.initialSteden);
-//                bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
-                System.out.println(new AlgoritmeNB().vindKortsteRoute(steden));
+                bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
             }
         });
 
@@ -58,8 +59,8 @@ public class HereApp extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String straatnaamSpaces = straatnaamJtf.getText();
-                String straatnaamStr = straatnaamSpaces.replaceAll("\\s+","");
-                String huisnummerStr = huisnummerJtf.getText();
+                straatnaamStr = straatnaamSpaces.replaceAll("\\s+","");
+                huisnummerStr = huisnummerJtf.getText();
                 String stadStr = stadJtf.getText();
                 url = "https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaamStr + "+" + huisnummerStr + "%2C+" + stadStr + "&apiKey="+apiKey;
 
@@ -117,7 +118,7 @@ public class HereApp extends JFrame implements ActionListener {
             latitude = position.getDouble("lat");
             longitude = position.getDouble("lng");
 
-            Stad nieuweStad = new Stad(stad, latitude, longitude);
+            Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerStr);
             bezorgerSteden.addStad(nieuweStad);
 
             System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng"));

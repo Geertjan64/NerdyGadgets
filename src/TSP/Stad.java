@@ -6,15 +6,27 @@ public class Stad {
     private double longitude;
     private double latitude;
     private String naam;
+    private String straatnaam;
+    private String huisnummer;
 
-    public Stad(String naam, double latitude, double longitude) {
+    public Stad(String naam, double latitude, double longitude, String straatnaam, String huisnummer ) {
         this.naam = naam;
         this.latitude = latitude * gradenNaarRadius;
         this.longitude = longitude * gradenNaarRadius;
+        this.straatnaam = straatnaam;
+        this.huisnummer = huisnummer;
     }
 
     public String getNaam() {
         return naam;
+    }
+
+    public String getStraatnaam() {
+        return straatnaam;
+    }
+
+    public String getHuisnummer() {
+        return huisnummer;
     }
 
     public double getLongitude() {

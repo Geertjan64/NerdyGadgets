@@ -18,7 +18,7 @@ public class BezorgerSteden {
     public String getInitialSteden() {
         String returnValue = "";
         for (Stad f : initialSteden) {
-            returnValue += f.getNaam() + "\n";
+            returnValue += f.getNaam() + " " + f.getStraatnaam() + " " + f.getHuisnummer() + "\n";
         };
         return returnValue;
     }
@@ -30,12 +30,12 @@ public class BezorgerSteden {
         System.out.println("------");
     }
 
-    public static void main(String[] args) {
-        BezorgerSteden bezorger = new BezorgerSteden();
-        ArrayList<Stad> steden = new ArrayList<Stad>();
-        steden.addAll(bezorger.initialSteden);
-        bezorger.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
-    }
+//    public static void main(String[] args) {
+////        BezorgerSteden bezorger = new BezorgerSteden();
+////        ArrayList<Stad> steden = new ArrayList<>();
+////        steden.addAll(bezorger.initialSteden);
+////        bezorger.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+//    }
 
 
 }
