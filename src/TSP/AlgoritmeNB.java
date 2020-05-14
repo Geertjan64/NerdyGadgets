@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 public class AlgoritmeNB {
 
+    public String kr = "";
+
     public Route vindKortsteRoute(ArrayList<Stad> steden) {
         ArrayList<Stad> kortsteRouteSteden = new ArrayList<>(steden.size());
         System.out.println("----");
@@ -21,6 +23,8 @@ public class AlgoritmeNB {
             stad = getVolgendeStad(steden, stad);
             updateRoutes(kortsteRouteSteden, steden, stad);
         }
+        kr = kortsteRouteSteden.toString();
+        System.out.println(kr);
         return new Route(kortsteRouteSteden);
     }
 
