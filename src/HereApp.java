@@ -18,7 +18,7 @@ public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private JButton toevoegenAdres;
-    private BezorgerSteden bezorgerSteden;
+    private BezorgerSteden bezorgerSteden = new BezorgerSteden();
     private String url;
     private double longitude;
     private double latitude;
@@ -73,15 +73,12 @@ public class HereApp extends JFrame implements ActionListener {
 
 
                 try {
-                    System.out.println(straatnaamStr);
-                    System.out.println(huisnummerStr);
-                    System.out.println(stadStr);
-                    getLongitudeLangitude(straatnaamStr, huisnummerStr,stadStr);
+                    getLongitudeLangitude(straatnaamStr, huisnummerStr, stadStr);
                 } catch (IOException | JSONException ex) {
                     ex.printStackTrace();
                 }
 
-                System.out.println(url);
+//                System.out.println(url);
             }
         });
 
