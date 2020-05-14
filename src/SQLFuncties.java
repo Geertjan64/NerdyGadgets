@@ -62,5 +62,4 @@ public class SQLFuncties {
                             "((SELECT Customer_ID FROM customer WHERE Customer_ID IN " +
                             "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
     }
-
 }

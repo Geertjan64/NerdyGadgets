@@ -48,7 +48,8 @@ public class HereApp extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Stad> steden = new ArrayList<Stad>();
                 steden.addAll(bezorgerSteden.initialSteden);
-                bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+//                bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                System.out.println(new AlgoritmeNB().vindKortsteRoute(steden));
             }
         });
 
