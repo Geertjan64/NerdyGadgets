@@ -26,6 +26,7 @@ public class Login extends JFrame implements ActionListener {
     JButton beherenadressen = new JButton("Beheren adressen");
     JButton beherenbezorgers = new JButton("Beheren bezorgers");
     JButton beherenklantgegevens = new JButton("Beheren klantgegevens");
+    JButton beherenorders = new JButton("Beheren orders");
 
     public Login() {
         super("Login Authentication");
@@ -56,6 +57,7 @@ public class Login extends JFrame implements ActionListener {
         blogin.addActionListener(this);
         beherenbezorgers.addActionListener(this);
         beherenklantgegevens.addActionListener(this);
+        beherenorders.addActionListener(this);
 
         getContentPane().add(loginpanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,6 +99,7 @@ public class Login extends JFrame implements ActionListener {
                     newScherm.add(beherenbezorgers);
                     newScherm.add(beherenroute);
                     newScherm.add(beherenklantgegevens);
+                    newScherm.add(beherenorders);
                     newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
                 }
 
@@ -154,6 +157,14 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == beherenklantgegevens) {
             try {
                 EditCustomer ec = new EditCustomer();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (e.getSource() == beherenorders) {
+            try {
+                EditOrder eo = new EditOrder();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
