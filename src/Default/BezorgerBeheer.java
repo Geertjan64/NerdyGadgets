@@ -112,7 +112,7 @@ public class BezorgerBeheer extends JFrame {
         scrollableListInactive.setPreferredSize(new Dimension(250, 125));
         leftPanel.add(scrollableListInactive);
 
-        centerPanel1.add(centerBtn1);
+//        centerPanel1.add(centerBtn1);
 
         scrollableListActive.setPreferredSize(new Dimension(250, 125));
         centerPanel.add(scrollableListActive);

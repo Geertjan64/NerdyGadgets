@@ -13,9 +13,9 @@ public class BezorgerActiviteit extends JFrame {
     public BezorgerActiviteit(int werknemer_ID) throws SQLException {
 
         setTitle("Bezorgeractiviteit");
-        setSize(1000, 700);
+        setSize(600, 500);
         setResizable(true);
-        setMinimumSize(new Dimension(1000, 700));
+        setMinimumSize(new Dimension(600, 500));
 
         // Temporary data
         Object[][] rowData = {{"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column4", "Row1-Column5", "Row1-Column6"}};
