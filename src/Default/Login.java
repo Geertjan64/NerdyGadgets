@@ -1,9 +1,12 @@
 package Default;
 
+import org.json.JSONException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,9 +34,9 @@ public class Login extends JFrame implements ActionListener {
     JButton beherenorders = new JButton("Beheren orders");
 
     public Login() {
-        super("Default.Login Authentication");
+        super("Inloggen medewerker");
 
-        blogin = new JButton("Default.Login");
+        blogin = new JButton("Log in");
         loginpanel = new JPanel();
         txuser = new JTextField(15);
         pass = new JPasswordField(15);
@@ -57,6 +60,7 @@ public class Login extends JFrame implements ActionListener {
         loginpanel.add(username);
         loginpanel.add(password);
         blogin.addActionListener(this);
+        routeinplannen.addActionListener(this);
         beherenbezorgers.addActionListener(this);
         beherenklantgegevens.addActionListener(this);
         beherenorders.addActionListener(this);
@@ -141,7 +145,14 @@ public class Login extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == routeinplannen) {
+            try {
+                HereApp h = new HereApp();
 
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
         }
 
         if (e.getSource() == routestarten) {
