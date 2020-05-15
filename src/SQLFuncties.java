@@ -59,7 +59,15 @@ public class SQLFuncties {
         Statement st = dbc.createStatement();
         st.executeQuery("SELECT City, Zip_Code, Country, Street_Name, House_Number, Addition from address " +
                             "WHERE Address_ID = " +
-                            "((SELECT Customer_ID FROM customer WHERE Customer_ID IN " +
+                            "((SELECT Address_1 FROM customer WHERE Customer_ID IN " +
                             "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
+    }
+
+    public void insertKortsteRoute(String r) throws SQLException {
+        DatabaseReader routeGegevens = new DatabaseReader();
+        Connection dbc = routeGegevens.getConnection();
+
+        Statement st = dbc.createStatement();
+        st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID) VALUES (" + r + ", ");
     }
 }

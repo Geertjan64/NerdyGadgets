@@ -30,7 +30,7 @@ public class BezorgerActiviteit extends JFrame {
         Statement st = dbc.createStatement();
         ResultSet rs = st.executeQuery("SELECT City, Zip_Code, Country, Street_Name, House_Number, Addition from address " +
                 "WHERE Address_ID = " +
-                "((SELECT Customer_ID FROM customer WHERE Customer_ID IN " +
+                "((SELECT Address_1 FROM customer WHERE Customer_ID IN " +
                 "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + werknemer_ID + "))) ");
 
         // remove the temp row previously created
