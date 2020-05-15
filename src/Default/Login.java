@@ -1,3 +1,5 @@
+package Default;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,9 +30,9 @@ public class Login extends JFrame implements ActionListener {
     JButton beherenklantgegevens = new JButton("Beheren klantgegevens");
 
     public Login() {
-        super("Login Authentication");
+        super("Default.Login Authentication");
 
-        blogin = new JButton("Login");
+        blogin = new JButton("Default.Login");
         loginpanel = new JPanel();
         txuser = new JTextField(15);
         pass = new JPasswordField(15);

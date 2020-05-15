@@ -1,8 +1,9 @@
+package Default;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
 
 public class SQLFuncties {
 
@@ -63,11 +64,11 @@ public class SQLFuncties {
                             "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
     }
 
-    public void insertKortsteRoute(String r) throws SQLException {
+    public void insertKortsteRoute(String route, String provincie, int ID) throws SQLException {
         DatabaseReader routeGegevens = new DatabaseReader();
         Connection dbc = routeGegevens.getConnection();
 
         Statement st = dbc.createStatement();
-        st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID) VALUES (" + r + ", ");
+        st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID) VALUES ('" + route + "', '" + provincie + "', " + ID + ")");
     }
 }

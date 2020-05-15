@@ -1,3 +1,5 @@
+package Default;
+
 public class Bezorger extends Werknemer {
 
     //private int werknemerID; Overerven abstracte class

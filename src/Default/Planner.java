@@ -1,3 +1,5 @@
+package Default;
+
 public class Planner extends Werknemer {
 
     private String tussenvoegsel;
@@ -25,7 +27,7 @@ public class Planner extends Werknemer {
 
     @Override
     public String toString() {
-        return "Planner{" +
+        return "Default.Planner{" +
                 "middlename='" + tussenvoegsel + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

@@ -1,3 +1,5 @@
+package Default;
+
 import TSP.AlgoritmeNB;
 import TSP.BezorgerSteden;
 import TSP.Stad;
@@ -15,11 +17,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLOutput;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
+    private AlgoritmeNB a = new AlgoritmeNB();
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
     private String huisnummerStr;
@@ -52,7 +55,11 @@ public class HereApp extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Stad> steden = new ArrayList<Stad>();
                 steden.addAll(bezorgerSteden.initialSteden);
-                bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                try {
+                    bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 

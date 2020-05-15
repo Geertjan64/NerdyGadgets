@@ -1,8 +1,9 @@
+package Default;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 /**
  * @author dylan
@@ -54,7 +55,7 @@ public class KeuzeMenu extends JFrame {
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
 
-        /** Set to true to test KeuzeMenu **/
+        /** Set to true to test Default.KeuzeMenu **/
         setVisible(false);
 
         /** Action listeners **/
@@ -75,7 +76,7 @@ public class KeuzeMenu extends JFrame {
 //        btn7.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
-//                new BezorgerBeheer();
+//                new Default.BezorgerBeheer();
 //            }
 //        });
 //
@@ -83,7 +84,7 @@ public class KeuzeMenu extends JFrame {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
 //                try {
-//                    new EditCustomer();
+//                    new Default.EditCustomer();
 //                } catch (SQLException throwables) {
 //                    throwables.printStackTrace();
 //                }
