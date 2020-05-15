@@ -24,6 +24,14 @@ public class Route {
             return returnWaarde;
         }).sum() + this.getSteden().get(stedenLengte - 1).afstandMeten(this.getSteden().get(0)));
     }
+
     public String toString() {
-        return Arrays.toString(steden.toArray()); }
+        int i = 0;
+        String returnval = "";
+        for(Stad s : steden) {
+            i++;
+            returnval += "["+ i +"]: "+s.getNaam() +", "+s.getStraatnaam()+" "+ s.getHuisnummer() + ", "+s.getProvincie()+" ";
+        }
+        return returnval;
+    }
 }

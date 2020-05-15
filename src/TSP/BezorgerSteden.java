@@ -18,7 +18,7 @@ public class BezorgerSteden {
     public String getInitialSteden() {
         String returnValue = "";
         for (Stad f : initialSteden) {
-            returnValue += f.getNaam() + " " + f.getStraatnaam() + " " + f.getHuisnummer() + "\n";
+            returnValue += f.getNaam() + " " + f.getStraatnaam() + " " + f.getHuisnummer() + " " + f.getProvincie() + "\n";
         };
         return returnValue;
     }

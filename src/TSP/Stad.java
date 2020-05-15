@@ -8,13 +8,15 @@ public class Stad {
     private String naam;
     private String straatnaam;
     private String huisnummer;
+    private String provincie;
 
-    public Stad(String naam, double latitude, double longitude, String straatnaam, String huisnummer ) {
+    public Stad(String naam, double latitude, double longitude, String straatnaam, String huisnummer, String provincie ) {
         this.naam = naam;
         this.latitude = latitude * gradenNaarRadius;
         this.longitude = longitude * gradenNaarRadius;
         this.straatnaam = straatnaam;
         this.huisnummer = huisnummer;
+        this.provincie = provincie;
     }
 
     public String getNaam() {
@@ -36,6 +38,8 @@ public class Stad {
     public double getLatitude() {
         return latitude;
     }
+
+    public String getProvincie() { return provincie; }
 
     public double afstandMeten(Stad stad) {
         double verschilLongitude = (stad.getLongitude() - this.getLongitude());

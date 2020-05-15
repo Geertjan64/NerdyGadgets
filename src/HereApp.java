@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
@@ -28,6 +29,7 @@ public class HereApp extends JFrame implements ActionListener {
     private String url;
     private double longitude;
     private double latitude;
+    private String provincie;
 
     public HereApp() throws IOException, JSONException {
         super("Inplannen route");
@@ -115,13 +117,16 @@ public class HereApp extends JFrame implements ActionListener {
 
             JSONObject position = arrayItems.getJSONObject("position");
 
+            JSONObject adressinfo = arrayItems.getJSONObject("address");
+
             latitude = position.getDouble("lat");
             longitude = position.getDouble("lng");
+            provincie = adressinfo.getString("state");
 
-            Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerStr);
+            Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerStr, provincie);
             bezorgerSteden.addStad(nieuweStad);
 
-            System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng"));
+            System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng") + " : " + adressinfo.getString("state"));
         }
     }
 
