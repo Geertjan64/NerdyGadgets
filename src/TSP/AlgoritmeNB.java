@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class AlgoritmeNB {
 
-    private HereApp h;
     private SQLFuncties f;
     public String provincie = "";
     public String route = "";
@@ -34,7 +33,7 @@ public class AlgoritmeNB {
             route += "["+ i +"]: "+s.getNaam() +", "+s.getStraatnaam()+" "+ s.getHuisnummer() + ", "+s.getProvincie()+" ";
         }
         f = new SQLFuncties();
-        f.insertKortsteRoute(route,provincie, 8);
+        f.insertKortsteRoute(route,provincie, 3 );
         return new Route(kortsteRouteSteden);
     }
 
