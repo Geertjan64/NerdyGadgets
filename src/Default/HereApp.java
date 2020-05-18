@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
+    public static int bezorgerID;
     private JLabel gekozenBezorger;
-    private int bezorgerID;
     private JList<String> bezorglijst;
     private DefaultListModel model;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
@@ -57,8 +57,6 @@ public class HereApp extends JFrame implements ActionListener {
         bezorglijst = new JList<>(new DefaultListModel<>());
         model = (DefaultListModel) bezorglijst.getModel();
 
-        System.out.println(bezorgerLijst.getBezorgers().size());
-
         for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
             model.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
@@ -89,6 +87,10 @@ public class HereApp extends JFrame implements ActionListener {
                     bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
@@ -107,6 +109,7 @@ public class HereApp extends JFrame implements ActionListener {
 //                    repaint();
                 }
             }
+
 
             @Override
             public void mousePressed(MouseEvent e) {

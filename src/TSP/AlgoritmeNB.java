@@ -1,7 +1,9 @@
 package TSP;
 import Default.HereApp;
 import Default.SQLFuncties;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,10 +11,12 @@ import java.util.Arrays;
 public class AlgoritmeNB {
 
     private SQLFuncties f;
+    private HereApp s;
     public String provincie = "";
     public String route = "";
 
-    public Route vindKortsteRoute(ArrayList<Stad> steden) throws SQLException {
+
+    public Route vindKortsteRoute(ArrayList<Stad> steden) throws SQLException, IOException, JSONException {
         int i = 0;
         ArrayList<Stad> kortsteRouteSteden = new ArrayList<>(steden.size());
         System.out.println("------");
@@ -33,7 +37,9 @@ public class AlgoritmeNB {
             route += "["+ i +"]: "+s.getNaam() +", "+s.getStraatnaam()+" "+ s.getHuisnummer() + ", "+s.getProvincie()+" ";
         }
         f = new SQLFuncties();
-        f.insertKortsteRoute(route,provincie, 3 );
+
+        System.out.println(HereApp.bezorgerID);
+        f.insertKortsteRoute(route,provincie, HereApp.bezorgerID);
         return new Route(kortsteRouteSteden);
     }
 
