@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
+    private JLabel gekozenBezorger;
+    private int bezorgerID;
     private JList<String> bezorglijst;
     private DefaultListModel model;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
@@ -60,8 +64,10 @@ public class HereApp extends JFrame implements ActionListener {
         }
 
         JScrollPane scrollableList = new JScrollPane(bezorglijst);
-
         scrollableList.setPreferredSize(new Dimension(250, 125));
+
+        JLabel kiesBezorger = new JLabel("Kies een bezorger uit de lijst:");
+        add(kiesBezorger);
 
         panel.add(scrollableList);
         add(panel);
@@ -71,6 +77,8 @@ public class HereApp extends JFrame implements ActionListener {
         straatnaamJtf = new JTextField(30);
         huisnummerJtf = new JTextField(8);
         stadJtf = new JTextField(10);
+
+        gekozenBezorger = new JLabel("Let op, je hebt geen bezorger gekozen!");
 
         startenRoute.addActionListener(new ActionListener() {
             @Override
@@ -82,6 +90,42 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+            }
+        });
+
+        bezorglijst.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && !bezorglijst.isSelectionEmpty()) {
+                    String selectedItem = bezorglijst.getSelectedValue();
+                    gekozenBezorger.setText("Gekozen bezorger: " + selectedItem);
+                    for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+                        if (selectedItem.substring(1, 5).equals(bezorgerLijst.getBezorgers().get(i).toString().substring(1, 5))) {
+                            bezorgerID = bezorgerLijst.getBezorgers().get(i).getWerknemerID();
+                        }
+                    }
+//                    repaint();
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 
@@ -114,13 +158,17 @@ public class HereApp extends JFrame implements ActionListener {
         add(stadJtf);
         add(toevoegenAdres);
         add(startenRoute);
+        add(gekozenBezorger);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
         setVisible(true);
 
     }
-    /** HERE API INFORMATION **/
+
+    public int getBezorgerID() {
+        return this.bezorgerID;
+    }
 
     public static void main(String[] args) throws IOException, JSONException, SQLException {
         HereApp h = new HereApp();
