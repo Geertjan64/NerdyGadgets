@@ -147,56 +147,57 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == routeinplannen) {
             try {
                 HereApp h = new HereApp();
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (JSONException ex) {
                 ex.printStackTrace();
-            }
-        }
-
-        if (e.getSource() == routestarten) {
-
-        }
-
-        if (e.getSource() == gemaakteritten) {
-
-        }
-
-        if (e.getSource() == beherenadressen) {
-
-        }
-
-        if (e.getSource() == beherenklantgegevens) {
-            try {
-                EditCustomer ec = new EditCustomer();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
 
-        if (e.getSource() == beherenorders) {
-            try {
-                EditOrder eo = new EditOrder();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+
+            if (e.getSource() == routestarten) {
+
             }
-        }
 
-        if (e.getSource() == beherenbezorgers) {
-            try {
-                BezorgerBeheer b = new BezorgerBeheer();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            if (e.getSource() == gemaakteritten) {
+
             }
+
+            if (e.getSource() == beherenadressen) {
+
+            }
+
+            if (e.getSource() == beherenklantgegevens) {
+                try {
+                    EditCustomer ec = new EditCustomer();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            if (e.getSource() == beherenorders) {
+                try {
+                    EditOrder eo = new EditOrder();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            if (e.getSource() == beherenbezorgers) {
+                try {
+                    BezorgerBeheer b = new BezorgerBeheer();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            if (e.getSource() == beherenroute) {
+
+            }
+
         }
-
-        if (e.getSource() == beherenroute) {
-
-        }
-
     }
-
     public static void main(String[] args) {
         new Login();
     }

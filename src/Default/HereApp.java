@@ -22,7 +22,9 @@ import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
-    private AlgoritmeNB a = new AlgoritmeNB();
+    private JList<String> bezorglijst;
+    private DefaultListModel model;
+    private BezorgerLijst bezorgerLijst = new BezorgerLijst();
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
     private String huisnummerStr;
@@ -34,8 +36,9 @@ public class HereApp extends JFrame implements ActionListener {
     private double latitude;
     private String provincie;
 
-    public HereApp() throws IOException, JSONException {
+    public HereApp() throws  IOException, JSONException, SQLException {
         super("Inplannen route");
+        JPanel panel = new JPanel();
 
         setSize(1200,800);
         setLayout(new FlowLayout());
@@ -43,6 +46,25 @@ public class HereApp extends JFrame implements ActionListener {
         JLabel straatnaamLbl = new JLabel("Straatnaam");
         JLabel huisnummerLbl = new JLabel("Huisnummer");
         JLabel stadLbl = new JLabel("Stad");
+
+        SQLFuncties f = new SQLFuncties();
+        f.getDataRows();
+
+        bezorglijst = new JList<>(new DefaultListModel<>());
+        model = (DefaultListModel) bezorglijst.getModel();
+
+        System.out.println(bezorgerLijst.getBezorgers().size());
+
+        for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
+            model.addElement(bezorgerLijst.getBezorgers().get(i).toString());
+        }
+
+        JScrollPane scrollableList = new JScrollPane(bezorglijst);
+
+        scrollableList.setPreferredSize(new Dimension(250, 125));
+
+        panel.add(scrollableList);
+        add(panel);
 
         startenRoute = new JButton("Start");
 
@@ -81,7 +103,6 @@ public class HereApp extends JFrame implements ActionListener {
                 }
 
                 System.out.println(bezorgerSteden.getInitialSteden());
-//                System.out.println(url);
             }
         });
 
@@ -101,8 +122,9 @@ public class HereApp extends JFrame implements ActionListener {
     }
     /** HERE API INFORMATION **/
 
-    public static void main(String[] args) throws IOException, JSONException {
+    public static void main(String[] args) throws IOException, JSONException, SQLException {
         HereApp h = new HereApp();
+
     }
 
     public void getLongitudeLangitude(String straatnaam, String huisnummer, String stad) throws IOException, JSONException{

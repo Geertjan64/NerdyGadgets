@@ -6,7 +6,6 @@ public class BezorgerLijst {
 
     private static ArrayList<Bezorger> bezorgers;
 
-
     public BezorgerLijst() {
         bezorgers = new ArrayList<>();
     }
