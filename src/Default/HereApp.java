@@ -36,7 +36,7 @@ public class HereApp extends JFrame implements ActionListener {
     private AdressenLijst adressenLijst = new AdressenLijst();
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
-    private String huisnummerStr;
+    private int huisnummerint;
     private JButton toevoegenAdres;
     private JButton startenRoute;
     private BezorgerSteden bezorgerSteden = new BezorgerSteden();
@@ -46,6 +46,7 @@ public class HereApp extends JFrame implements ActionListener {
     private String provincie;
     private static SQLFuncties f = new SQLFuncties();
     private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> Route = new ArrayList<>();
     private String selectedProvincie;
 
 
@@ -65,6 +66,7 @@ public class HereApp extends JFrame implements ActionListener {
         list.add("Zeeland");
         JLabel keuze1 = new JLabel("Kies een adres om toe te voegen aan uw route:");
         JLabel keuze2 = new JLabel("Kies uw bezorger:");
+        JLabel gemaakteRoute = new JLabel();
         setLayout(new FlowLayout());
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panel2 = new JPanel(new BorderLayout());
@@ -75,13 +77,12 @@ public class HereApp extends JFrame implements ActionListener {
         adresLijst = new JList<>(new DefaultListModel<>());
         lijstItem = (DefaultListModel) adresLijst.getModel();
 
-
-
         /** Ophalen provincies beschikbaar **/
         JComboBox provincies = new JComboBox();
         provincies.setModel(new DefaultComboBoxModel<String>(list.toArray(new String[0])));
         selectedProvincie = String.valueOf(provincies.getSelectedItem());
-        //f.getAdressenBijProvincie("Gelderland");
+        f.getAdressenBijProvincie("Noord-Holland");
+
         provincies.addActionListener(e -> {
             JComboBox comboBox = (JComboBox) e.getSource();
             Object selected = comboBox.getSelectedItem();
@@ -222,6 +223,39 @@ public class HereApp extends JFrame implements ActionListener {
 
         JScrollPane scrollijst = new JScrollPane(adresLijst);
         scrollijst.setPreferredSize(new Dimension(250, 125));
+
+        adresLijst.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && !adresLijst.isSelectionEmpty()) {
+                    String selectedItem = adresLijst.getSelectedValue();
+                    if(!Route.contains(selectedItem)) {
+                        Route.add(selectedItem);
+                        System.out.println(selectedItem);
+                        //getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+                    } else {
+                        System.out.println("Het adres is al toegevoegd aan de lijst!");
+                    }
+                    gemaakteRoute.setText("\n Opgestelde route: "+ Route.toString());
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         panel3.add(provincies);
 
 
@@ -238,6 +272,7 @@ public class HereApp extends JFrame implements ActionListener {
 
         keuze1.setLabelFor(scrollijst);
         panel.add(keuze1, BorderLayout.NORTH);
+        panel.add(gemaakteRoute, BorderLayout.SOUTH);
         panel.add(scrollijst);
 
         keuze2.setLabelFor(scrollableList);
@@ -291,7 +326,6 @@ public class HereApp extends JFrame implements ActionListener {
                 }
             }
 
-
             @Override
             public void mousePressed(MouseEvent e) {
 
@@ -313,27 +347,24 @@ public class HereApp extends JFrame implements ActionListener {
             }
         });
 
-        toevoegenAdres = new JButton("Toevoegen adres");
-        toevoegenAdres.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String straatnaamSpaces = straatnaamJtf.getText();
-                straatnaamStr = straatnaamSpaces.replaceAll("\\s+","");
-                huisnummerStr = huisnummerJtf.getText();
-                String stadStr = stadJtf.getText();
-                url = "https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaamStr + "+" + huisnummerStr + "%2C+" + stadStr + "&apiKey="+apiKey;
-
-
-                try {
-                    getLongitudeLangitude(straatnaamStr, huisnummerStr, stadStr);
-                } catch (IOException | JSONException ex) {
-                    ex.printStackTrace();
-                }
-
-                System.out.println(bezorgerSteden.getInitialSteden());
-            }
-        });
-//        panel.add(toevoegenAdres);
+//        toevoegenAdres = new JButton("Toevoegen adres");
+//        toevoegenAdres.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String straatnaamSpaces = straatnaamJtf.getText();
+//                straatnaamStr = adressenLijst.getStad();
+//                huisnummerint = adressenLijst.getHuisnummer();
+//                String stadStr = adressenLijst.getStraat();
+//                try {
+//                    getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+//                } catch (IOException | JSONException ex) {
+//                    ex.printStackTrace();
+//                }
+//
+//                System.out.println(bezorgerSteden.getInitialSteden());
+//            }
+//        });
+        //add(toevoegenAdres);
 //        panel.add(startenRoute);
         add(panel3);
         add(panel);
@@ -352,13 +383,10 @@ public class HereApp extends JFrame implements ActionListener {
 
     public static void main(String[] args) throws IOException, JSONException, SQLException {
         HereApp h = new HereApp();
-        f.vulBezorgAdressen();
-        AdressenLijst al = new AdressenLijst();
         f.getAdressenBijProvincie("Gelderland");
-       // al.get
     }
 
-    public void getLongitudeLangitude(String straatnaam, String huisnummer, String stad) throws IOException, JSONException{
+    public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException{
         URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam + "+" + huisnummer + "%2C+" + stad + "&apiKey="+apiKey);
         HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
@@ -383,7 +411,7 @@ public class HereApp extends JFrame implements ActionListener {
             longitude = position.getDouble("lng");
             provincie = adressinfo.getString("state");
 
-            Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerStr, provincie);
+            Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerint, provincie);
             bezorgerSteden.addStad(nieuweStad);
 
             System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng") + " : " + adressinfo.getString("state"));

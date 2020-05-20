@@ -7,10 +7,10 @@ public class Stad {
     private double latitude;
     private String naam;
     private String straatnaam;
-    private String huisnummer;
+    private int huisnummer;
     private String provincie;
 
-    public Stad(String naam, double latitude, double longitude, String straatnaam, String huisnummer, String provincie ) {
+    public Stad(String naam, double latitude, double longitude, String straatnaam, int huisnummer, String provincie ) {
         this.naam = naam;
         this.latitude = latitude * gradenNaarRadius;
         this.longitude = longitude * gradenNaarRadius;
@@ -27,7 +27,7 @@ public class Stad {
         return straatnaam;
     }
 
-    public String getHuisnummer() {
+    public int getHuisnummer() {
         return huisnummer;
     }
 

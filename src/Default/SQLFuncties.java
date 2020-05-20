@@ -54,24 +54,9 @@ public class SQLFuncties {
         System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='"+provincie+"'");
         AdressenLijst al = new AdressenLijst();
         al.clearAdressen();
-        while (r.next()) {
-            al.addAdres(r.getString("Street_Name")  +" "+ r.getString("House_Number"));
-        }
-
-    }
-
-    public void vulBezorgAdressen() throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
-        Connection dbc = bezorger.getConnection();
-
-        Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
-                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0");
-        AdressenLijst al = new AdressenLijst();
 
         while (r.next()) {
-            al.addAdres(r.getString("Street_Name")  +" "+ r.getString("House_Number"));
-            al.addProvincie(r.getString("Province"));
+            al.addAdres(r.getString("Street_Name"),  r.getInt("House_Number"), r.getString("City"));
         }
 
     }
