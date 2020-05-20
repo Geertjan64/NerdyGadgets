@@ -20,7 +20,7 @@ public class BezorgerActiviteit extends JFrame {
         // Temporary data
         Object[][] rowData = {{"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column4", "Row1-Column5", "Row1-Column6"}};
         // Array for columnNames
-        Object[] columnNames = {"City", "Zip_Code", "Country", "Street_Name", "House_Number", "Addition"};
+        Object[] columnNames = {"Route", "Provincie"};
 
         // Creating table
         DefaultTableModel mTableModel = new DefaultTableModel(rowData, columnNames);
@@ -30,10 +30,8 @@ public class BezorgerActiviteit extends JFrame {
         Connection dbc = bezorgerGegevens.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet rs = st.executeQuery("SELECT City, Zip_Code, Country, Street_Name, House_Number, Addition from address " +
-                "WHERE Address_ID = " +
-                "((SELECT Address_1 FROM customer WHERE Customer_ID IN " +
-                "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + werknemer_ID + "))) ");
+        ResultSet rs = st.executeQuery("SELECT Route, Province FROM optimal_route WHERE Deliverer_ID="+werknemer_ID);
+
 
         // remove the temp row previously created
         mTableModel.removeRow(0);
@@ -42,7 +40,7 @@ public class BezorgerActiviteit extends JFrame {
         // For each row
         while (rs.next()) {
             // adding values to temporary rows
-            rows = new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+            rows = new Object[]{rs.getString(1), rs.getString(2)};
             mTableModel.addRow(rows);
         }
 
