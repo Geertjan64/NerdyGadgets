@@ -78,7 +78,7 @@ public class BezorgerBeheer extends JFrame {
         });
 
         SQLFuncties f = new SQLFuncties();
-        f.getDataRows();
+        f.getBezorgers();
 
         // Initialize the JLists and fill them with employees
         bezorglijstInactief = new JList<>(new DefaultListModel<>());

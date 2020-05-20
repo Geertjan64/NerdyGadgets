@@ -18,7 +18,7 @@ public class SQLFuncties {
     private String functie;
     private int actief;
 
-    public void getDataRows() throws SQLException {
+    public void getBezorgers() throws SQLException {
         DatabaseReader bezorger = new DatabaseReader();
         Connection dbc = bezorger.getConnection();
 
@@ -28,7 +28,6 @@ public class SQLFuncties {
         BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
         while (r.next()) {
-
             id = r.getInt("Employee_ID");
             voornaam = r.getString("Firstname");
             achternaam = r.getString("Lastname");
@@ -42,6 +41,39 @@ public class SQLFuncties {
             teller++;
 
         }
+    }
+
+    public void getAdressenBijProvincie(String provincie) throws SQLException {
+        DatabaseReader bezorger = new DatabaseReader();
+        Connection dbc = bezorger.getConnection();
+
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer " +
+                "INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
+                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='"+provincie+"'");
+        System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='"+provincie+"'");
+        AdressenLijst al = new AdressenLijst();
+        al.clearAdressen();
+        while (r.next()) {
+            al.addAdres(r.getString("Street_Name")  +" "+ r.getString("House_Number"));
+        }
+
+    }
+
+    public void vulBezorgAdressen() throws SQLException {
+        DatabaseReader bezorger = new DatabaseReader();
+        Connection dbc = bezorger.getConnection();
+
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
+                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0");
+        AdressenLijst al = new AdressenLijst();
+
+        while (r.next()) {
+            al.addAdres(r.getString("Street_Name")  +" "+ r.getString("House_Number"));
+            al.addProvincie(r.getString("Province"));
+        }
+
     }
 
     public void updateActief(int activiteit, int werknemerID) throws SQLException {

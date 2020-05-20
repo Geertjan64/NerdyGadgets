@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +28,11 @@ public class HereApp extends JFrame implements ActionListener {
     public static int bezorgerID;
     private JLabel gekozenBezorger;
     private JList<String> bezorglijst;
+    private JList<String> adresLijst;
     private DefaultListModel model;
+    private DefaultListModel lijstItem;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
+    private AdressenLijst adressenLijst = new AdressenLijst();
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
     private String huisnummerStr;
@@ -39,39 +43,207 @@ public class HereApp extends JFrame implements ActionListener {
     private double longitude;
     private double latitude;
     private String provincie;
+    private static SQLFuncties f = new SQLFuncties();
+    private ArrayList<String> list = new ArrayList<>();
+    private String selectedProvincie;
 
-    public HereApp() throws  IOException, JSONException, SQLException {
+
+    public HereApp() throws SQLException {
         super("Inplannen route");
-        JPanel panel = new JPanel();
-
-        setSize(1200,800);
+        list.add("Noord-holland");
+        list.add("Zuid-holland");
+        list.add("Utrecht");
+        list.add("Drenthe");
+        list.add("Overijssel");
+        list.add("Gelderland");
+        list.add("Groningen");
+        list.add("Noord-Brabant");
+        list.add("Limburg");
+        list.add("Friesland");
+        list.add("Flevoland");
+        list.add("Zeeland");
+        JLabel keuze1 = new JLabel("Kies een adres om toe te voegen aan uw route:");
+        JLabel keuze2 = new JLabel("Kies uw bezorger:");
         setLayout(new FlowLayout());
+        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel2 = new JPanel(new BorderLayout());
+        JPanel panel3 = new JPanel(new BorderLayout());
+        setSize(1200,800);
 
-        JLabel straatnaamLbl = new JLabel("Straatnaam");
-        JLabel huisnummerLbl = new JLabel("Huisnummer");
-        JLabel stadLbl = new JLabel("Stad");
+        /** Ophalen openstaande bezorg adressen **/
+        adresLijst = new JList<>(new DefaultListModel<>());
+        lijstItem = (DefaultListModel) adresLijst.getModel();
 
-        SQLFuncties f = new SQLFuncties();
-        f.getDataRows();
 
+
+        /** Ophalen provincies beschikbaar **/
+        JComboBox provincies = new JComboBox();
+        provincies.setModel(new DefaultComboBoxModel<String>(list.toArray(new String[0])));
+        selectedProvincie = String.valueOf(provincies.getSelectedItem());
+        //f.getAdressenBijProvincie("Gelderland");
+        provincies.addActionListener(e -> {
+            JComboBox comboBox = (JComboBox) e.getSource();
+            Object selected = comboBox.getSelectedItem();
+
+            if(selected.toString().equalsIgnoreCase("Noord-holland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Noord-holland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Zuid-Holland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Zuid-holland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Gelderland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Gelderland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Utrecht")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Utrecht");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Noord-brabant")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Noord-brabant");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Drenthe")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Drenthe");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Overijssel")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Overijssel");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Limburg")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Limburg");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Friesland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Friesland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Groningen")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Groningen");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Zeeland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Zeeland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            else if(selected.toString().equalsIgnoreCase("Flevoland")) {
+                try {
+                    lijstItem.clear();
+                    f.getAdressenBijProvincie("Flevoland");
+                    for (int i = 0; i < adressenLijst.getAdressen().size(); i++) {
+                        lijstItem.addElement(adressenLijst.getAdressen().get(i).toString());
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        JScrollPane scrollijst = new JScrollPane(adresLijst);
+        scrollijst.setPreferredSize(new Dimension(250, 125));
+        panel3.add(provincies);
+
+
+        /** Ophalen bezorgers en in een Scrollable list zetten **/
+        f.getBezorgers();
         bezorglijst = new JList<>(new DefaultListModel<>());
         model = (DefaultListModel) bezorglijst.getModel();
 
         for (int i = 0; i < bezorgerLijst.getBezorgers().size(); i++) {
             model.addElement(bezorgerLijst.getBezorgers().get(i).toString());
         }
-
         JScrollPane scrollableList = new JScrollPane(bezorglijst);
         scrollableList.setPreferredSize(new Dimension(250, 125));
 
-        JLabel kiesBezorger = new JLabel("Kies een bezorger uit de lijst:");
-        add(kiesBezorger);
+        keuze1.setLabelFor(scrollijst);
+        panel.add(keuze1, BorderLayout.NORTH);
+        panel.add(scrollijst);
 
-        panel.add(scrollableList);
-        add(panel);
+        keuze2.setLabelFor(scrollableList);
+        panel2.add(keuze2, BorderLayout.NORTH);
+        panel2.add(scrollableList);
 
         startenRoute = new JButton("Start");
-
         straatnaamJtf = new JTextField(30);
         huisnummerJtf = new JTextField(8);
         stadJtf = new JTextField(10);
@@ -152,16 +324,12 @@ public class HereApp extends JFrame implements ActionListener {
                 System.out.println(bezorgerSteden.getInitialSteden());
             }
         });
-
-        add(straatnaamLbl);
-        add(straatnaamJtf);
-        add(huisnummerLbl);
-        add(huisnummerJtf);
-        add(stadLbl);
-        add(stadJtf);
-        add(toevoegenAdres);
-        add(startenRoute);
-        add(gekozenBezorger);
+//        panel.add(toevoegenAdres);
+//        panel.add(startenRoute);
+        add(panel3);
+        add(panel);
+        add(panel2);
+        //add(gekozenBezorger);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
@@ -175,7 +343,10 @@ public class HereApp extends JFrame implements ActionListener {
 
     public static void main(String[] args) throws IOException, JSONException, SQLException {
         HereApp h = new HereApp();
-
+        f.vulBezorgAdressen();
+        AdressenLijst al = new AdressenLijst();
+        f.getAdressenBijProvincie("Gelderland");
+       // al.get
     }
 
     public void getLongitudeLangitude(String straatnaam, String huisnummer, String stad) throws IOException, JSONException{

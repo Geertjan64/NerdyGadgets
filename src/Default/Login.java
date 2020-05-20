@@ -147,10 +147,6 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == routeinplannen) {
             try {
                 HereApp h = new HereApp();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (JSONException ex) {
-                ex.printStackTrace();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
