@@ -43,7 +43,7 @@ public class Login extends JFrame implements ActionListener {
         username = new JLabel("User - ");
         password = new JLabel("Pass - ");
 
-        setSize(300,200);
+        setSize(300, 200);
         setLocation(500, 280);
         loginpanel.setLayout(null);
 
@@ -74,7 +74,7 @@ public class Login extends JFrame implements ActionListener {
     public void checkAccount(String user, String pass) throws SQLException {
         DatabaseReader acc = new DatabaseReader();
         Connection dbc = acc.getConnection();
-        String query = "SELECT * FROM `employee` WHERE `Email` = '"+user+"' AND `Password` = '"+pass+"'";
+        String query = "SELECT * FROM `employee` WHERE `Email` = '" + user + "' AND `Password` = '" + pass + "'";
 
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery(query);
@@ -91,7 +91,7 @@ public class Login extends JFrame implements ActionListener {
 
             if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
 
-                if(Function.equalsIgnoreCase("bezorger")) {
+                if (Function.equalsIgnoreCase("bezorger")) {
                     planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(hroutes);
                     newScherm.add(routestarten);
@@ -99,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
                     newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
                 }
 
-                if(Function.equalsIgnoreCase("beheerder")) {
+                if (Function.equalsIgnoreCase("beheerder")) {
                     planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(beherenadressen);
                     newScherm.add(beherenbezorgers);
@@ -109,7 +109,7 @@ public class Login extends JFrame implements ActionListener {
                     newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
                 }
 
-                if(Function.equalsIgnoreCase("planner")) {
+                if (Function.equalsIgnoreCase("planner")) {
                     planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(routeinplannen);
                     newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
@@ -118,7 +118,7 @@ public class Login extends JFrame implements ActionListener {
 
                 this.setVisible(false);
                 newScherm.setVisible(true);
-                JOptionPane.showMessageDialog(this, "Welkom "+Function+"!");
+                JOptionPane.showMessageDialog(this, "Welkom " + Function + "!");
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
                 this.pass.setText(null);
@@ -151,48 +151,51 @@ public class Login extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
 
-
-            if (e.getSource() == routestarten) {
-
-            }
-
-            if (e.getSource() == gemaakteritten) {
-
-            }
-
-            if (e.getSource() == beherenadressen) {
-
-            }
-
-            if (e.getSource() == beherenklantgegevens) {
-                try {
-                    EditCustomer ec = new EditCustomer();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            if (e.getSource() == beherenorders) {
-                try {
-                    EditOrder eo = new EditOrder();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            if (e.getSource() == beherenbezorgers) {
-                try {
-                    BezorgerBeheer b = new BezorgerBeheer();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            if (e.getSource() == beherenroute) {
-
-            }
+        }
+        if (e.getSource() == routestarten) {
 
         }
+
+        if (e.getSource() == gemaakteritten) {
+
+        }
+
+        if (e.getSource() == beherenadressen) {
+
+        }
+
+        if (e.getSource() == beherenklantgegevens) {
+            try {
+                EditCustomer ec = new EditCustomer();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (e.getSource() == beherenorders) {
+            try {
+                EditOrder eo = new EditOrder();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (e.getSource() == beherenbezorgers) {
+            try {
+                BezorgerBeheer b = new BezorgerBeheer();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if (e.getSource() == beherenroute) {
+            try {
+                BeheerRoute br = new BeheerRoute();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
     public static void main(String[] args) {
         new Login();
