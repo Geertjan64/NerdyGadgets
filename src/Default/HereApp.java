@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
+    private HereApp hereApp;
     public static int bezorgerID;
     private JLabel gekozenBezorger;
     private JList<String> bezorglijst;
@@ -255,14 +256,22 @@ public class HereApp extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Stad> steden = new ArrayList<Stad>();
                 steden.addAll(bezorgerSteden.initialSteden);
-                try {
-                    bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if (bezorgerID == 0) {
+                    JOptionPane.showMessageDialog(hereApp, "U moet een bezorger kiezen");
+                }
+                if (steden.size() < 3) {
+                    JOptionPane.showMessageDialog(hereApp, "U moet meer dan 2 adressen opgeven.");
+                }
+                else {
+                    try {
+                        bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
