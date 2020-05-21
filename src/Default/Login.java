@@ -63,6 +63,7 @@ public class Login extends JFrame implements ActionListener {
         routeinplannen.addActionListener(this);
         beherenbezorgers.addActionListener(this);
         beherenklantgegevens.addActionListener(this);
+        beherenroute.addActionListener(this);
         beherenorders.addActionListener(this);
 
         getContentPane().add(loginpanel);
