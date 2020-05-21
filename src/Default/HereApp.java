@@ -20,7 +20,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HereApp extends JFrame implements ActionListener {
@@ -37,6 +40,7 @@ public class HereApp extends JFrame implements ActionListener {
     private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
     private int huisnummerint;
+    private String stadStr;
     private JButton toevoegenAdres;
     private JButton startenRoute;
     private BezorgerSteden bezorgerSteden = new BezorgerSteden();
@@ -231,8 +235,60 @@ public class HereApp extends JFrame implements ActionListener {
                     String selectedItem = adresLijst.getSelectedValue();
                     if(!Route.contains(selectedItem)) {
                         Route.add(selectedItem);
-                        System.out.println(selectedItem);
-                        //getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+
+                        String[] temp;
+                        String delimiter = " ";
+
+                        temp = selectedItem.split(delimiter);
+                        straatnaamStr = temp[0];
+                        huisnummerint = Integer.parseInt(temp[1]);
+
+
+                        DatabaseReader acc = new DatabaseReader();
+                        Connection dbc = acc.getConnection();
+                        String query = "SELECT * FROM `address` WHERE `Street_Name` = '"+ straatnaamStr +"' AND `House_Number` = "+ huisnummerint +"";
+                        Statement st = null;
+                        try {
+                            st = dbc.createStatement();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        ResultSet r = null;
+                        try {
+                            r = st.executeQuery(query);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            r.first();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        try {
+                            straatnaamStr = r.getString("Street_Name");
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            huisnummerint = r.getInt("House_Number");
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            stadStr = r.getString("City");
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        System.out.println(straatnaamStr + " " + huisnummerint + " " +  stadStr);
+
+                        try {
+                            getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
                     } else {
                         System.out.println("Het adres is al toegevoegd aan de lijst!");
                     }
