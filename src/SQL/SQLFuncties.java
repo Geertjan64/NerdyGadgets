@@ -1,4 +1,8 @@
-package Default;
+package SQL;
+
+import Default.Entiteit.AdressenLijst;
+import Default.Entiteit.Bezorger;
+import Default.Entiteit.BezorgerLijst;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

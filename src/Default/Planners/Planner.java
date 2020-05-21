@@ -1,4 +1,6 @@
-package Default;
+package Default.Planners;
+
+import Default.Entiteit.Werknemer;
 
 public class Planner extends Werknemer {
 
@@ -27,7 +29,7 @@ public class Planner extends Werknemer {
 
     @Override
     public String toString() {
-        return "Default.Planner{" +
+        return "Default.Planners.Planner{" +
                 "middlename='" + tussenvoegsel + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

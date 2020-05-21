@@ -1,4 +1,7 @@
-package Default;
+package Default.Bezorgers;
+
+import Default.Entiteit.BezorgerLijst;
+import SQL.SQLFuncties;
 
 import javax.swing.*;
 import java.awt.*;

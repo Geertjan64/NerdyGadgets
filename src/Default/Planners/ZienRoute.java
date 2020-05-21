@@ -1,4 +1,6 @@
-package Default;
+package Default.Planners;
+
+import SQL.DatabaseReader;
 
 import javax.swing.*;
 import java.awt.*;

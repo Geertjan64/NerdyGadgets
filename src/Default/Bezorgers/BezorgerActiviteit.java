@@ -1,4 +1,6 @@
-package Default;
+package Default.Bezorgers;
+
+import SQL.DatabaseReader;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

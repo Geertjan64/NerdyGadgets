@@ -1,5 +1,9 @@
-package Default;
+package Default.Planners;
 
+import Default.Entiteit.AdressenLijst;
+import Default.Entiteit.BezorgerLijst;
+import SQL.DatabaseReader;
+import SQL.SQLFuncties;
 import TSP.AlgoritmeNB;
 import TSP.BezorgerSteden;
 import TSP.Stad;
@@ -8,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,9 +29,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class HereApp extends JFrame implements ActionListener {
+public class InplannenRoute extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
-    private HereApp hereApp;
+    private InplannenRoute inplannenRoute;
     public static int bezorgerID;
     private JLabel gekozenBezorger;
     private JList<String> bezorglijst;
@@ -54,7 +57,7 @@ public class HereApp extends JFrame implements ActionListener {
     private String selectedProvincie;
 
 
-    public HereApp() throws SQLException {
+    public InplannenRoute() throws SQLException {
         super("Inplannen route");
         list.add("Noord-holland");
         list.add("Zuid-holland");
@@ -75,7 +78,7 @@ public class HereApp extends JFrame implements ActionListener {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panel2 = new JPanel(new BorderLayout());
         JPanel panel3 = new JPanel(new BorderLayout());
-        setSize(1200,800);
+        setSize(1200, 800);
 
         /** Ophalen openstaande bezorg adressen **/
         adresLijst = new JList<>(new DefaultListModel<>());
@@ -91,7 +94,7 @@ public class HereApp extends JFrame implements ActionListener {
             JComboBox comboBox = (JComboBox) e.getSource();
             Object selected = comboBox.getSelectedItem();
 
-            if(selected.toString().equalsIgnoreCase("Noord-holland")) {
+            if (selected.toString().equalsIgnoreCase("Noord-holland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Noord-holland");
@@ -101,8 +104,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Zuid-Holland")) {
+            } else if (selected.toString().equalsIgnoreCase("Zuid-Holland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Zuid-holland");
@@ -112,8 +114,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Gelderland")) {
+            } else if (selected.toString().equalsIgnoreCase("Gelderland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Gelderland");
@@ -123,8 +124,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Utrecht")) {
+            } else if (selected.toString().equalsIgnoreCase("Utrecht")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Utrecht");
@@ -134,8 +134,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Noord-brabant")) {
+            } else if (selected.toString().equalsIgnoreCase("Noord-brabant")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Noord-brabant");
@@ -145,8 +144,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Drenthe")) {
+            } else if (selected.toString().equalsIgnoreCase("Drenthe")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Drenthe");
@@ -156,8 +154,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Overijssel")) {
+            } else if (selected.toString().equalsIgnoreCase("Overijssel")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Overijssel");
@@ -167,8 +164,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Limburg")) {
+            } else if (selected.toString().equalsIgnoreCase("Limburg")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Limburg");
@@ -178,8 +174,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Friesland")) {
+            } else if (selected.toString().equalsIgnoreCase("Friesland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Friesland");
@@ -189,8 +184,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Groningen")) {
+            } else if (selected.toString().equalsIgnoreCase("Groningen")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Groningen");
@@ -200,8 +194,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Zeeland")) {
+            } else if (selected.toString().equalsIgnoreCase("Zeeland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Zeeland");
@@ -211,8 +204,7 @@ public class HereApp extends JFrame implements ActionListener {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            else if(selected.toString().equalsIgnoreCase("Flevoland")) {
+            } else if (selected.toString().equalsIgnoreCase("Flevoland")) {
                 try {
                     lijstItem.clear();
                     f.getAdressenBijProvincie("Flevoland");
@@ -233,7 +225,7 @@ public class HereApp extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && !adresLijst.isSelectionEmpty()) {
                     String selectedItem = adresLijst.getSelectedValue();
-                    if(!Route.contains(selectedItem)) {
+                    if (!Route.contains(selectedItem)) {
                         Route.add(selectedItem);
 
                         String[] temp;
@@ -246,7 +238,7 @@ public class HereApp extends JFrame implements ActionListener {
 
                         DatabaseReader acc = new DatabaseReader();
                         Connection dbc = acc.getConnection();
-                        String query = "SELECT * FROM `address` WHERE `Street_Name` = '"+ straatnaamStr +"' AND `House_Number` = "+ huisnummerint +"";
+                        String query = "SELECT * FROM `address` WHERE `Street_Name` = '" + straatnaamStr + "' AND `House_Number` = " + huisnummerint + "";
                         Statement st = null;
                         try {
                             st = dbc.createStatement();
@@ -280,7 +272,7 @@ public class HereApp extends JFrame implements ActionListener {
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-                        System.out.println(straatnaamStr + " " + huisnummerint + " " +  stadStr);
+                        System.out.println(straatnaamStr + " " + huisnummerint + " " + stadStr);
 
                         try {
                             getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
@@ -292,21 +284,25 @@ public class HereApp extends JFrame implements ActionListener {
                     } else {
                         System.out.println("Het adres is al toegevoegd aan de lijst!");
                     }
-                    gemaakteRoute.setText("\n Opgestelde route: "+ Route.toString());
+                    gemaakteRoute.setText("\n Opgestelde route: " + Route.toString());
                 }
             }
+
             @Override
             public void mousePressed(MouseEvent e) {
 
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
 
             }
+
             @Override
             public void mouseEntered(MouseEvent e) {
 
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
 
@@ -348,11 +344,11 @@ public class HereApp extends JFrame implements ActionListener {
                 ArrayList<Stad> steden = new ArrayList<Stad>();
                 steden.addAll(bezorgerSteden.initialSteden);
                 if (bezorgerID == 0) {
-                    JOptionPane.showMessageDialog(hereApp, "U moet een bezorger kiezen");
+                    JOptionPane.showMessageDialog(inplannenRoute, "U moet een bezorger kiezen");
                 }
-                if (steden.size() < 3) {
-                    JOptionPane.showMessageDialog(hereApp, "U moet meer dan 2 adressen opgeven.");
-                }
+//                if (steden.size() < 3) {
+//                    JOptionPane.showMessageDialog(hereApp, "U moet meer dan 2 adressen opgeven.");
+//                }
                 else {
                     try {
                         bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
@@ -421,7 +417,7 @@ public class HereApp extends JFrame implements ActionListener {
 //            }
 //        });
         //add(toevoegenAdres);
-//        panel.add(startenRoute);
+        add(startenRoute);
         add(panel3);
         add(panel);
         add(panel2);
@@ -438,15 +434,15 @@ public class HereApp extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) throws IOException, JSONException, SQLException {
-        HereApp h = new HereApp();
+        InplannenRoute h = new InplannenRoute();
         f.getAdressenBijProvincie("Gelderland");
     }
 
-    public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException{
-        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam + "+" + huisnummer + "%2C+" + stad + "&apiKey="+apiKey);
+    public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException {
+        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
         HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
-        if(hr.getResponseCode() == 200) {
+        if (hr.getResponseCode() == 200) {
             InputStream im = hr.getInputStream();
             StringBuffer sb = new StringBuffer();
             BufferedReader br = new BufferedReader(new InputStreamReader(im));

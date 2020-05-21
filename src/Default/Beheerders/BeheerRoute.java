@@ -1,4 +1,7 @@
-package Default;
+package Default.Beheerders;
+
+import Default.Planners.ZienRoute;
+import SQL.DatabaseReader;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package TSP;
-import Default.HereApp;
-import Default.SQLFuncties;
+import Default.Planners.InplannenRoute;
+import SQL.SQLFuncties;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class AlgoritmeNB {
 
     private SQLFuncties f;
-    private HereApp s;
+    private InplannenRoute s;
     public String provincie = "";
     public String route = "";
 
@@ -38,8 +38,8 @@ public class AlgoritmeNB {
         }
         f = new SQLFuncties();
 
-        System.out.println(HereApp.bezorgerID);
-        f.insertKortsteRoute(route,provincie, HereApp.bezorgerID);
+        System.out.println(InplannenRoute.bezorgerID);
+        f.insertKortsteRoute(route,provincie, InplannenRoute.bezorgerID);
         return new Route(kortsteRouteSteden);
     }
 

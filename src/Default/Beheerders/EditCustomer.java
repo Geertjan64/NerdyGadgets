@@ -1,4 +1,4 @@
-package Default;
+package Default.Beheerders;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-class EditCustomer
+public class EditCustomer
 {
     // Define database variables
     private static Connection con = null;

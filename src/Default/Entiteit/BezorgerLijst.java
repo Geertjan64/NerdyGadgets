@@ -1,4 +1,4 @@
-package Default;
+package Default.Entiteit;
 
 import java.util.ArrayList;
 

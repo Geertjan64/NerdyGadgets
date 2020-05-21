@@ -1,4 +1,6 @@
-package Default;
+package Default.Entiteit;
+
+import Default.Entiteit.Werknemer;
 
 public class Bezorger extends Werknemer {
 
