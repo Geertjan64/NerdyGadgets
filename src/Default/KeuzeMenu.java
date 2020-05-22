@@ -16,7 +16,6 @@ public class KeuzeMenu extends JFrame {
     private JMenuItem logout;
 
     public KeuzeMenu() {
-
         /** JFrame **/
         super("Routebepaling - Keuzemenu | ");
         setSize(600, 400);

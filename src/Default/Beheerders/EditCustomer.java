@@ -23,7 +23,6 @@ public class EditCustomer
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
     private static final String pass = "";
-    private Object JTable;
 
 
     /**
@@ -32,12 +31,10 @@ public class EditCustomer
      */
     public EditCustomer() throws SQLException
     {
-
         Statement stmt;
         String query;
-        String query2;
         ResultSet rs;
-        ResultSet result;
+
 
         // Temporary data
         Object[][] rowData = {{"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column4", "Row1-Column5", "Row1-Column6"}};

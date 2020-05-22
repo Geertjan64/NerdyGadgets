@@ -10,8 +10,6 @@ import java.util.Arrays;
 
 public class AlgoritmeNB {
 
-    private SQLFuncties f;
-    private InplannenRoute s;
     public String provincie = "";
     public String route = "";
 
@@ -36,19 +34,11 @@ public class AlgoritmeNB {
             provincie = s.getProvincie();
             route += "["+ i +"]: "+s.getNaam() +", "+s.getStraatnaam()+" "+ s.getHuisnummer() + ", "+s.getProvincie()+" ";
         }
-        f = new SQLFuncties();
+        SQLFuncties f = new SQLFuncties();
 
         System.out.println(InplannenRoute.bezorgerID);
         f.insertKortsteRoute(route,provincie, InplannenRoute.bezorgerID);
         return new Route(kortsteRouteSteden);
-    }
-
-    public String getProvincie() {
-        return provincie;
-    }
-
-    public String getRoute() {
-        return route;
     }
 
     public void updateRoutes(ArrayList<Stad> kortsteStedenRoutes, ArrayList<Stad> steden, Stad stad) {

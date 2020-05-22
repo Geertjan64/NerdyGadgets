@@ -22,7 +22,6 @@ public class EditOrder {
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
     private static final String pass = "";
-    private Object JTable;
 
 
     /**
