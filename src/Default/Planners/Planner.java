@@ -15,14 +15,6 @@ public class Planner extends Werknemer {
         this.function = function;
     }
 
-    public String getTussenvoegsel() {
-        return tussenvoegsel;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     public String getFunction() {
         return function;
     }

@@ -40,21 +40,18 @@ public class InplannenRoute extends JFrame implements ActionListener {
     private DefaultListModel lijstItem;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
     private AdressenLijst adressenLijst = new AdressenLijst();
-    private JTextField straatnaamJtf, huisnummerJtf, stadJtf;
     private String straatnaamStr;
     private int huisnummerint;
     private String stadStr;
     private JButton toevoegenAdres;
     private JButton startenRoute;
     private BezorgerSteden bezorgerSteden = new BezorgerSteden();
-    private String url;
     private double longitude;
     private double latitude;
     private String provincie;
     private static SQLFuncties f = new SQLFuncties();
     private ArrayList<String> list = new ArrayList<>();
-    private ArrayList<String> Route = new ArrayList<>();
-    private String selectedProvincie;
+    private ArrayList<String> route = new ArrayList<>();
 
 
     public InplannenRoute() throws SQLException {
@@ -87,7 +84,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
         /** Ophalen provincies beschikbaar **/
         JComboBox provincies = new JComboBox();
         provincies.setModel(new DefaultComboBoxModel<String>(list.toArray(new String[0])));
-        selectedProvincie = String.valueOf(provincies.getSelectedItem());
+        String selectedProvincie = String.valueOf(provincies.getSelectedItem());
         f.getAdressenBijProvincie("Noord-Holland");
 
         provincies.addActionListener(e -> {
@@ -225,8 +222,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2 && !adresLijst.isSelectionEmpty()) {
                     String selectedItem = adresLijst.getSelectedValue();
-                    if (!Route.contains(selectedItem)) {
-                        Route.add(selectedItem);
+                    if (!route.contains(selectedItem)) {
+                        route.add(selectedItem);
 
                         String[] temp;
                         String delimiter = " ";
@@ -284,7 +281,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                     } else {
                         System.out.println("Het adres is al toegevoegd aan de lijst!");
                     }
-                    gemaakteRoute.setText("\n Opgestelde route: " + Route.toString());
+                    gemaakteRoute.setText("\n Opgestelde route: " + route.toString());
                 }
             }
 
@@ -332,9 +329,9 @@ public class InplannenRoute extends JFrame implements ActionListener {
         panel2.add(scrollableList);
 
         startenRoute = new JButton("Start");
-        straatnaamJtf = new JTextField(30);
-        huisnummerJtf = new JTextField(8);
-        stadJtf = new JTextField(10);
+        JTextField straatnaamJtf = new JTextField(30);
+        JTextField huisnummerJtf = new JTextField(8);
+        JTextField stadJtf = new JTextField(10);
 
         gekozenBezorger = new JLabel("Let op, je hebt geen bezorger gekozen!");
 
@@ -427,10 +424,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
         setResizable(true);
         setVisible(true);
 
-    }
-
-    public int getBezorgerID() {
-        return this.bezorgerID;
     }
 
     public static void main(String[] args) throws IOException, JSONException, SQLException {
