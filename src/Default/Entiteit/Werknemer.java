@@ -23,18 +23,6 @@ public abstract class Werknemer {
     public String getVoornaam() {
         return voornaam;
     }
-
-    public String getAchternaam() {
-        return achternaam;
-    }
-
-    public String getTussenvoegsel() {
-        return tussenvoegsel;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 }
 
 

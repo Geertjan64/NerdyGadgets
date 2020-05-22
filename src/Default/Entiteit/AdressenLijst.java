@@ -19,21 +19,21 @@ public class AdressenLijst {
         adressen.add(straat +" "+huisnummer);
     }
 
-    public int getHuisnummer() {
-        return huisnummer;
-    }
-
-    public String getStraat() {
-        return straat;
-    }
-
-    public String getStad() {
-        return stad;
-    }
-
-    public ArrayList<String> getProvincies() {
-        return provincies;
-    }
+//    public int getHuisnummer() {
+//        return huisnummer;
+//    }
+//
+//    public String getStraat() {
+//        return straat;
+//    }
+//
+//    public String getStad() {
+//        return stad;
+//    }
+//
+//    public ArrayList<String> getProvincies() {
+//        return provincies;
+//    }
 
     public ArrayList<String> getAdressen() { return adressen; }
 
@@ -41,6 +41,6 @@ public class AdressenLijst {
         adressen.clear();
     }
 
-    public void addProvincie(String provincie) { provincies.add(provincie); }
+//    public void addProvincie(String provincie) { provincies.add(provincie); }
 
 }
