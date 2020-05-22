@@ -58,4 +58,8 @@ public class BeheerRoute extends JFrame{
             }
         });
     }
+
+    public static void main(String[] args) throws SQLException {
+        BeheerRoute br = new BeheerRoute();
+    }
 }
