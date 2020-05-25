@@ -24,7 +24,7 @@ public class Routes {
 
     @Override
     public String toString() {
-        return getId() + " - " + getRoute();
+        return "Route - "+getId();
     }
 
 }

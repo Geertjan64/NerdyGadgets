@@ -114,6 +114,25 @@ public class SQLFuncties {
         return model;
     }
 
+    public ListModel stappenRoute(int routeid) throws SQLException {
+        DatabaseReader acc = new DatabaseReader();
+        Connection dbc = acc.getConnection();
+        String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeid + "";
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery(query);
+        r.first();
+
+        String temp[];
+        DefaultListModel<String> model = new DefaultListModel<String>();
+        String R = r.getString("Route");
+        String delimiter = " \\[";
+        temp = R.split(delimiter);
+        for (int i = 0; i < temp.length; i++) {
+            model.addElement(temp[i]);
+        }
+        return model;
+    }
+
     public void updateRoute(int routeId) throws SQLException {
         DatabaseReader db = new DatabaseReader();
         Connection dbc = db.getConnection();

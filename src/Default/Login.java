@@ -4,13 +4,12 @@ import Default.Beheerders.BeheerRoute;
 import Default.Beheerders.EditCustomer;
 import Default.Beheerders.EditOrder;
 import Default.Bezorgers.BezorgerBeheer;
-import Default.Bezorgers.RouteInzien;
+import Default.Bezorgers.BezorgerRoutes;
 import Default.Planners.InplannenRoute;
 import Default.Planners.Planner;
 import SQL.DatabaseReader;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -161,7 +160,7 @@ public class Login extends JFrame implements ActionListener {
         }
         if (e.getSource() == hroutes) {
             try {
-                RouteInzien r = new RouteInzien();
+                BezorgerRoutes r = new BezorgerRoutes();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

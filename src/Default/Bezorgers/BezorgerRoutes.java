@@ -1,6 +1,7 @@
 package Default.Bezorgers;
 import Default.Entiteit.Routes;
 import Default.Login;
+import Default.Planners.BezorgerRoutesInzien;
 import SQL.SQLFuncties;
 import TSP.Route;
 
@@ -10,9 +11,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-public class RouteInzien extends JFrame implements ActionListener  {
+public class BezorgerRoutes extends JFrame implements ActionListener  {
 
     private SQLFuncties sql = new SQLFuncties();
 
@@ -21,7 +24,7 @@ public class RouteInzien extends JFrame implements ActionListener  {
     private Routes route;
     JList<String> list = new JList<>(sql.inzienRouteBijBezorger(Login.acc_id));
 
-    public RouteInzien() throws SQLException {
+    public BezorgerRoutes() throws SQLException {
         super("Route inzien voor: "+Login.voornaam);
         setLayout(new FlowLayout());
         JPanel routepanel = new JPanel(new BorderLayout());
@@ -34,6 +37,19 @@ public class RouteInzien extends JFrame implements ActionListener  {
                     route = (Routes) ((JList) e.getSource())
                             .getSelectedValue();
                     System.out.println("Selected id: " + route.getId());
+                }
+            }
+        });
+
+        list.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    try {
+                        BezorgerRoutesInzien b = new BezorgerRoutesInzien(route.getId());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
             }
         });
