@@ -1,5 +1,7 @@
 package Default.Beheerders;
 
+import SQL.DatabaseReader;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -15,22 +17,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class EditCustomer
-{
-    // Define database variables
-    private static Connection con = null;
-    private static final String URL = "jdbc:mysql://localhost:3306/onzedbwwi";
-    private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String user = "root";
-    private static final String pass = "";
+public class EditCustomer {
 
+    private DatabaseReader db = new DatabaseReader();
+    private Connection dbc = db.getConnection();
 
-    /**
-     *
-     * @throws SQLException
-     */
-    public EditCustomer() throws SQLException
-    {
+    public EditCustomer() throws SQLException {
+
         Statement stmt;
         String query;
         ResultSet rs;
@@ -45,17 +38,9 @@ public class EditCustomer
         DefaultTableModel mTableModel = new DefaultTableModel(rowData, columnNames);
         JTable table = new JTable(mTableModel);
 
-        // try & connect DB
-        try {
-            Class.forName(driver).newInstance();
-            con = DriverManager.getConnection(URL, user, pass);
-        } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
-        }
-
         // Query from customers and cities
         query = "SELECT City, Zip_Code, Street_Name, House_Number, First_Name, Last_Name FROM address join customer on Address_ID = Address_1";
-        stmt = con.createStatement();
+        stmt = dbc.createStatement();
         // Execute query and return results
         rs = stmt.executeQuery(query);
 

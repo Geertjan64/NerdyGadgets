@@ -74,16 +74,16 @@ public class SQLFuncties {
 
     }
 
-//    public void getBezorgerGegevens(int employee_ID) throws SQLException {
-//        DatabaseReader bezorgerGegevens = new DatabaseReader();
-//        Connection dbc = bezorgerGegevens.getConnection();
-//
-//        Statement st = dbc.createStatement();
-//        st.executeQuery("SELECT City, Zip_Code, Country, Street_Name, House_Number, Addition from address " +
-//                            "WHERE Address_ID = " +
-//                            "((SELECT Address_1 FROM customer WHERE Customer_ID IN " +
-//                            "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
-//    }
+    public void getBezorgerGegevens(int employee_ID) throws SQLException {
+        DatabaseReader bezorgerGegevens = new DatabaseReader();
+        Connection dbc = bezorgerGegevens.getConnection();
+
+        Statement st = dbc.createStatement();
+        st.executeQuery("SELECT City, Zip_Code, Country, Street_Name, House_Number, Addition from address " +
+                "WHERE Address_ID = " +
+                "((SELECT Address_1 FROM customer WHERE Customer_ID IN " +
+                "(SELECT Customer_ID FROM orders WHERE Deliverer_ID = " + employee_ID + "))) ");
+    }
 
     public void insertKortsteRoute(String route, String provincie, int ID) throws SQLException {
         DatabaseReader routeGegevens = new DatabaseReader();
@@ -91,5 +91,9 @@ public class SQLFuncties {
 
         Statement st = dbc.createStatement();
         st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID) VALUES ('" + route + "', '" + provincie + "', " + ID + ")");
+    }
+
+    public void editKlant() {
+
     }
 }

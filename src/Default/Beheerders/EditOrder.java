@@ -1,5 +1,7 @@
 package Default.Beheerders;
 
+import SQL.DatabaseReader;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -16,20 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class EditOrder {
-    // Define database variables
-    private static Connection con = null;
-    private static final String URL = "jdbc:mysql://localhost:3306/onzedbwwi";
-    private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String user = "root";
-    private static final String pass = "";
 
+    private DatabaseReader db = new DatabaseReader();
+    private Connection dbc = db.getConnection();
 
-    /**
-     *
-     * @throws SQLException
-     */
-    public EditOrder() throws SQLException
-    {
+    public EditOrder() throws SQLException {
 
         Statement stmt;
         String query;
@@ -44,17 +37,9 @@ public class EditOrder {
         DefaultTableModel mTableModel = new DefaultTableModel(rowData, columnNames);
         JTable table = new JTable(mTableModel);
 
-        // try & connect DB
-        try {
-            Class.forName(driver).newInstance();
-            con = DriverManager.getConnection(URL, user, pass);
-        } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
-        }
-
         // Query from customers and cities
         query = "SELECT Order_ID, Customer_ID, Deliverer_ID FROM orders;";
-        stmt = con.createStatement();
+        stmt = dbc.createStatement();
         // Execute query and return results
         rs = stmt.executeQuery(query);
 

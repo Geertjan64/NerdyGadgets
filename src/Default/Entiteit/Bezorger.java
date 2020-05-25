@@ -4,10 +4,6 @@ import Default.Entiteit.Werknemer;
 
 public class Bezorger extends Werknemer {
 
-    //private int werknemerID; Overerven abstracte class
-    //private String voornaam; Overerven abstracte class
-    //private String achternaam; Overerven abstracte class
-
     private boolean isActief;
 
     public Bezorger(int werknemerID, String voornaam, String achternaam, String tussenvoegsel, String email, int activiteit) {
