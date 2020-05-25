@@ -4,6 +4,7 @@ import Default.Planners.ZienRoute;
 import SQL.DatabaseReader;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -22,6 +23,10 @@ public class BeheerRoute extends JFrame{
         DefaultListModel<String> model = new DefaultListModel<>();
         JList<String> list = new JList<>( model );
 
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setFixedCellHeight(50);
+        list.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         DatabaseReader acc = new DatabaseReader();
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `optimal_route` WHERE `Delivered` = 0";
@@ -31,10 +36,12 @@ public class BeheerRoute extends JFrame{
 
         while(r.next()) {
             String routeid = r.getString("Route_ID");
-            model.addElement(routeid);
+            model.addElement("Route " + routeid);
         }
 
-        add(list);
+        JScrollPane scrollPane1 = new JScrollPane(list);
+        scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        add(scrollPane1);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());

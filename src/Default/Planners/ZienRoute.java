@@ -54,7 +54,10 @@ public class ZienRoute extends JFrame implements ActionListener{
         verwijderen.addActionListener(this);
         wijzigen.addActionListener(this);
 
-        add(list);
+        JScrollPane scrollPane1 = new JScrollPane(list);
+        scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        add(scrollPane1);
         buttonPanel.add(verwijderen);
         buttonPanel.add(wijzigen);
         add(buttonPanel);
@@ -93,7 +96,9 @@ public class ZienRoute extends JFrame implements ActionListener{
             }
         }
         if (e.getSource() == wijzigen) {
-            System.out.println("ik wijzig spul UwU");
+            int index = list.getSelectedIndex();
+            EditRoute er = new EditRoute(temp[index]);
+            System.out.println(er);
         }
     }
 
