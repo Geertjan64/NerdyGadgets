@@ -37,7 +37,7 @@ public class BezorgerRoutesInzien extends JFrame {
         JScrollPane scrollPane1 = new JScrollPane(list);
         scrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(scrollPane1);
-        
+
         validate();
         repaint();
 

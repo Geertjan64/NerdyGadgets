@@ -34,9 +34,8 @@ public class Login extends JFrame implements ActionListener {
     private JLabel password;
     private Planner account;
 
-    JButton hroutes = new JButton("Huidige routes");
+    JButton hroutes = new JButton("Openstaande Routes");
     JButton routeinplannen = new JButton("Route inplannen");
-    JButton routestarten = new JButton("Route starten");
     JButton gemaakteritten = new JButton("Gemaakte ritten");
     JButton beherenroute = new JButton("Beheren route");
     JButton beherenadressen = new JButton("Beheren adressen");
@@ -113,7 +112,6 @@ public class Login extends JFrame implements ActionListener {
 
                     account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(hroutes);
-                    newScherm.add(routestarten);
                     newScherm.add(gemaakteritten);
                     newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
                 }
@@ -172,9 +170,6 @@ public class Login extends JFrame implements ActionListener {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-
-        }
-        if (e.getSource() == routestarten) {
 
         }
 
