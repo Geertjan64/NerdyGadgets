@@ -19,7 +19,7 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
 
     private SQLFuncties sql = new SQLFuncties();
 
-    JButton jb = new JButton("Route afgerond");
+    JButton jb = new JButton("Route afronden");
     JLabel routeTitle = new JLabel("Routes voor: "+Login.voornaam + " " + Login.achternaam);
     private Routes route;
     JList<String> list = new JList<>(sql.inzienRouteBijBezorger(Login.acc_id));
