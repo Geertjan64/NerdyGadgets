@@ -2,6 +2,7 @@ package Default.Planners;
 
 import SQL.DatabaseReader;
 
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,27 +12,25 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class ZienRoute extends JFrame {
+public class ZienRoute extends JFrame implements ActionListener{
     private JPanel buttonPanel;
+    private JButton verwijderen = new JButton("Verwijderen");
+    private JButton wijzigen = new JButton("Wijzigen");
+    private DefaultListModel<String> model = new DefaultListModel<>();
+    private JList<String> list = new JList<>(model);
+    private String[] temp;
+    private int id;
 
     public ZienRoute(int id) throws SQLException {
-        setTitle("Beheren route");
+        this.id = id;
+        setTitle("Inzien route adressen");
         setSize(1200, 800);
         setResizable(false);
         setMinimumSize(new Dimension(1200, 800));
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(0,1));
-        JPanel listPanel = new JPanel();
-
-        JButton verwijderen = new JButton("Verwijderen");
-        JButton wijzigen = new JButton("Wijzigen");
-
-        DefaultListModel<String> model = new DefaultListModel<>();
-        JList<String> list = new JList<>(model);
-
 
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setFixedCellHeight(50);
@@ -45,27 +44,23 @@ public class ZienRoute extends JFrame {
         r.first();
         String R = r.getString("Route");
 
-        String[] temp;
         String delimiter = " \\[";
         temp = R.split(delimiter);
-
-        JButton[] buttons  = new JButton[temp.length*2];
 
         for (int i = 0; i < temp.length; i++) {
             model.addElement(temp[i]);
         }
 
-        for (int i = 0; i < temp.length; i++) {
-            JButton button = new JButton("Verwijderen");
-            button.addActionListener((ActionListener) this);
-            JButton button2 = new JButton("Wijzigen");
-            button2.addActionListener((ActionListener) this);
-        }
+        verwijderen.addActionListener(this);
+        wijzigen.addActionListener(this);
 
-        listPanel.add(list);
-        add(listPanel);
+        add(list);
+        buttonPanel.add(verwijderen);
+        buttonPanel.add(wijzigen);
         add(buttonPanel);
 
+        validate();
+        repaint();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
@@ -73,8 +68,37 @@ public class ZienRoute extends JFrame {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == "Verwijderen") {
-            System.out.println("imma delete UwU");
+        if (e.getSource() == verwijderen) {
+            String newRoute;
+            int index = list.getSelectedIndex();
+            temp[index] = "";
+            System.out.println(temp[index]);
+            newRoute = convertArrayToStringUsingStreamAPI(temp);
+            model.remove(index);
+
+            DatabaseReader acc = new DatabaseReader();
+            Connection dbc = acc.getConnection();
+            String query = "UPDATE `optimal_route` SET `Route`= '"+ newRoute +"' WHERE `Route_ID` = " + id + "";
+
+            Statement st = null;
+            try {
+                st = dbc.createStatement();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            try {
+                st.executeUpdate(query);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
+        if (e.getSource() == wijzigen) {
+            System.out.println("ik wijzig spul UwU");
+        }
+    }
+
+    public static String convertArrayToStringUsingStreamAPI(String[] strArray) {
+        String joinedString = String.join(" ", strArray);
+        return joinedString;
     }
 }
