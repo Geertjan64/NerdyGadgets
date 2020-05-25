@@ -4,6 +4,7 @@ import Default.Beheerders.BeheerRoute;
 import Default.Beheerders.EditCustomer;
 import Default.Beheerders.EditOrder;
 import Default.Bezorgers.BezorgerBeheer;
+import Default.Bezorgers.RouteInzien;
 import Default.Planners.InplannenRoute;
 import Default.Planners.Planner;
 import SQL.DatabaseReader;
@@ -19,6 +20,12 @@ import java.sql.Statement;
 
 public class Login extends JFrame implements ActionListener {
 
+    /** Login information storage **/
+    public static String voornaam;
+    public static String achternaam;
+    public static String functie;
+    public static int acc_id;
+
     private KeuzeMenu newScherm = new KeuzeMenu();
     private JButton blogin;
     private JPanel loginpanel;
@@ -26,7 +33,7 @@ public class Login extends JFrame implements ActionListener {
     private JTextField pass;
     private JLabel username;
     private JLabel password;
-    private Planner planner;
+    private Planner account;
 
     JButton hroutes = new JButton("Huidige routes");
     JButton routeinplannen = new JButton("Route inplannen");
@@ -70,6 +77,7 @@ public class Login extends JFrame implements ActionListener {
         beherenklantgegevens.addActionListener(this);
         beherenroute.addActionListener(this);
         beherenorders.addActionListener(this);
+        hroutes.addActionListener(this);
 
         getContentPane().add(loginpanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,29 +106,34 @@ public class Login extends JFrame implements ActionListener {
             if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
 
                 if (Function.equalsIgnoreCase("bezorger")) {
-                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    /** Filling variables with login information **/
+                    acc_id = Employee_ID;
+                    functie = Function;
+                    achternaam = Lastname;
+                    voornaam = Firstname;
+
+                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(hroutes);
                     newScherm.add(routestarten);
                     newScherm.add(gemaakteritten);
-                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
                 }
 
                 if (Function.equalsIgnoreCase("beheerder")) {
-                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(beherenadressen);
                     newScherm.add(beherenbezorgers);
                     newScherm.add(beherenroute);
                     newScherm.add(beherenklantgegevens);
                     newScherm.add(beherenorders);
-                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
                 }
 
                 if (Function.equalsIgnoreCase("planner")) {
-                    planner = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(routeinplannen);
-                    newScherm.setTitle(newScherm.getTitle() + planner.getVoornaam() + " : " + planner.getFunction());
+                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
                 }
-                hroutes.setPreferredSize(new Dimension(100, 50));
 
                 this.setVisible(false);
                 newScherm.setVisible(true);
@@ -147,7 +160,11 @@ public class Login extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == hroutes) {
-
+            try {
+                RouteInzien r = new RouteInzien();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
         if (e.getSource() == routeinplannen) {

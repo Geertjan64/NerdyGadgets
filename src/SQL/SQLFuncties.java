@@ -3,7 +3,9 @@ package SQL;
 import Default.Entiteit.AdressenLijst;
 import Default.Entiteit.Bezorger;
 import Default.Entiteit.BezorgerLijst;
+import Default.Entiteit.Routes;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +43,7 @@ public class SQLFuncties {
             functie = r.getString("Function");
             actief = r.getInt("Active");
 
-            bezorgerLijst.addBezorger(new Bezorger(id,voornaam,achternaam, tussenvoegsel, email, actief));
+            bezorgerLijst.addBezorger(new Bezorger(id, voornaam, achternaam, tussenvoegsel, email, actief));
             teller++;
 
         }
@@ -54,13 +56,13 @@ public class SQLFuncties {
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer " +
                 "INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
-                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='"+provincie+"'");
-        System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='"+provincie+"'");
+                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='" + provincie + "'");
+        System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='" + provincie + "'");
         AdressenLijst al = new AdressenLijst();
         al.clearAdressen();
 
         while (r.next()) {
-            al.addAdres(r.getString("Street_Name"),  r.getInt("House_Number"), r.getString("City"));
+            al.addAdres(r.getString("Street_Name"), r.getInt("House_Number"), r.getString("City"));
         }
 
     }
@@ -96,4 +98,27 @@ public class SQLFuncties {
     public void editKlant() {
 
     }
+
+    public ListModel inzienRouteBijBezorger(int bezorgerId) throws SQLException {
+        DefaultListModel<Routes> model = new DefaultListModel<Routes>();
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 0");
+
+        while (r.next()) {
+            int id = r.getInt("Route_ID");
+            String route = r.getString("Route");
+            model.addElement(new Routes(id, route));
+        }
+        return model;
+    }
+
+    public void updateRoute(int routeId) throws SQLException {
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        st.executeUpdate("UPDATE optimal_route SET Delivered=1 WHERE Route_ID="+routeId);
+    }
+
 }
