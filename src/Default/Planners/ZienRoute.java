@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
 public class ZienRoute extends JFrame implements ActionListener{
     private JPanel buttonPanel;
@@ -44,8 +43,7 @@ public class ZienRoute extends JFrame implements ActionListener{
         r.first();
         String R = r.getString("Route");
 
-        String delimiter = " \\[";
-        temp = R.split(delimiter);
+        temp = R.split("(?= \\[)");
 
         for (int i = 0; i < temp.length; i++) {
             model.addElement(temp[i]);
@@ -72,38 +70,40 @@ public class ZienRoute extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == verwijderen) {
-            String newRoute;
             int index = list.getSelectedIndex();
             temp[index] = "";
-            System.out.println(temp[index]);
-            newRoute = convertArrayToStringUsingStreamAPI(temp);
             model.remove(index);
-
-            DatabaseReader acc = new DatabaseReader();
-            Connection dbc = acc.getConnection();
-            String query = "UPDATE `optimal_route` SET `Route`= '"+ newRoute +"' WHERE `Route_ID` = " + id + "";
-
-            Statement st = null;
-            try {
-                st = dbc.createStatement();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            try {
-                st.executeUpdate(query);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            updateRoute(temp);
         }
         if (e.getSource() == wijzigen) {
             int index = list.getSelectedIndex();
-            EditRoute er = new EditRoute(temp[index]);
-            System.out.println(er);
+            temp[index] = JOptionPane.showInputDialog(temp[index], temp[index]);
+            updateRoute(temp);
         }
     }
 
     public static String convertArrayToStringUsingStreamAPI(String[] strArray) {
         String joinedString = String.join(" ", strArray);
         return joinedString;
+    }
+
+    public void updateRoute (String[] temp){
+        String newRoute;
+        newRoute = convertArrayToStringUsingStreamAPI(temp);
+        DatabaseReader acc = new DatabaseReader();
+        Connection dbc = acc.getConnection();
+        String query = "UPDATE `optimal_route` SET `Route`= '"+ newRoute +"' WHERE `Route_ID` = " + id + "";
+
+        Statement st = null;
+        try {
+            st = dbc.createStatement();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            st.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
