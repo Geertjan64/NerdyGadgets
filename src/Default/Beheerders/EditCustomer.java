@@ -16,13 +16,21 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class EditCustomer {
+public class EditCustomer implements ActionListener{
 
     private DatabaseReader db = new DatabaseReader();
     private Connection dbc = db.getConnection();
 
     public EditCustomer() throws SQLException {
+
 
         Statement stmt;
         String query;
@@ -62,6 +70,10 @@ public class EditCustomer {
             rows = new Object[]{rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6)};
             mTableModel.addRow(rows);
         }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        }
     }
+}
 }
 
