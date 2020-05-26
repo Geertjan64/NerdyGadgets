@@ -92,7 +92,7 @@ public class SQLFuncties {
         Connection dbc = routeGegevens.getConnection();
 
         Statement st = dbc.createStatement();
-        st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID) VALUES ('" + route + "', '" + provincie + "', " + ID + ")");
+        st.executeUpdate("INSERT INTO optimal_route (route, province, deliverer_ID, Delivered) VALUES ('" + route + "', '" + provincie + "', " + ID + ", 0)");
     }
 
     public void editKlant() {
