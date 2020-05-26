@@ -1,7 +1,7 @@
 package Default.Bezorgers;
 import Default.Entiteit.Routes;
 import Default.Login;
-import Default.Planners.BezorgerRoutesInzien;
+import Default.Bezorgers.BezorgerRoutesInzien;
 import SQL.SQLFuncties;
 import TSP.Route;
 
@@ -19,10 +19,10 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
 
     private SQLFuncties sql = new SQLFuncties();
 
-    JButton jb = new JButton("Route afronden");
-    JLabel routeTitle = new JLabel("Routes voor: "+Login.voornaam + " " + Login.achternaam);
+    private JButton jb = new JButton("Route afronden");
+    private JLabel routeTitle = new JLabel("Routes voor: "+Login.voornaam + " " + Login.achternaam);
     private Routes route;
-    JList<String> list = new JList<>(sql.inzienRouteBijBezorger(Login.acc_id));
+    private JList<String> list = new JList<>(sql.inzienRouteBijBezorger(Login.acc_id));
 
     public BezorgerRoutes() throws SQLException {
         super("Route inzien voor: "+Login.voornaam);

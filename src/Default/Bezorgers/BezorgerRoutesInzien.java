@@ -1,4 +1,4 @@
-package Default.Planners;
+package Default.Bezorgers;
 
 import SQL.DatabaseReader;
 import SQL.SQLFuncties;
