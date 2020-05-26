@@ -52,7 +52,7 @@ public class KeuzeMenu extends JFrame {
         menubar = new JMenuBar();
         menu = new JMenu("Menu");
 
-        logout = new JMenuItem("Logout");
+        logout = new JMenuItem("Uitloggen");
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 /** exits the program **/

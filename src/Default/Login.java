@@ -46,7 +46,7 @@ public class Login extends JFrame implements ActionListener {
     public Login() {
         super("Inloggen medewerker");
 
-        blogin = new JButton("Log in");
+        blogin = new JButton("Inloggen");
         loginpanel = new JPanel();
         txuser = new JTextField(15);
         pass = new JPasswordField(15);
@@ -129,6 +129,7 @@ public class Login extends JFrame implements ActionListener {
                 if (Function.equalsIgnoreCase("planner")) {
                     account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
                     newScherm.add(routeinplannen);
+                    newScherm.add(beherenroute);
                     newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
                 }
 
