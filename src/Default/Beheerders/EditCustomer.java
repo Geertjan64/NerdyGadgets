@@ -6,11 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EditCustomer implements ActionListener{
+public class EditCustomer{
 
     private DatabaseReader db = new DatabaseReader();
     private Connection dbc = db.getConnection();
@@ -70,10 +66,45 @@ public class EditCustomer implements ActionListener{
             rows = new Object[]{rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4),rs.getString(5), rs.getString(6)};
             mTableModel.addRow(rows);
         }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
+
+        table.addMouseListener(new MouseAdapter() {
+            String query;
+            Statement stmt;
+            ResultSet rs;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    JTable target = (JTable)e.getSource();
+                    int row = target.getSelectedRow();
+                    String valueStad = (String) target.getValueAt(row, 0);
+                    System.out.print(valueStad);
+                    if(valueStad == target.getValueAt(row, 0)){
+                        String query = "update address set City = ? where Address_ID = ?";
+                        PreparedStatement preparedStmt = null;
+                        try {
+                            preparedStmt = dbc.prepareStatement(query);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            preparedStmt.setInt   (1, 3);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            preparedStmt.setString(2, "Test");
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        try {
+                            preparedStmt.executeUpdate();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        System.out.print("Geen wijziging gevonden!");
+                    }
+            }
+        });
 }
 }
 
