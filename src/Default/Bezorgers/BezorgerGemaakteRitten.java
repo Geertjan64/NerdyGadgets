@@ -13,14 +13,18 @@ public class BezorgerGemaakteRitten extends JFrame {
 
     public BezorgerGemaakteRitten(int id) throws SQLException {
         super("Alle ritten inzien voor: "+ Login.voornaam);
+
         JList listGemaakte = new JList<>(sql.inzienBezorgdeRouteBijBezorger(id));
         JList listOpenstaand = new JList<>(sql.inzienOpenstaandeRouteBijBezorger(id));
 
-        JPanel p1 = new JPanel();
-        JPanel p2 = new JPanel();
+        JScrollPane scrollGemaakteRoutes = new JScrollPane(listGemaakte);
+        JScrollPane scrollOpenstaandeRoutes = new JScrollPane(listOpenstaand);
 
-        p1.add(listGemaakte);
-        p2.add(listOpenstaand);
+        JPanel p1 = new JPanel(new BorderLayout());
+        JPanel p2 = new JPanel(new BorderLayout());
+
+        p1.add(scrollGemaakteRoutes);
+        p2.add(scrollOpenstaandeRoutes);
 
         JTabbedPane tp = new JTabbedPane();
 
@@ -30,6 +34,7 @@ public class BezorgerGemaakteRitten extends JFrame {
 
         add(tp);
         setSize(400, 400);
+        setResizable(false);
         setVisible(true);
     }
 
