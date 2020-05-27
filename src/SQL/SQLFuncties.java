@@ -99,12 +99,27 @@ public class SQLFuncties {
 
     }
 
-    public ListModel inzienRouteBijBezorger(int bezorgerId) throws SQLException {
+    public ListModel inzienOpenstaandeRouteBijBezorger(int bezorgerId) throws SQLException {
         DefaultListModel<Routes> model = new DefaultListModel<Routes>();
         DatabaseReader db = new DatabaseReader();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 0");
+
+        while (r.next()) {
+            int id = r.getInt("Route_ID");
+            String route = r.getString("Route");
+            model.addElement(new Routes(id, route));
+        }
+        return model;
+    }
+
+    public ListModel inzienBezorgdeRouteBijBezorger(int bezorgerId) throws SQLException {
+        DefaultListModel<Routes> model = new DefaultListModel<Routes>();
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 1");
 
         while (r.next()) {
             int id = r.getInt("Route_ID");
@@ -132,6 +147,7 @@ public class SQLFuncties {
         }
         return model;
     }
+
 
     public void updateRoute(int routeId) throws SQLException {
         DatabaseReader db = new DatabaseReader();

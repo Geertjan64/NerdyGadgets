@@ -1,9 +1,8 @@
 package Default.Bezorgers;
+
 import Default.Entiteit.Routes;
 import Default.Login;
-import Default.Bezorgers.BezorgerRoutesInzien;
 import SQL.SQLFuncties;
-import TSP.Route;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -22,7 +21,7 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
     private JButton jb = new JButton("Route afronden");
     private JLabel routeTitle = new JLabel("Routes voor: "+Login.voornaam + " " + Login.achternaam);
     private Routes route;
-    private JList<String> list = new JList<>(sql.inzienRouteBijBezorger(Login.acc_id));
+    private JList<String> list = new JList<>(sql.inzienOpenstaandeRouteBijBezorger(Login.acc_id));
 
     public BezorgerRoutes() throws SQLException {
         super("Route inzien voor: "+Login.voornaam);
@@ -36,7 +35,6 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
                 if (e.getValueIsAdjusting()) {
                     route = (Routes) ((JList) e.getSource())
                             .getSelectedValue();
-                    System.out.println("Selected id: " + route.getId());
                 }
             }
         });
