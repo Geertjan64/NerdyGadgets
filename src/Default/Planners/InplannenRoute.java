@@ -33,7 +33,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
     private static String apiKey = "MLr6vmcH7IgZsaAqaSebZ42kxfRuY1SJyGdJL2GVhVk";
     private InplannenRoute inplannenRoute;
     public static int bezorgerID;
-    private JLabel gekozenBezorger;
+    private JLabel gekozenBezorger = new JLabel("Let op, je hebt geen bezorger gekozen!");
     private JList<String> bezorglijst;
     private JList<String> adresLijst;
     private DefaultListModel model;
@@ -43,7 +43,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
     private String straatnaamStr;
     private int huisnummerint;
     private String stadStr;
-    private JButton toevoegenAdres;
     private JButton startenRoute;
     private BezorgerSteden bezorgerSteden = new BezorgerSteden();
     private double longitude;
@@ -70,7 +69,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
         list.add("Zeeland");
         JLabel keuze1 = new JLabel("Kies een adres om toe te voegen aan uw route:");
         JLabel keuze2 = new JLabel("Kies uw bezorger:");
-        JLabel gemaakteRoute = new JLabel();
+
+        JLabel gemaakteRoute = new JLabel("Opgestelde route: ");
         setLayout(new FlowLayout());
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panel2 = new JPanel(new BorderLayout());
@@ -160,7 +160,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                     } else {
                         System.out.println("Het adres is al toegevoegd aan de lijst!");
                     }
-                    gemaakteRoute.setText("\n Opgestelde route: " + route.toString());
+                    gemaakteRoute.setText("Opgestelde route: " + route.toString());
                 }
             }
 
@@ -205,14 +205,10 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
         keuze2.setLabelFor(scrollableList);
         panel2.add(keuze2, BorderLayout.NORTH);
+        panel2.add(gekozenBezorger, BorderLayout.SOUTH);
         panel2.add(scrollableList);
 
         startenRoute = new JButton("Start");
-        JTextField straatnaamJtf = new JTextField(30);
-        JTextField huisnummerJtf = new JTextField(8);
-        JTextField stadJtf = new JTextField(10);
-
-        gekozenBezorger = new JLabel("Let op, je hebt geen bezorger gekozen!");
 
         startenRoute.addActionListener(new ActionListener() {
             @Override
@@ -222,9 +218,9 @@ public class InplannenRoute extends JFrame implements ActionListener {
                 if (bezorgerID == 0) {
                     JOptionPane.showMessageDialog(inplannenRoute, "U moet een bezorger kiezen");
                 }
-//                if (steden.size() < 3) {
-//                    JOptionPane.showMessageDialog(hereApp, "U moet meer dan 2 adressen opgeven.");
-//                }
+                if (steden.size() < 3) {
+                    JOptionPane.showMessageDialog(inplannenRoute, "U moet meer dan 2 adressen opgeven.");
+                }
                 else {
                     try {
                         bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
@@ -250,7 +246,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
                             bezorgerID = bezorgerLijst.getBezorgers().get(i).getWerknemerID();
                         }
                     }
-//                    repaint();
                 }
             }
 
@@ -274,30 +269,10 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
             }
         });
-
-//        toevoegenAdres = new JButton("Toevoegen adres");
-//        toevoegenAdres.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String straatnaamSpaces = straatnaamJtf.getText();
-//                straatnaamStr = adressenLijst.getStad();
-//                huisnummerint = adressenLijst.getHuisnummer();
-//                String stadStr = adressenLijst.getStraat();
-//                try {
-//                    getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
-//                } catch (IOException | JSONException ex) {
-//                    ex.printStackTrace();
-//                }
-//
-//                System.out.println(bezorgerSteden.getInitialSteden());
-//            }
-//        });
-        //add(toevoegenAdres);
         add(startenRoute);
         add(panel3);
         add(panel);
         add(panel2);
-        //add(gekozenBezorger);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(true);

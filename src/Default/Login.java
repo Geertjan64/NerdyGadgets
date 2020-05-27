@@ -4,6 +4,7 @@ import Default.Beheerders.BeheerRoute;
 import Default.Beheerders.EditCustomer;
 import Default.Beheerders.EditOrder;
 import Default.Bezorgers.BezorgerBeheer;
+import Default.Bezorgers.BezorgerGemaakteRitten;
 import Default.Bezorgers.BezorgerRoutes;
 import Default.Planners.InplannenRoute;
 import Default.Planners.Planner;
@@ -34,9 +35,9 @@ public class Login extends JFrame implements ActionListener {
     private JLabel password;
     private Planner account;
 
-    JButton hroutes = new JButton("Openstaande Routes");
+    JButton hroutes = new JButton("Route starten");
     JButton routeinplannen = new JButton("Route inplannen");
-    JButton gemaakteritten = new JButton("Gemaakte ritten");
+    JButton gemaakteritten = new JButton("Bijhouden ritten");
     JButton beherenroute = new JButton("Beheren route");
     JButton beherenadressen = new JButton("Beheren adressen");
     JButton beherenbezorgers = new JButton("Beheren bezorgers");
@@ -76,6 +77,7 @@ public class Login extends JFrame implements ActionListener {
         beherenroute.addActionListener(this);
         beherenorders.addActionListener(this);
         hroutes.addActionListener(this);
+        gemaakteritten.addActionListener(this);
 
         getContentPane().add(loginpanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,7 +177,11 @@ public class Login extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == gemaakteritten) {
-
+            try {
+                BezorgerGemaakteRitten b = new BezorgerGemaakteRitten(Login.acc_id);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
         if (e.getSource() == beherenadressen) {
