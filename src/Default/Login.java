@@ -90,59 +90,61 @@ public class Login extends JFrame implements ActionListener {
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `employee` WHERE `Email` = '" + user + "' AND `Password` = '" + pass + "'";
 
-        Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery(query);
+            Statement st = dbc.createStatement();
+            ResultSet r = st.executeQuery(query);
+        if(r.isBeforeFirst()){
 
-        while (r.next()) {
+            while (r.next()) {
 
-            int Employee_ID = r.getInt("Employee_ID");
-            String Firstname = r.getString("Firstname");
-            String Lastname = r.getString("Lastname");
-            String Middle_Name = r.getString("Middle_Name");
-            String Email = r.getString("Email");
-            String Password = r.getString("Password");
-            String Function = r.getString("Function");
+                int Employee_ID = r.getInt("Employee_ID");
+                String Firstname = r.getString("Firstname");
+                String Lastname = r.getString("Lastname");
+                String Middle_Name = r.getString("Middle_Name");
+                String Email = r.getString("Email");
+                String Password = r.getString("Password");
+                String Function = r.getString("Function");
 
-            if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
+                if (user.equalsIgnoreCase(Email) && pass.equalsIgnoreCase(Password)) {
 
-                if (Function.equalsIgnoreCase("bezorger")) {
-                    /** Filling variables with login information **/
-                    acc_id = Employee_ID;
-                    functie = Function;
-                    achternaam = Lastname;
-                    voornaam = Firstname;
+                    if (Function.equalsIgnoreCase("bezorger")) {
+                        /** Filling variables with login information **/
+                        acc_id = Employee_ID;
+                        functie = Function;
+                        achternaam = Lastname;
+                        voornaam = Firstname;
 
-                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
-                    newScherm.add(hroutes);
-                    newScherm.add(gemaakteritten);
-                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
+                        account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                        newScherm.add(hroutes);
+                        newScherm.add(gemaakteritten);
+                        newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
+                    }
+
+                    if (Function.equalsIgnoreCase("beheerder")) {
+                        account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                        newScherm.add(beherenadressen);
+                        newScherm.add(beherenbezorgers);
+                        newScherm.add(beherenroute);
+                        newScherm.add(beherenklantgegevens);
+                        newScherm.add(beherenorders);
+                        newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
+                    }
+
+                    if (Function.equalsIgnoreCase("planner")) {
+                        account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
+                        newScherm.add(routeinplannen);
+                        newScherm.add(beherenroute);
+                        newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
+                    }
+
+                    this.setVisible(false);
+                    newScherm.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Welkom " + Function + "!");
                 }
-
-                if (Function.equalsIgnoreCase("beheerder")) {
-                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
-                    newScherm.add(beherenadressen);
-                    newScherm.add(beherenbezorgers);
-                    newScherm.add(beherenroute);
-                    newScherm.add(beherenklantgegevens);
-                    newScherm.add(beherenorders);
-                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
-                }
-
-                if (Function.equalsIgnoreCase("planner")) {
-                    account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
-                    newScherm.add(routeinplannen);
-                    newScherm.add(beherenroute);
-                    newScherm.setTitle(newScherm.getTitle() + account.getVoornaam() + " : " + account.getFunction());
-                }
-
-                this.setVisible(false);
-                newScherm.setVisible(true);
-                JOptionPane.showMessageDialog(this, "Welkom " + Function + "!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
-                this.pass.setText(null);
             }
-
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Verkeerde Email of Wachtwoord");
+            this.pass.setText(null);
         }
     }
 
