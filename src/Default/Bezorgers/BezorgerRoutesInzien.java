@@ -1,19 +1,11 @@
 package Default.Bezorgers;
 
-import SQL.DatabaseReader;
 import SQL.SQLFuncties;
-
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Arrays;
 
 public class BezorgerRoutesInzien extends JFrame {
     private SQLFuncties sql = new SQLFuncties();
