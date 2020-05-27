@@ -199,4 +199,11 @@ public class SQLFuncties {
         return mTableModel;
     }
 
+    public void veranderenKlantgegevens(String id, String resul, String column) throws SQLException {
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        st.executeUpdate("UPDATE address SET city=,Zip_code=,House_number=,Street_Name=");
+    }
+
 }
