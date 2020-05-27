@@ -129,10 +129,10 @@ public class SQLFuncties {
         return model;
     }
 
-    public ListModel stappenRoute(int routeid) throws SQLException {
+    public ListModel stappenRoute(int routeId) throws SQLException {
         DatabaseReader acc = new DatabaseReader();
         Connection dbc = acc.getConnection();
-        String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeid + "";
+        String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeId + "";
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery(query);
         r.first();
