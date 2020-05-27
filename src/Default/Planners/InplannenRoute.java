@@ -420,7 +420,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
         add(panel2);
         //add(gekozenBezorger);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(true);
         setVisible(true);
 
