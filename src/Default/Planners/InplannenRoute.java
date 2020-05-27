@@ -150,8 +150,9 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         }
                         System.out.println(straatnaamStr + " " + huisnummerint + " " + stadStr);
 
-                        try {
+                        try{
                             getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+                            System.out.println(straatnaamStr);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         } catch (JSONException ex) {
@@ -286,7 +287,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
     }
 
     public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException {
-        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
+        System.out.println(straatnaam);
+        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam.replaceAll("\\s+","") + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
         HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
         if (hr.getResponseCode() == 200) {

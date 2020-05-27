@@ -21,6 +21,7 @@ public class AlgoritmeNB {
         System.out.println("Eerste route => " + Arrays.toString(steden.toArray()));
         System.out.println("w/ Totale afstand: " + new Route(steden).berekenTotaleAfstand());
         System.out.println("------");
+        System.out.println(kortsteRouteSteden);
 
         Stad stad = steden.get(0);
         updateRoutes(kortsteRouteSteden, steden, stad);
