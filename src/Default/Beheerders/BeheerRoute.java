@@ -44,8 +44,13 @@ public class BeheerRoute extends JFrame{
                 if (evt.getClickCount() == 2) {
 
                     // Double-click detected
-                    int index = list.locationToIndex(evt.getPoint());
-                    int id = index+1;
+                    String[] temp;
+                    String delimiter = " ";
+                    String s = (String) list.getSelectedValue();
+
+                    temp = s.split(delimiter);
+                    String name = temp[0];
+                    int id = Integer.parseInt(temp[1]);
                     try {
                         ZienRoute z = new ZienRoute(id);
                     } catch (SQLException e) {
