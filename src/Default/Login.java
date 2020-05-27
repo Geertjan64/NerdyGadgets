@@ -51,19 +51,18 @@ public class Login extends JFrame implements ActionListener {
         loginpanel = new JPanel();
         txuser = new JTextField(15);
         pass = new JPasswordField(15);
-        username = new JLabel("User - ");
-        password = new JLabel("Pass - ");
+        username = new JLabel("Gebruikersnaam:");
+        password = new JLabel("Wachtwoord:");
 
         setSize(300, 200);
         setLocation(500, 280);
         loginpanel.setLayout(null);
 
-
-        txuser.setBounds(70, 30, 150, 20);
-        pass.setBounds(70, 65, 150, 20);
-        blogin.setBounds(110, 100, 80, 20);
-        username.setBounds(20, 28, 80, 20);
-        password.setBounds(20, 63, 80, 20);
+        txuser.setBounds(120, 30, 150, 20);
+        pass.setBounds(120, 65, 150, 20);
+        blogin.setBounds(70, 100, 150, 20);
+        username.setBounds(20, 28, 150, 20);
+        password.setBounds(20, 63, 150, 20);
 
         loginpanel.add(blogin);
         loginpanel.add(txuser);
@@ -177,7 +176,6 @@ public class Login extends JFrame implements ActionListener {
             }
 
         }
-
         if (e.getSource() == gemaakteritten) {
             try {
                 BezorgerGemaakteRitten b = new BezorgerGemaakteRitten(Login.acc_id);
