@@ -1,7 +1,5 @@
 package Default.Entiteit;
 
-import Default.Entiteit.Werknemer;
-
 public class Bezorger extends Werknemer {
 
     private boolean isActief;
