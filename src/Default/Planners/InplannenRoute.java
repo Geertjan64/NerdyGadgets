@@ -108,8 +108,13 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         String delimiter = " ";
 
                         temp = selectedItem.split(delimiter);
-                        straatnaamStr = temp[0];
-                        huisnummerint = Integer.parseInt(temp[1]);
+                        if (temp[1].matches("[0-9]+")) {
+                            straatnaamStr = temp[0];
+                            huisnummerint = Integer.parseInt(temp[1]);
+                        } else {
+                            straatnaamStr = temp[0] + temp[1];
+                            huisnummerint = Integer.parseInt(temp[2]);
+                        }
 
 
                         DatabaseReader acc = new DatabaseReader();
