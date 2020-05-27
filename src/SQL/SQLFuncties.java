@@ -29,7 +29,7 @@ public class SQLFuncties {
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM employee");
+        ResultSet r = st.executeQuery("SELECT * FROM employee WHERE function = 'Bezorger'");
 
         BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
