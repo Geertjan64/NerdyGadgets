@@ -151,8 +151,6 @@ public class BezorgerBeheer extends JFrame {
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }
-
-//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the active list

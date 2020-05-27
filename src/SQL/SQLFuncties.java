@@ -6,6 +6,8 @@ import Default.Entiteit.BezorgerLijst;
 import Default.Entiteit.Routes;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ public class SQLFuncties {
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM employee");
+        ResultSet r = st.executeQuery("SELECT * FROM employee WHERE function = 'Bezorger'");
 
         BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
@@ -99,7 +101,7 @@ public class SQLFuncties {
 
     }
 
-    public ListModel inzienRouteBijBezorger(int bezorgerId) throws SQLException {
+    public ListModel inzienOpenstaandeRouteBijBezorger(int bezorgerId) throws SQLException {
         DefaultListModel<Routes> model = new DefaultListModel<Routes>();
         DatabaseReader db = new DatabaseReader();
         Connection dbc = db.getConnection();
@@ -114,10 +116,25 @@ public class SQLFuncties {
         return model;
     }
 
-    public ListModel stappenRoute(int routeid) throws SQLException {
+    public ListModel inzienBezorgdeRouteBijBezorger(int bezorgerId) throws SQLException {
+        DefaultListModel<Routes> model = new DefaultListModel<Routes>();
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 1");
+
+        while (r.next()) {
+            int id = r.getInt("Route_ID");
+            String route = r.getString("Route");
+            model.addElement(new Routes(id, route));
+        }
+        return model;
+    }
+
+    public ListModel stappenRoute(int routeId) throws SQLException {
         DatabaseReader acc = new DatabaseReader();
         Connection dbc = acc.getConnection();
-        String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeid + "";
+        String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeId + "";
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery(query);
         r.first();
@@ -133,11 +150,53 @@ public class SQLFuncties {
         return model;
     }
 
+
     public void updateRoute(int routeId) throws SQLException {
         DatabaseReader db = new DatabaseReader();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         st.executeUpdate("UPDATE optimal_route SET Delivered=1 WHERE Route_ID="+routeId);
+    }
+
+    public ListModel inzienRoutes() throws SQLException {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        DatabaseReader acc = new DatabaseReader();
+        Connection dbc = acc.getConnection();
+        String query = "SELECT * FROM `optimal_route` WHERE `Delivered` = 0";
+
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery(query);
+
+        while(r.next()) {
+            String routeid = r.getString("Route_ID");
+            model.addElement("Route " + routeid);
+        }
+        return model;
+    }
+
+    public TableModel bezorgerActiviteit(int werknemer_ID) throws SQLException {
+        // Temporary data
+        Object[][] rowData = {{"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column4", "Row1-Column5", "Row1-Column6"}};
+        // Array for columnNames
+        Object[] columnNames = {"Route", "Provincie"};
+        DefaultTableModel mTableModel = new DefaultTableModel(rowData, columnNames);
+        DatabaseReader bezorgerGegevens = new DatabaseReader();
+        Connection dbc = bezorgerGegevens.getConnection();
+
+        Statement st = dbc.createStatement();
+        ResultSet rs = st.executeQuery("SELECT Route, Province FROM optimal_route WHERE Deliverer_ID="+werknemer_ID);
+
+        // remove the temp row previously created
+        mTableModel.removeRow(0);
+
+        Object[] rows;
+        // For each row
+        while (rs.next()) {
+            // adding values to temporary rows
+            rows = new Object[]{rs.getString(1), rs.getString(2)};
+            mTableModel.addRow(rows);
+        }
+        return mTableModel;
     }
 
 }
