@@ -209,7 +209,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(inplannenRoute, "U moet meer dan 2 adressen opgeven.");
                 } else {
                     try {
-                        bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                        int kortsterouteafstand = bezorgerSteden.getAfstandKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
+                        JOptionPane.showMessageDialog(inplannenRoute, "De afstand van de route: "+ kortsterouteafstand+"km");
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     } catch (JSONException ex) {

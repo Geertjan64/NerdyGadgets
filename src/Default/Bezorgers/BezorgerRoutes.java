@@ -17,7 +17,6 @@ import java.sql.SQLException;
 public class BezorgerRoutes extends JFrame implements ActionListener  {
 
     private SQLFuncties sql = new SQLFuncties();
-
     private JButton jb = new JButton("Route afronden");
     private JLabel routeTitle = new JLabel("Routes voor: "+Login.voornaam + " " + Login.achternaam);
     private Routes route;

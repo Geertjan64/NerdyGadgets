@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BezorgerSteden {
+
     public ArrayList<Stad> initialSteden = new ArrayList<>(Arrays.asList(
     ));
 
@@ -19,11 +20,12 @@ public class BezorgerSteden {
         return returnValue;
     }
 
-    public void printKortsteRoute(Route kortsteRoute) {
+    public int getAfstandKortsteRoute(Route kortsteRoute) {
         System.out.println("------");
         System.out.println("Kortste route gevonden zo ver: " + kortsteRoute);
         System.out.println("w/ totale afstand: " + kortsteRoute.berekenTotaleAfstand());
         System.out.println("------");
+        return kortsteRoute.berekenTotaleAfstand();
     }
 
 }
