@@ -1,29 +1,23 @@
 package Default.Beheerders;
 
-import SQL.DatabaseReader;
-import SQL.SQLFuncties;
+import SQL.DatabaseConnector;
 
 import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.awt.image.SampleModel;
-import java.sql.*;
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import SQL.SQLFuncties;
+import java.awt.event.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 public class EditOrder{
 
-    private DatabaseReader db = new DatabaseReader();
+    private DatabaseConnector db = new DatabaseConnector();
     private Connection dbc = db.getConnection();
     private SQLFuncties sql = new SQLFuncties();
 

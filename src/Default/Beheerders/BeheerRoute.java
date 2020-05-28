@@ -1,17 +1,13 @@
 package Default.Beheerders;
 
 import Default.Planners.ZienRoute;
-import SQL.DatabaseReader;
 import SQL.SQLFuncties;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class BeheerRoute extends JFrame{
 

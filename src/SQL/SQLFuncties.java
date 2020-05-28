@@ -27,7 +27,7 @@ public class SQLFuncties {
     private int actief;
 
     public void getBezorgers() throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
+        DatabaseConnector bezorger = new DatabaseConnector();
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
@@ -77,13 +77,14 @@ public class SQLFuncties {
     }
 
     public void getAdressenBijProvincie(String provincie) throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
+        DatabaseConnector bezorger = new DatabaseConnector();
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer " +
                 "INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
-                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='" + provincie + "'");
+                "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 " +
+                "AND address.Province='" + provincie + "'");
         System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='" + provincie + "'");
         AdressenLijst al = new AdressenLijst();
         al.clearAdressen();
@@ -95,7 +96,7 @@ public class SQLFuncties {
     }
 
     public void updateActief(int activiteit, int werknemerID) throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
+        DatabaseConnector bezorger = new DatabaseConnector();
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
@@ -104,7 +105,7 @@ public class SQLFuncties {
     }
 
     public void getBezorgerGegevens(int employee_ID) throws SQLException {
-        DatabaseReader bezorgerGegevens = new DatabaseReader();
+        DatabaseConnector bezorgerGegevens = new DatabaseConnector();
         Connection dbc = bezorgerGegevens.getConnection();
 
         Statement st = dbc.createStatement();
@@ -115,7 +116,7 @@ public class SQLFuncties {
     }
 
     public void insertKortsteRoute(String route, String provincie, int ID) throws SQLException {
-        DatabaseReader routeGegevens = new DatabaseReader();
+        DatabaseConnector routeGegevens = new DatabaseConnector();
         Connection dbc = routeGegevens.getConnection();
 
         Statement st = dbc.createStatement();
@@ -128,7 +129,7 @@ public class SQLFuncties {
 
     public ListModel inzienOpenstaandeRouteBijBezorger(int bezorgerId) throws SQLException {
         DefaultListModel<Routes> model = new DefaultListModel<Routes>();
-        DatabaseReader db = new DatabaseReader();
+        DatabaseConnector db = new DatabaseConnector();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 0");
@@ -143,7 +144,7 @@ public class SQLFuncties {
 
     public ListModel inzienBezorgdeRouteBijBezorger(int bezorgerId) throws SQLException {
         DefaultListModel<Routes> model = new DefaultListModel<Routes>();
-        DatabaseReader db = new DatabaseReader();
+        DatabaseConnector db = new DatabaseConnector();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Deliverer_ID=" + bezorgerId + " AND Delivered = 1");
@@ -157,7 +158,7 @@ public class SQLFuncties {
     }
 
     public ListModel stappenRoute(int routeId) throws SQLException {
-        DatabaseReader acc = new DatabaseReader();
+        DatabaseConnector acc = new DatabaseConnector();
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + routeId + "";
         Statement st = dbc.createStatement();
@@ -177,7 +178,7 @@ public class SQLFuncties {
 
 
     public void updateRoute(int routeId) throws SQLException {
-        DatabaseReader db = new DatabaseReader();
+        DatabaseConnector db = new DatabaseConnector();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         st.executeUpdate("UPDATE optimal_route SET Delivered=1 WHERE Route_ID="+routeId);
@@ -185,7 +186,7 @@ public class SQLFuncties {
 
     public ListModel inzienRoutes() throws SQLException {
         DefaultListModel<String> model = new DefaultListModel<>();
-        DatabaseReader acc = new DatabaseReader();
+        DatabaseConnector acc = new DatabaseConnector();
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `optimal_route` WHERE `Delivered` = 0";
 
@@ -205,7 +206,7 @@ public class SQLFuncties {
         // Array for columnNames
         Object[] columnNames = {"Route", "Provincie"};
         DefaultTableModel mTableModel = new DefaultTableModel(rowData, columnNames);
-        DatabaseReader bezorgerGegevens = new DatabaseReader();
+        DatabaseConnector bezorgerGegevens = new DatabaseConnector();
         Connection dbc = bezorgerGegevens.getConnection();
 
         Statement st = dbc.createStatement();
@@ -224,8 +225,9 @@ public class SQLFuncties {
         return mTableModel;
     }
 
+
     public void veranderenKlantgegevens(int id, int column, Object value) throws SQLException {
-        DatabaseReader db = new DatabaseReader();
+        DatabaseConnector db = new DatabaseConnector();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         if(column == 0){
@@ -249,7 +251,7 @@ public class SQLFuncties {
     }
 
     public void veranderenOrdergegevens(int id, int column, Object value) throws SQLException {
-        DatabaseReader db = new DatabaseReader();
+        DatabaseConnector db = new DatabaseConnector();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         if(column == 0){

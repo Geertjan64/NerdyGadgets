@@ -2,7 +2,7 @@ package Default.Planners;
 
 import Default.Entiteit.AdressenLijst;
 import Default.Entiteit.BezorgerLijst;
-import SQL.DatabaseReader;
+import SQL.DatabaseConnector;
 import SQL.SQLFuncties;
 import TSP.AlgoritmeNB;
 import TSP.BezorgerSteden;
@@ -117,7 +117,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         }
 
 
-                        DatabaseReader acc = new DatabaseReader();
+                        DatabaseConnector acc = new DatabaseConnector();
                         Connection dbc = acc.getConnection();
                         String query = "SELECT * FROM `address` WHERE `Street_Name` = '" + straatnaamStr + "' AND `House_Number` = " + huisnummerint + "";
                         System.out.println(query);
