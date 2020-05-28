@@ -85,7 +85,6 @@ public class SQLFuncties {
                 "INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
                 "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 " +
                 "AND address.Province='" + provincie + "'");
-        System.out.println("SELECT City, Street_Name, House_Number, Province FROM customer INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 AND address.Province='" + provincie + "'");
         AdressenLijst al = new AdressenLijst();
         al.clearAdressen();
 
