@@ -228,7 +228,7 @@ public class SQLFuncties {
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         if(column == 0){
-            System.out.print("Deze gegevens kunnen niet worden aangepast!");
+            System.out.print("Deze kolom mag niet worden aangepast");
         }
         if(column == 1){
             st.executeUpdate("UPDATE customer SET First_name= '"+value+"' WHERE Customer_ID= "+id+"");

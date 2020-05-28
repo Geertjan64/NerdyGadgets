@@ -70,24 +70,15 @@ public class EditOrder{
         }
 
 
+
         table.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
                     int row = table.getSelectedRow();
                     int column = table.getSelectedColumn();
-
-                    // resul is the new value to insert in the DB
                     String resul = table.getValueAt(row, column).toString();
-                    // id is the primary key of my DB
                     String id = table.getValueAt(row, 0).toString();
-
-                    // update is my method to update. Update needs the id for
-                    // the where clausule. resul is the value that will receive
-                    // the cell and you need column to tell what to update.
-//                    update(id, resul, column);
-
                 }
             }
         });
@@ -100,8 +91,6 @@ public class EditOrder{
                 TableModel model = (TableModel) e.getSource();
                 Object data = model.getValueAt(row, column);
                 int id = row+1;
-                System.out.print("Dit is rij " + id);
-                System.out.print("Dit is column " + column);
                 try {
                     sql.veranderenOrdergegevens(id, column, data);
                 } catch (SQLException ex) {
