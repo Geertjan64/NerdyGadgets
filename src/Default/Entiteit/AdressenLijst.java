@@ -11,8 +11,15 @@ public class AdressenLijst {
     private int huisnummer;
     private String stad;
 
+    public int getAddress_ID() {
+        return Address_ID;
+    }
+
+    private int Address_ID;
+
     /** Voegt adressen toe aan adressenlijst **/
-    public void addAdres(String straat, int huisnummer, String stad) {
+    public void addAdres(int Address_ID, String straat, int huisnummer, String stad) {
+        this.Address_ID = Address_ID;
         this.straat = straat;
         this.huisnummer = huisnummer;
         this.stad = stad;
