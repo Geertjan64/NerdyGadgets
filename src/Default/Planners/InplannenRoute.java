@@ -175,7 +175,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
 
         /** Ophalen bezorgers en in een Scrollable list zetten **/
-        f.getBezorgers();
+        f.getBezorgersActiviteit();
         bezorglijst = new JList<>(new DefaultListModel<>());
         model = (DefaultListModel) bezorglijst.getModel();
 

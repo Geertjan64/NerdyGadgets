@@ -120,7 +120,6 @@ public class Login extends JFrame implements ActionListener {
 
                     if (Function.equalsIgnoreCase("beheerder")) {
                         account = new Planner(Employee_ID, Firstname, Lastname, Middle_Name, Email, Password, Function);
-                        newScherm.add(beherenadressen);
                         newScherm.add(beherenbezorgers);
                         newScherm.add(beherenroute);
                         newScherm.add(beherenklantgegevens);
