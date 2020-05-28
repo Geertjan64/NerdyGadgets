@@ -1,8 +1,6 @@
-package TSP;
+package Default.TSP;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Route {
     private ArrayList<Stad> steden = new ArrayList<Stad>();

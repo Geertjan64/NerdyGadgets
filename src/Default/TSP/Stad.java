@@ -1,4 +1,4 @@
-package TSP;
+package Default.TSP;
 
 public class Stad {
     private static final int radius = 6378;

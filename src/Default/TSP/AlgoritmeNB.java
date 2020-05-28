@@ -1,6 +1,6 @@
-// DE PACKAGE TSP IS GEMAAKT OP BASIS VAN: https://www.youtube.com/watch?v=m7O0n8Fv-94
+// DE PACKAGE Default.TSP IS GEMAAKT OP BASIS VAN: https://www.youtube.com/watch?v=m7O0n8Fv-94
 
-package TSP;
+package Default.TSP;
 import Default.Planners.InplannenRoute;
 import SQL.SQLFuncties;
 import org.json.JSONException;

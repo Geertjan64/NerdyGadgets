@@ -1,4 +1,4 @@
-package TSP;
+package Default.TSP;
 
 import java.util.ArrayList;
 import java.util.Arrays;
