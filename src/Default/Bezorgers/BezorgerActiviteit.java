@@ -1,15 +1,10 @@
 package Default.Bezorgers;
 
-import SQL.DatabaseReader;
 import SQL.SQLFuncties;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class BezorgerActiviteit extends JFrame {
     private SQLFuncties sql = new SQLFuncties();

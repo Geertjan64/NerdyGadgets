@@ -8,7 +8,7 @@ import Default.Bezorgers.BezorgerGemaakteRitten;
 import Default.Bezorgers.BezorgerRoutes;
 import Default.Planners.InplannenRoute;
 import Default.Planners.Planner;
-import SQL.DatabaseReader;
+import SQL.DatabaseConnector;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -85,7 +85,7 @@ public class Login extends JFrame implements ActionListener {
     }
 
     public void checkAccount(String user, String pass) throws SQLException {
-        DatabaseReader acc = new DatabaseReader();
+        DatabaseConnector acc = new DatabaseConnector();
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `employee` WHERE `Email` = '" + user + "' AND `Password` = '" + pass + "'";
 

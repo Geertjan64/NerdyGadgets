@@ -1,6 +1,6 @@
 package Default.Planners;
 
-import SQL.DatabaseReader;
+import SQL.DatabaseConnector;
 
 
 import javax.swing.*;
@@ -35,7 +35,7 @@ public class ZienRoute extends JFrame implements ActionListener{
         list.setFixedCellHeight(50);
         list.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        DatabaseReader acc = new DatabaseReader();
+        DatabaseConnector acc = new DatabaseConnector();
         Connection dbc = acc.getConnection();
         String query = "SELECT * FROM `optimal_route` WHERE `Route_ID` = " + id + "";
         Statement st = dbc.createStatement();
@@ -90,7 +90,7 @@ public class ZienRoute extends JFrame implements ActionListener{
     public void updateRoute (String[] temp){
         String newRoute;
         newRoute = convertArrayToStringUsingStreamAPI(temp);
-        DatabaseReader acc = new DatabaseReader();
+        DatabaseConnector acc = new DatabaseConnector();
         Connection dbc = acc.getConnection();
         String query = "UPDATE `optimal_route` SET `Route`= '"+ newRoute +"' WHERE `Route_ID` = " + id + "";
 
