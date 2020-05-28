@@ -52,7 +52,7 @@ public class SQLFuncties {
     }
 
     public void getBezorgersActiviteit() throws SQLException {
-        DatabaseReader bezorger = new DatabaseReader();
+        DatabaseConnector bezorger = new DatabaseConnector();
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
