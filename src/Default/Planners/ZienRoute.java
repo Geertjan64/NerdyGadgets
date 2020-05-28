@@ -69,13 +69,13 @@ public class ZienRoute extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == verwijderen) {
+        if (e.getSource() == verwijderen && !list.isSelectionEmpty()) {
             int index = list.getSelectedIndex();
             temp[index] = "";
             model.remove(index);
             updateRoute(temp);
         }
-        if (e.getSource() == wijzigen) {
+        if (e.getSource() == wijzigen && !list.isSelectionEmpty()) {
             int index = list.getSelectedIndex();
             temp[index] = JOptionPane.showInputDialog(temp[index], temp[index]);
             updateRoute(temp);

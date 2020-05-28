@@ -31,7 +31,32 @@ public class SQLFuncties {
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT * FROM employee WHERE function = 'Bezorger'");
+        ResultSet r = st.executeQuery("SELECT * FROM employee WHERE function = 'Bezorger' ");
+
+        BezorgerLijst bezorgerLijst = new BezorgerLijst();
+
+        while (r.next()) {
+            id = r.getInt("Employee_ID");
+            voornaam = r.getString("Firstname");
+            achternaam = r.getString("Lastname");
+            tussenvoegsel = r.getString("Middle_Name");
+            email = r.getString("Email");
+            password = r.getString("Password");
+            functie = r.getString("Function");
+            actief = r.getInt("Active");
+
+            bezorgerLijst.addBezorger(new Bezorger(id, voornaam, achternaam, tussenvoegsel, email, actief));
+            teller++;
+
+        }
+    }
+
+    public void getBezorgersActiviteit() throws SQLException {
+        DatabaseReader bezorger = new DatabaseReader();
+        Connection dbc = bezorger.getConnection();
+
+        Statement st = dbc.createStatement();
+        ResultSet r = st.executeQuery("SELECT * FROM employee WHERE function = 'Bezorger' AND active = 1 ");
 
         BezorgerLijst bezorgerLijst = new BezorgerLijst();
 
