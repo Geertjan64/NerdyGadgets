@@ -41,7 +41,7 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
         list.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 JList list = (JList)evt.getSource();
-                if (evt.getClickCount() == 2) {
+                if (evt.getClickCount() == 2 && !list.isSelectionEmpty()) {
                     try {
                         BezorgerRoutesInzien b = new BezorgerRoutesInzien(route.getId());
                     } catch (SQLException throwables) {
@@ -55,6 +55,7 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
         routepanel.add(routeTitle, BorderLayout.NORTH);
         routepanel.add(new JScrollPane(list));
         add(routepanel, BorderLayout.WEST);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         add(jb);
 
         setSize(new Dimension(450, 450));
@@ -69,6 +70,7 @@ public class BezorgerRoutes extends JFrame implements ActionListener  {
                 if(a == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this,"Route "+route.getId()+" is afgerond!");
                     sql.updateRoute(route.getId());
+                    repaint();
                     dispose();
                 }
             } catch (SQLException throwables) {

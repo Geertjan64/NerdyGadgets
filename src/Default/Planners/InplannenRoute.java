@@ -120,7 +120,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         DatabaseConnector acc = new DatabaseConnector();
                         Connection dbc = acc.getConnection();
                         String query = "SELECT * FROM `address` WHERE `Street_Name` = '" + straatnaamStr + "' AND `House_Number` = " + huisnummerint + "";
-                        System.out.println(query);
+
                         Statement st;
 
                         try {
@@ -131,14 +131,14 @@ public class InplannenRoute extends JFrame implements ActionListener {
                             if(r.next()) {
 
                                 straatnaamStr = r.getString("Street_Name");
-                                System.out.println(r.getString("Street_Name") + "Koper");
+
 
                                 huisnummerint = r.getInt("House_Number");
                                 stadStr = r.getString("City");
-                                System.out.println(straatnaamStr + " " + huisnummerint + " " + stadStr);
+
 
                                 getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
-                                System.out.println(straatnaamStr);
+
                             }
                         } catch (IOException | JSONException | SQLException ex) {
                             ex.printStackTrace();
@@ -273,7 +273,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
     }
 
     public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException {
-        System.out.println(straatnaam);
+
         URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam.replaceAll("\\s+", "") + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
         HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
@@ -284,7 +284,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
             String line = br.readLine();
 
             JSONObject response = new JSONObject(line);
-            System.out.println(response);
+
 
             JSONArray array = response.getJSONArray("items");
 
@@ -301,7 +301,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
             Stad nieuweStad = new Stad(stad, latitude, longitude, this.straatnaamStr, this.huisnummerint, provincie);
             bezorgerSteden.addStad(nieuweStad);
 
-            System.out.println(position.getDouble("lat") + " : " + position.getDouble("lng") + " : " + adressinfo.getString("state"));
+
         }
     }
 

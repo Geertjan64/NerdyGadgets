@@ -181,7 +181,42 @@ public class SQLFuncties {
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         st.executeUpdate("UPDATE optimal_route SET Delivered=1 WHERE Route_ID="+routeId);
-        st.executeUpdate("UPDATE orders SET Status=1 WHERE ");
+
+        ResultSet r = st.executeQuery("SELECT * FROM optimal_route WHERE Route_ID = " + routeId);
+        r.first();
+        String R = r.getString("Route");
+        String temp[];
+        String delimiter = " \\[";
+        temp = R.split(delimiter);
+        String straatNaam;
+        int huisNummer;
+        for (int i = 0; i < temp.length; i++) {
+            String temp2[];
+            String delimiter2 = ", ";
+            temp2 = temp[i].split(delimiter2);
+            for (int ii = 0; ii < temp2.length; ii++) {
+                String temp3[];
+                String delimiter3 = " ";
+                temp3 = temp2[1].split(delimiter3);
+                for (int iii = 0; iii < temp3.length; iii++) {
+                    if (temp3[1].matches("[0-9]+")) {
+                        straatNaam = temp3[0];
+                        huisNummer = Integer.parseInt(temp3[1]);
+                        ResultSet id = st.executeQuery("SELECT * FROM address WHERE Street_Name = '" + straatNaam + "' AND House_Number = " + huisNummer);
+                        id.first();
+                        int adres_id = id.getInt("Address_ID");
+                        st.executeUpdate("UPDATE orders SET Status=1 WHERE Customer_ID = " + adres_id);
+                    } else {
+                        straatNaam = temp3[0] + " " + temp3[1];
+                        huisNummer = Integer.parseInt(temp3[2]);
+                        ResultSet id = st.executeQuery("SELECT * FROM address WHERE Street_Name = '" + straatNaam + "' AND House_Number = " + huisNummer);
+                        id.first();
+                        int adres_id = id.getInt("Address_ID");
+                        st.executeUpdate("UPDATE orders SET Status=1 WHERE Customer_ID = " + adres_id);
+                    }
+                }
+            }
+        }
     }
 
     public ListModel inzienRoutes() throws SQLException {
