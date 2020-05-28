@@ -56,7 +56,7 @@ public class SQLFuncties {
         Connection dbc = bezorger.getConnection();
 
         Statement st = dbc.createStatement();
-        ResultSet r = st.executeQuery("SELECT City, Street_Name, House_Number, Province FROM customer " +
+        ResultSet r = st.executeQuery("SELECT Address_ID, City, Street_Name, House_Number, Province FROM customer " +
                 "INNER JOIN orders ON customer.Customer_ID = orders.Customer_ID " +
                 "INNER JOIN address ON address.Address_ID = customer.Address_1 WHERE orders.status = 0 " +
                 "AND address.Province='" + provincie + "'");
@@ -65,7 +65,7 @@ public class SQLFuncties {
         al.clearAdressen();
 
         while (r.next()) {
-            al.addAdres(r.getString("Street_Name"), r.getInt("House_Number"), r.getString("City"));
+            al.addAdres(r.getInt("Address_ID"), r.getString("Street_Name"), r.getInt("House_Number"), r.getString("City"));
         }
 
     }
@@ -157,6 +157,7 @@ public class SQLFuncties {
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
         st.executeUpdate("UPDATE optimal_route SET Delivered=1 WHERE Route_ID="+routeId);
+        st.executeUpdate("UPDATE orders SET Status=1 WHERE ");
     }
 
     public ListModel inzienRoutes() throws SQLException {

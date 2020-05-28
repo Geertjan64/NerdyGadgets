@@ -145,7 +145,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         }
 
                     } else {
-                        System.out.println("Het adres is al toegevoegd aan de lijst!");
+                        JOptionPane.showMessageDialog(inplannenRoute,"Het adres is al toegevoegd aan de lijst!");
                     }
                     gemaakteRoute.setText("Opgestelde route: " + route.toString());
                 }
