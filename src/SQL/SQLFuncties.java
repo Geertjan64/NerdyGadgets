@@ -199,11 +199,48 @@ public class SQLFuncties {
         return mTableModel;
     }
 
-    public void veranderenKlantgegevens(String id, String resul, String column) throws SQLException {
+    public void veranderenKlantgegevens(int id, int column, Object value) throws SQLException {
         DatabaseReader db = new DatabaseReader();
         Connection dbc = db.getConnection();
         Statement st = dbc.createStatement();
-        st.executeUpdate("UPDATE address SET city=,Zip_code=,House_number=,Street_Name=");
+        if(column == 0){
+            st.executeUpdate("UPDATE address SET city= '"+value+"' WHERE Address_ID= "+id+"");
+        }
+        if(column == 1){
+            st.executeUpdate("UPDATE address SET Zip_Code= '"+value+"' WHERE Address_ID= "+id+"");
+        }
+        if(column == 2){
+            st.executeUpdate("UPDATE address SET Street_Name= '"+value+"' WHERE Address_ID= "+id+"");
+        }
+        if(column == 3){
+            st.executeUpdate("UPDATE address SET House_Number= '"+value+"' WHERE Address_ID= "+id+"");
+        }
+        if(column == 4){
+            st.executeUpdate("UPDATE customer SET First_name= '"+value+"' WHERE Customer_ID= "+id+"");
+        }
+        if(column == 5){
+            st.executeUpdate("UPDATE customer SET Last_name= '"+value+"' WHERE Customer_ID= "+id+"");
+        }
     }
 
+    public void veranderenOrdergegevens(int id, int column, Object value) throws SQLException {
+        DatabaseReader db = new DatabaseReader();
+        Connection dbc = db.getConnection();
+        Statement st = dbc.createStatement();
+        if(column == 0){
+            System.out.print("Deze gegevens kunnen niet worden aangepast!");
+        }
+        if(column == 1){
+            st.executeUpdate("UPDATE customer SET First_name= '"+value+"' WHERE Customer_ID= "+id+"");
+        }
+        if(column == 2){
+            st.executeUpdate("UPDATE customer SET Last_name= '"+value+"' WHERE Customer_ID= "+id+"");
+        }
+        if(column == 3){
+            st.executeUpdate("UPDATE product SET Product_Name= '"+value+"' WHERE ID_Product= "+id+"");
+        }
+        if(column == 4){
+            st.executeUpdate("UPDATE product SET Quantity= '"+value+"' WHERE ID_Product= "+id+"");
+        }
+    }
 }
