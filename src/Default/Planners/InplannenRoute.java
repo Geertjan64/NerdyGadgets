@@ -112,7 +112,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                             straatnaamStr = temp[0];
                             huisnummerint = Integer.parseInt(temp[1]);
                         } else {
-                            straatnaamStr = temp[0] + temp[1];
+                            straatnaamStr = temp[0] + " " + temp[1];
                             huisnummerint = Integer.parseInt(temp[2]);
                         }
 
@@ -120,49 +120,30 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         DatabaseConnector acc = new DatabaseConnector();
                         Connection dbc = acc.getConnection();
                         String query = "SELECT * FROM `address` WHERE `Street_Name` = '" + straatnaamStr + "' AND `House_Number` = " + huisnummerint + "";
-                        Statement st = null;
+                        System.out.println(query);
+                        Statement st;
+
                         try {
                             st = dbc.createStatement();
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                        ResultSet r = null;
-                        try {
+
+                            ResultSet r;
                             r = st.executeQuery(query);
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                        try {
-                            r.first();
-                        } catch (SQLException ex) {
+                            if(r.next()) {
+
+                                straatnaamStr = r.getString("Street_Name");
+                                System.out.println(r.getString("Street_Name") + "Koper");
+
+                                huisnummerint = r.getInt("House_Number");
+                                stadStr = r.getString("City");
+                                System.out.println(straatnaamStr + " " + huisnummerint + " " + stadStr);
+
+                                getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
+                                System.out.println(straatnaamStr);
+                            }
+                        } catch (IOException | JSONException | SQLException ex) {
                             ex.printStackTrace();
                         }
 
-                        try {
-                            straatnaamStr = r.getString("Street_Name");
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                        try {
-                            huisnummerint = r.getInt("House_Number");
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                        try {
-                            stadStr = r.getString("City");
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                        System.out.println(straatnaamStr + " " + huisnummerint + " " + stadStr);
-
-                        try{
-                            getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
-                            System.out.println(straatnaamStr);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        } catch (JSONException ex) {
-                            ex.printStackTrace();
-                        }
                     } else {
                         System.out.println("Het adres is al toegevoegd aan de lijst!");
                     }
@@ -226,8 +207,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
                 }
                 if (steden.size() < 3) {
                     JOptionPane.showMessageDialog(inplannenRoute, "U moet meer dan 2 adressen opgeven.");
-                }
-                else {
+                } else {
                     try {
                         bezorgerSteden.printKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
                     } catch (SQLException ex) {
@@ -293,7 +273,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
     public void getLongitudeLangitude(String straatnaam, int huisnummer, String stad) throws IOException, JSONException {
         System.out.println(straatnaam);
-        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam.replaceAll("\\s+","") + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
+        URL apiurl = new URL("https://geocode.search.hereapi.com/v1/geocode?q=" + straatnaam.replaceAll("\\s+", "") + "+" + huisnummer + "%2C+" + stad + "&apiKey=" + apiKey);
         HttpURLConnection hr = (HttpURLConnection) apiurl.openConnection();
 
         if (hr.getResponseCode() == 200) {
