@@ -115,8 +115,6 @@ public class BezorgerBeheer extends JFrame {
         scrollableListInactive.setPreferredSize(new Dimension(250, 125));
         leftPanel.add(scrollableListInactive);
 
-//        centerPanel1.add(centerBtn1);
-
         scrollableListActive.setPreferredSize(new Dimension(250, 125));
         centerPanel.add(scrollableListActive);
 
@@ -193,8 +191,6 @@ public class BezorgerBeheer extends JFrame {
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }
-
-//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the inactive list
@@ -219,19 +215,6 @@ public class BezorgerBeheer extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
-
-    }
-
-    public static void main(String[] args) throws SQLException {
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        BezorgerBeheer s = new BezorgerBeheer();
-
     }
 
 }
