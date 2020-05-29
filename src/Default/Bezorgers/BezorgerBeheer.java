@@ -52,13 +52,11 @@ public class BezorgerBeheer extends JFrame {
                         String value = bezorglijstInactief.getSelectedValue();
                         String value2 = value.replaceAll("\\D+","");
                         int employee_ID = Integer.parseInt(value2);
-                        System.out.println(employee_ID);
                         try {
                             new BezorgerActiviteit(employee_ID);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-
                     }
 
                     if (!bezorglijstActief.isSelectionEmpty()) {
@@ -68,13 +66,11 @@ public class BezorgerBeheer extends JFrame {
                         String value = bezorglijstActief.getSelectedValue();
                         String value2 = value.replaceAll("\\D+","");
                         int employee_ID = Integer.parseInt(value2);
-                        System.out.println(employee_ID);
                         try {
                             new BezorgerActiviteit(employee_ID);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-
                     }
                 }
             }
@@ -217,5 +213,14 @@ public class BezorgerBeheer extends JFrame {
         });
     }
 
+    public static void main(String[] args) throws SQLException {
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        BezorgerBeheer s = new BezorgerBeheer();
+    }
 }
 

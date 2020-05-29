@@ -82,13 +82,17 @@ public class EditOrder{
             public void tableChanged(TableModelEvent e) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
-                TableModel model = (TableModel) e.getSource();
-                Object data = model.getValueAt(row, column);
-                int id = row+1;
-                try {
-                    sql.veranderenOrdergegevens(id, column, data);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                if (column == 0) {
+                    TableModel model = (TableModel) e.getSource();
+                    Object data = model.getValueAt(row, column);
+                    int id = row + 1;
+                    try {
+                        sql.veranderenOrdergegevens(id, column, data);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Deze kolom mag niet worden aangepast.");
                 }
             }
         });
