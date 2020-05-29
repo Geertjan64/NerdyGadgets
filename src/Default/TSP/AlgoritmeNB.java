@@ -19,12 +19,6 @@ public class AlgoritmeNB {
     public Route vindKortsteRoute(ArrayList<Stad> steden) throws SQLException, IOException, JSONException {
         int i = 0;
         ArrayList<Stad> kortsteRouteSteden = new ArrayList<>(steden.size());
-        System.out.println("------");
-        System.out.println("Eerste route => " + Arrays.toString(steden.toArray()));
-        System.out.println("w/ Totale afstand: " + new Route(steden).berekenTotaleAfstand());
-        System.out.println("------");
-        System.out.println(kortsteRouteSteden);
-
         Stad stad = steden.get(0);
         updateRoutes(kortsteRouteSteden, steden, stad);
 

@@ -21,10 +21,6 @@ public class BezorgerSteden {
     }
 
     public int getAfstandKortsteRoute(Route kortsteRoute) {
-        System.out.println("------");
-        System.out.println("Kortste route gevonden zo ver: " + kortsteRoute);
-        System.out.println("w/ totale afstand: " + kortsteRoute.berekenTotaleAfstand());
-        System.out.println("------");
         return kortsteRoute.berekenTotaleAfstand();
     }
 
