@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.print.attribute.standard.JobMediaSheetsCompleted;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -146,12 +145,12 @@ public class InplannenRoute extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(inplannenRoute,"Het adres is al toegevoegd aan de lijst!");
                     }
                     opgezeteItems.clear();
-
                     for(String r : route) {
                         opgezeteItems.addElement(r);
                     }
                 }
             }
+
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -173,8 +172,36 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
             }
         });
-        panel3.add(provincies);
 
+        opgezeteRoutes.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked (MouseEvent e){
+                if (e.getClickCount() == 2 && !opgezeteRoutes.isSelectionEmpty()) {
+                    route.remove(opgezeteRoutes.getSelectedValue());
+                    opgezeteItems.remove(opgezeteRoutes.getSelectedIndex());
+                    System.out.println(route);
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
+
+        panel3.add(provincies);
 
         /** Ophalen bezorgers en in een Scrollable list zetten **/
         f.getBezorgersActiviteit();
@@ -264,7 +291,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
         JLabel opgezetRouteLabel = new JLabel("Opgestelde route:");
 
         JScrollPane routescroll = new JScrollPane(opgezeteRoutes);
-
         opgezetRouteLabel.setLabelFor(routescroll);
         panelroutes.add(opgezetRouteLabel, BorderLayout.NORTH);
         panelroutes.add(routescroll);
