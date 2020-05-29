@@ -52,13 +52,11 @@ public class BezorgerBeheer extends JFrame {
                         String value = bezorglijstInactief.getSelectedValue();
                         String value2 = value.replaceAll("\\D+","");
                         int employee_ID = Integer.parseInt(value2);
-                        System.out.println(employee_ID);
                         try {
                             new BezorgerActiviteit(employee_ID);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-
                     }
 
                     if (!bezorglijstActief.isSelectionEmpty()) {
@@ -68,13 +66,11 @@ public class BezorgerBeheer extends JFrame {
                         String value = bezorglijstActief.getSelectedValue();
                         String value2 = value.replaceAll("\\D+","");
                         int employee_ID = Integer.parseInt(value2);
-                        System.out.println(employee_ID);
                         try {
                             new BezorgerActiviteit(employee_ID);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
-
                     }
                 }
             }
@@ -114,8 +110,6 @@ public class BezorgerBeheer extends JFrame {
         // Add components to the JFrame
         scrollableListInactive.setPreferredSize(new Dimension(250, 125));
         leftPanel.add(scrollableListInactive);
-
-//        centerPanel1.add(centerBtn1);
 
         scrollableListActive.setPreferredSize(new Dimension(250, 125));
         centerPanel.add(scrollableListActive);
@@ -193,8 +187,6 @@ public class BezorgerBeheer extends JFrame {
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }
-
-//                            System.out.println(bezorgerLijst.getBezorgers().get(i).getActief());
                         }
                     }
                     // Add selectedItem to the inactive list
@@ -219,7 +211,6 @@ public class BezorgerBeheer extends JFrame {
             public void mouseExited(MouseEvent e) {
             }
         });
-
     }
 
     public static void main(String[] args) throws SQLException {
@@ -229,10 +220,7 @@ public class BezorgerBeheer extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         BezorgerBeheer s = new BezorgerBeheer();
-
     }
-
 }
 

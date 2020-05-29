@@ -179,7 +179,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
                 if (e.getClickCount() == 2 && !opgezeteRoutes.isSelectionEmpty()) {
                     route.remove(opgezeteRoutes.getSelectedValue());
                     opgezeteItems.remove(opgezeteRoutes.getSelectedIndex());
-                    System.out.println(route);
                 }
             }
             @Override

@@ -33,7 +33,6 @@ public class AlgoritmeNB {
         }
         SQLFuncties f = new SQLFuncties();
 
-        System.out.println(InplannenRoute.bezorgerID);
         f.insertKortsteRoute(route,provincie, InplannenRoute.bezorgerID);
         return new Route(kortsteRouteSteden);
     }
