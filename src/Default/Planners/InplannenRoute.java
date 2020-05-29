@@ -180,7 +180,6 @@ public class InplannenRoute extends JFrame implements ActionListener {
                 if (e.getClickCount() == 2 && !opgezeteRoutes.isSelectionEmpty()) {
                     route.remove(opgezeteRoutes.getSelectedValue());
                     opgezeteItems.remove(opgezeteRoutes.getSelectedIndex());
-                    System.out.println(route);
                 }
             }
             @Override
@@ -242,7 +241,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
                 } else {
                     try {
                         int kortsterouteafstand = bezorgerSteden.getAfstandKortsteRoute(new AlgoritmeNB().vindKortsteRoute(steden));
-                        JOptionPane.showMessageDialog(inplannenRoute, "De afstand van de route: "+ kortsterouteafstand+"km");
+                        JOptionPane.showMessageDialog(inplannenRoute, "De route is succesvol aangemaakt en de afstand van de route is: "+ kortsterouteafstand+"km");
+                        dispose();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     } catch (JSONException ex) {
@@ -292,7 +292,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
         JLabel opgezetRouteLabel = new JLabel("Opgestelde route:");
         JScrollPane routescroll = new JScrollPane(opgezeteRoutes);
         routescroll.setPreferredSize(new Dimension(250, 125));
-        
+
         opgezetRouteLabel.setLabelFor(routescroll);
         panelroutes.add(opgezetRouteLabel, BorderLayout.NORTH);
         panelroutes.add(routescroll);

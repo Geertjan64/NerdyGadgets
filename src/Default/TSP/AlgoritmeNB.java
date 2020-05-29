@@ -32,8 +32,6 @@ public class AlgoritmeNB {
             route += "["+ i +"]: "+s.getNaam() +", "+s.getStraatnaam()+" "+ s.getHuisnummer() + ", "+s.getProvincie()+" ";
         }
         SQLFuncties f = new SQLFuncties();
-
-        System.out.println(InplannenRoute.bezorgerID);
         f.insertKortsteRoute(route,provincie, InplannenRoute.bezorgerID);
         return new Route(kortsteRouteSteden);
     }
