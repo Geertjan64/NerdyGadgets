@@ -85,6 +85,7 @@ public class InplannenRoute extends JFrame implements ActionListener {
         opgezeteItems = (DefaultListModel) opgezeteRoutes.getModel();
 
 
+
         /** Ophalen openstaande bezorg adressen **/
         adresLijst = new JList<>(new DefaultListModel<>());
         lijstItem = (DefaultListModel) adresLijst.getModel();
@@ -289,8 +290,9 @@ public class InplannenRoute extends JFrame implements ActionListener {
         });
 
         JLabel opgezetRouteLabel = new JLabel("Opgestelde route:");
-
         JScrollPane routescroll = new JScrollPane(opgezeteRoutes);
+        routescroll.setPreferredSize(new Dimension(250, 125));
+        
         opgezetRouteLabel.setLabelFor(routescroll);
         panelroutes.add(opgezetRouteLabel, BorderLayout.NORTH);
         panelroutes.add(routescroll);
