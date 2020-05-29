@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.print.attribute.standard.JobMediaSheetsCompleted;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,8 +37,10 @@ public class InplannenRoute extends JFrame implements ActionListener {
     private JLabel gekozenBezorger = new JLabel("Let op, je hebt geen bezorger gekozen!");
     private JList<String> bezorglijst;
     private JList<String> adresLijst;
+    private JList<String> opgezeteRoutes;
     private DefaultListModel model;
     private DefaultListModel lijstItem;
+    private DefaultListModel opgezeteItems;
     private BezorgerLijst bezorgerLijst = new BezorgerLijst();
     private AdressenLijst adressenLijst = new AdressenLijst();
     private String straatnaamStr;
@@ -70,12 +73,18 @@ public class InplannenRoute extends JFrame implements ActionListener {
         JLabel keuze1 = new JLabel("Kies een adres om toe te voegen aan uw route:");
         JLabel keuze2 = new JLabel("Kies uw bezorger:");
 
-        JLabel gemaakteRoute = new JLabel("Opgestelde route: ");
+        JList gemaakteRoute = new JList();
         setLayout(new FlowLayout());
         JPanel panel = new JPanel(new BorderLayout());
         JPanel panel2 = new JPanel(new BorderLayout());
         JPanel panel3 = new JPanel(new BorderLayout());
+        JPanel panelroutes = new JPanel(new BorderLayout());
         setSize(1200, 800);
+
+        /**Opgestelde route **/
+        opgezeteRoutes = new JList<>(new DefaultListModel<>());
+        opgezeteItems = (DefaultListModel) opgezeteRoutes.getModel();
+
 
         /** Ophalen openstaande bezorg adressen **/
         adresLijst = new JList<>(new DefaultListModel<>());
@@ -106,8 +115,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
                         String[] temp;
                         String delimiter = " ";
-
                         temp = selectedItem.split(delimiter);
+
                         if (temp[1].matches("[0-9]+")) {
                             straatnaamStr = temp[0];
                             huisnummerint = Integer.parseInt(temp[1]);
@@ -115,30 +124,19 @@ public class InplannenRoute extends JFrame implements ActionListener {
                             straatnaamStr = temp[0] + " " + temp[1];
                             huisnummerint = Integer.parseInt(temp[2]);
                         }
-
-
                         DatabaseConnector acc = new DatabaseConnector();
                         Connection dbc = acc.getConnection();
                         String query = "SELECT * FROM `address` WHERE `Street_Name` = '" + straatnaamStr + "' AND `House_Number` = " + huisnummerint + "";
-
                         Statement st;
-
                         try {
                             st = dbc.createStatement();
-
                             ResultSet r;
                             r = st.executeQuery(query);
                             if(r.next()) {
-
                                 straatnaamStr = r.getString("Street_Name");
-
-
                                 huisnummerint = r.getInt("House_Number");
                                 stadStr = r.getString("City");
-
-
                                 getLongitudeLangitude(straatnaamStr, huisnummerint, stadStr);
-
                             }
                         } catch (IOException | JSONException | SQLException ex) {
                             ex.printStackTrace();
@@ -147,7 +145,11 @@ public class InplannenRoute extends JFrame implements ActionListener {
                     } else {
                         JOptionPane.showMessageDialog(inplannenRoute,"Het adres is al toegevoegd aan de lijst!");
                     }
-                    gemaakteRoute.setText("Opgestelde route: " + route.toString());
+                    opgezeteItems.clear();
+
+                    for(String r : route) {
+                        opgezeteItems.addElement(r);
+                    }
                 }
             }
 
@@ -194,6 +196,8 @@ public class InplannenRoute extends JFrame implements ActionListener {
         panel2.add(keuze2, BorderLayout.NORTH);
         panel2.add(gekozenBezorger, BorderLayout.SOUTH);
         panel2.add(scrollableList);
+
+
 
         startenRoute = new JButton("Start");
 
@@ -256,9 +260,20 @@ public class InplannenRoute extends JFrame implements ActionListener {
 
             }
         });
+
+        JLabel opgezetRouteLabel = new JLabel("Opgestelde route:");
+
+        JScrollPane routescroll = new JScrollPane(opgezeteRoutes);
+
+        opgezetRouteLabel.setLabelFor(routescroll);
+        panelroutes.add(opgezetRouteLabel, BorderLayout.NORTH);
+        panelroutes.add(routescroll);
+
+
         add(startenRoute);
         add(panel3);
         add(panel);
+        add(panelroutes);
         add(panel2);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
