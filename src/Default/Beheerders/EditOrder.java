@@ -1,19 +1,20 @@
 package Default.Beheerders;
 
 import SQL.DatabaseConnector;
+import SQL.SQLFuncties;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import SQL.SQLFuncties;
-import java.awt.event.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 
 public class EditOrder{
 
@@ -82,7 +83,7 @@ public class EditOrder{
             public void tableChanged(TableModelEvent e) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
-                if (column == 0) {
+                if (column != 0) {
                     TableModel model = (TableModel) e.getSource();
                     Object data = model.getValueAt(row, column);
                     int id = row + 1;
